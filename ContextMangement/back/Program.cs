@@ -13,16 +13,8 @@ app.UseStaticFiles();
 app.MapPost("/api/register", async (HttpRequest req) =>
 {
     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-    Registration? registration;
-    try
-    {
-        registration = await JsonSerializer.DeserializeAsync<Registration>(req.Body, options);
-    }
-    catch (JsonException)
-    {
-        return Results.BadRequest(new { error = "invalid json" });
-    }
-
+    var registration = await JsonSerializer.DeserializeAsync<Registration>(req.Body, options) ?? throw new InvalidOperationException("Invalid request");
+    
     var line = $"{DateTime.UtcNow:O}\t{registration.Name}\t{registration.Email}\t{registration.Course}\n";
     var path = Path.Combine(Directory.GetCurrentDirectory(), "interests.txt");
     await File.AppendAllTextAsync(path, line);
