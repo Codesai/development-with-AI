@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro de interés - Curso</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width:600px; margin:40px auto; }
+    label { display:block; margin-top:12px }
+    input, select { width:100%; padding:8px; box-sizing:border-box }
+    button { margin-top:12px; padding:10px 16px }
+    .msg { margin-top:12px }
+  </style>
+</head>
+<body>
+  <h1>Registro de interés</h1>
+  <form id="regForm">
+    <label>Nombre
+      <input type="text" name="name" required />
+    </label>
+    <label>Email
+      <input type="email" name="email" required />
+    </label>
+    <label>Curso
+      <select name="course" required>
+        <option value="Introducción">Introducción</option>
+        <option value="Avanzado">Avanzado</option>
+      </select>
+    </label>
+    <button type="submit">Enviar</button>
+  </form>
+  <div class="msg" id="msg"></div>
+  <script src="./script.js"></script>
+</body>
+</html>
