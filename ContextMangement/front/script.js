@@ -15,6 +15,6 @@ form.addEventListener('submit', async (ev) => {
     form.reset();
   } catch (err) {
     console.error(err);
-    msg.textContent = 'Error al enviar. Asegúrate de que la API esté en http://localhost:5000';
+    msg.textContent = 'Error al enviar. Asegúrate de que la API esté en http://localhost:8080';
   }
 });

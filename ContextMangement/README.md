@@ -8,9 +8,9 @@ Ejecutar localmente (sin Docker):
 2. dotnet restore
 3. dotnet run
 
-La API se expondrá en http://localhost:5000 (dentro del contenedor). El front también se sirve desde el backend en /. (index.html en wwwroot)
+La API se expondrá en http://localhost:8080 (dentro del contenedor). El front también se sirve desde el backend en /. (index.html en wwwroot)
 
-Nota: si el puerto 5000 del host está ocupado, el compose predeterminado mapea el host 5001 al contenedor 5000 (ver docker-compose.yml).
+Nota: si el puerto 8080 del host está ocupado, ajustar el mapeo en docker-compose.yml.
 Construir y ejecutar con Docker (recomendado):
 Desde la raíz del proyecto (donde están las carpetas front/ y back/):
 
@@ -18,9 +18,9 @@ Desde la raíz del proyecto (donde están las carpetas front/ y back/):
    docker build -t interest-app .
 
 2. Ejecutar el contenedor:
-   docker run --rm -p 5000:5000 interest-app
+   docker run --rm -p 8080:8080 interest-app
 
-Abrir http://localhost:5000 en el navegador; la UI estará disponible y el endpoint POST /api/register gestionará los envíos.
+Abrir http://localhost:8080 en el navegador; la UI estará disponible y el endpoint POST /api/register gestionará los envíos.
 
 Usar docker-compose (mapea interests.txt para persistencia):
 
@@ -33,7 +33,7 @@ Usar docker-compose (mapea interests.txt para persistencia):
 3. Ver registros en el host en back/interests.txt (se actualiza conforme lleguen envíos)
 
 Alternativamente, usar `docker run` con volumen:
-   docker run --rm -p 5000:5000 -v $(pwd)/back/interests.txt:/app/interests.txt interest-app
+   docker run --rm -p 8080:8080 -v $(pwd)/back/interests.txt:/app/interests.txt interest-app
 
 Cosas pendientes:
    - eliminar todas las validaciones tanto en front como en back para el proyecto de partida
