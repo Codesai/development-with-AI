@@ -23,9 +23,6 @@ app.MapPost("/api/register", async (HttpRequest req) =>
         return Results.BadRequest(new { error = "invalid json" });
     }
 
-    if (registration is null || string.IsNullOrWhiteSpace(registration.Name) || string.IsNullOrWhiteSpace(registration.Email))
-        return Results.BadRequest(new { error = "name and email required" });
-
     var line = $"{DateTime.UtcNow:O}\t{registration.Name}\t{registration.Email}\t{registration.Course}\n";
     var path = Path.Combine(Directory.GetCurrentDirectory(), "interests.txt");
     await File.AppendAllTextAsync(path, line);
