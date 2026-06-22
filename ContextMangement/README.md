@@ -38,8 +38,7 @@ Alternativamente, usar `docker run` con volumen:
 Cosas pendientes:
    - eliminar todas las validaciones tanto en front como en back para el proyecto de partida
    - añadir un poquito de arquitectura en el back, separar controlador-dominio-repositorio al menos, algo muy sencillo
-   - crear el proyecto en el github de codesai para el curso
-   - Slides explicando los ficheros de contexto (explicar un poco los que son particulares de github copilot y los que son genericos para cualquier agente)
+     - Slides explicando los ficheros de contexto (explicar un poco los que son particulares de github copilot y los que son genericos para cualquier agente)
    - planteamiento del primer ejercicio:
       - Gestión del contexto con ficheros (en un sólo y estructurado por directorios)
       - Validación de email con reglas para el front y el back
