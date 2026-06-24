@@ -8,7 +8,7 @@ namespace InterestApi.Controllers
     [Route("api")]
     public class RegistrationController : ControllerBase
     {
-        private readonly IRegistrationRepository _repository = new FileRegistrationRepository();
+        private readonly FileRegistrationRepository _repository = new FileRegistrationRepository();
        
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] Registration registration)
