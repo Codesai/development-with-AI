@@ -1,8 +1,10 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using InterestApi.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddCors();
+builder.Services.AddControllers();
+
 var app = builder.Build();
 app.UseCors(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
@@ -10,17 +12,6 @@ app.UseCors(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-app.MapPost("/api/register", async (HttpRequest req) =>
-{
-    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-    var registration = await JsonSerializer.DeserializeAsync<Registration>(req.Body, options) ?? throw new InvalidOperationException("Invalid request");
-    
-    var line = $"{DateTime.UtcNow:O}\t{registration.Name}\t{registration.Email}\t{registration.Course}\n";
-    var path = Path.Combine(Directory.GetCurrentDirectory(), "interests.txt");
-    await File.AppendAllTextAsync(path, line);
-    return Results.Created("/api/register", new { status = "ok" });
-});
+app.MapControllers();
 
 app.Run();
-
-record Registration(string Name, string Email, string Course);
