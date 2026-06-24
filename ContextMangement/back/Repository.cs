@@ -4,12 +4,7 @@ using System.Threading.Tasks;
 
 namespace InterestApi.Controllers
 {
-    public interface IRegistrationRepository
-    {
-        Task SaveAsync(Registration registration);
-    }
-
-    public class FileRegistrationRepository : IRegistrationRepository
+    public class FileRegistrationRepository 
     {
         private readonly string _filePath;
 
