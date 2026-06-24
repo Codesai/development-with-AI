@@ -16,6 +16,8 @@ obj/
 .vs/
 .vscode/
 
+.idea
+
 # Dependencies
 node_modules/
 *.lock
@@ -29,3 +31,4 @@ node_modules/
 # Temporary files
 *.txt~
 *.log
+/ContextMangement/back/interests.txt
