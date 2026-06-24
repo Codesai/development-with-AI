@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using InterestApi.Domain;
 
 namespace InterestApi.Controllers
 {
