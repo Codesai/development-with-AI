@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using InterestApi.Domain;
 
-namespace InterestApi.Controllers
+namespace InterestApi.Repository
 {
     public class FileRegistrationRepository 
     {
