@@ -1,4 +1,4 @@
-namespace InterestApi.Controllers
+namespace InterestApi.Domain
 {
     public class Registration
     {
