@@ -32,3 +32,4 @@ node_modules/
 *.txt~
 *.log
 /ContextMangement/back/interests.txt
+/ContextMangement/publish
