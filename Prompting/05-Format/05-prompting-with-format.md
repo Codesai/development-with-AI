@@ -9,7 +9,7 @@ See how specifying a format removes ambiguity about the structure of the output 
 1. Take the prompt from exercise 04 (role + context + task + constraints).
 2. Add format instructions to control the structure of the output.
 3. Run it and compare the output with what you got before.
-4. Share your prompt and output with the group.
+4. Discuss the output with your pair/group.
 
 ## The Task
 

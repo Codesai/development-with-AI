@@ -11,7 +11,7 @@ Turn the prompt you built in the previous exercises into a reusable prompt templ
 3. Replace feature-specific details with placeholders.
 4. Run the reusable prompt by filling in the placeholders for a new feature.
 5. Compare the output with the user story generated in exercise 06.
-6. Share your reusable prompt and output with the group.
+6. Discuss the reusable prompt and output with your pair/group.
 
 ## The Task
 

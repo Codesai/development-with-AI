@@ -9,7 +9,7 @@ See how adding constraints limits the AI's decision space and produces more pred
 1. Take the prompt from exercise 03 (role + context + task).
 2. Add constraints to limit the scope of the output.
 3. Run it and compare the output with what you got before.
-4. Share your prompt and output with the group.
+4. Discuss the output with your pair/group.
 
 ## The Task
 
@@ -25,4 +25,4 @@ Think about:
 - Did the AI respect your constraints?
 - What did it stop including compared to exercise 03?
 - Were there any constraints you forgot that the AI filled in on its own?
-- Did anyone in the group get an output that ignored a constraint? Why might that happen?
+- Did anyone in your pair/group get an output that ignored a constraint? Why might that happen?

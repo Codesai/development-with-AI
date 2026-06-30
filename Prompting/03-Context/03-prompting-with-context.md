@@ -9,7 +9,7 @@ See how adding context to your prompt reduces variability and produces more rele
 1. Take the prompt from exercise 02 (role + task).
 2. Add context about your app and the feature goal.
 3. Run it and compare the output with what you got before.
-4. Share your prompt and output with the group.
+4. Discuss the output with your pair/group.
 
 ## The Task
 
@@ -24,5 +24,5 @@ Think about:
 
 - What assumptions did the AI stop making compared to exercise 02?
 - Did the output feel more relevant to your specific situation?
-- Did different contexts in the group produce noticeably different outputs?
+- Did different contexts produce noticeably different outputs within your pair/group?
 - What context did you forget to include that you wish you had?

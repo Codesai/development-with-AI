@@ -11,7 +11,7 @@ See how assigning a role to the AI changes the quality and style of the response
 3. Run it and compare the output with what you got before.
 4. Change the role to a new one
 5. Run it and compare the output with what you got before.
-4. Share your prompt and output with the group.
+4. Discuss the output with your pair/group.
 
 ## The Task
 
@@ -26,7 +26,7 @@ Same as before: ask the AI to write a user story for a login feature — but thi
 - What role did you choose, and why?
 - How did the output change compared to exercise 01?
 - Did the tone, format, or level of detail change?
-- Did different roles in the group produce different results?
+- Did different roles produce different results within your pair/group?
 - What does this tell you about how the AI uses the role you assign?
 
 

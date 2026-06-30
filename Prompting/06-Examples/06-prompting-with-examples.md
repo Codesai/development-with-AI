@@ -14,7 +14,7 @@ See how providing an example acts as a catch-all, filling in gaps that role, con
 
 1. Replace the provided example with a user story from your own project.
 2. Run it and compare the output with Part 1.
-3. Share your prompt and output with the group.
+3. Discuss the output with your pair/group.
 
 ## Reflection questions
 
