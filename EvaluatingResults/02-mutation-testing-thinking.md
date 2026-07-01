@@ -8,32 +8,19 @@ Understand why green tests can be weak.
 
 15 minutes
 
-## Instructions
+## Setup
 
-For each mutation, decide whether the current tests would fail.
+Use the prepared mutation testing branches. Students do not need to copy or create the code manually.
 
-| Mutation | Would tests fail? |
-| --- | --- |
-| Change `weightKg <= 5.0` to `weightKg < 5.0` | ? |
-| Change `weightKg <= 20.0` to `weightKg < 20.0` | ? |
-| Change `return 9.99` to `return 4.99` | ? |
-| Change `isPremium || weightKg <= 5.0` to `isPremium && weightKg <= 5.0` | ? |
-| Change `return 4.99` to `return 0.0` | ? |
+Start from the exercise branch:
 
-## Expected Answers
+```bash
+git switch evaluation/mutation/01-finding-mutants
+```
 
-| Mutation | Would tests fail? | Meaning |
-| --- | --- | --- |
-| Change `weightKg <= 5.0` to `weightKg < 5.0` | No | Boundary not tested |
-| Change `weightKg <= 20.0` to `weightKg < 20.0` | No | Boundary not tested |
-| Change `return 9.99` to `return 4.99` | Yes | Heavy package behavior tested |
-| Change `isPremium || weightKg <= 5.0` to `isPremium && weightKg <= 5.0` | Yes | Premium behavior tested |
-| Change `return 4.99` to `return 0.0` | Yes | Standard shipping behavior tested |
+That branch contains the AI-generated implementation, generated tests, and Stryker.NET configuration.
 
-## Expected Learning
+Available branches:
 
-Coverage is not enough.
-
-A line can be executed without the test being strong enough to detect faults.
-
-Mutation testing becomes especially relevant when AI writes both the implementation and the tests.
+- `evaluation/mutation/01-finding-mutants`: exercise branch for manual reasoning and running Stryker.NET.
+- `evaluation/mutation/02-finding-mutants-solution`: completed solution for comparison after the exercise.
