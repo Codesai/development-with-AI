@@ -1,4 +1,4 @@
-# Exercise 2 - Mutation Testing Thinking Exercise
+# Exercise 2 - Mutation Testing
 
 ## Goal
 
@@ -6,21 +6,52 @@ Understand why green tests can be weak.
 
 ## Duration
 
-15 minutes
+25 minutes
 
-## Setup
+## Step 1 - Think Like a Mutation Testing Tool
 
-Use the prepared mutation testing branches. Students do not need to copy or create the code manually.
-
-Start from the exercise branch:
+Switch to the branch for this exercise:
 
 ```bash
 git switch evaluation/mutation/01-finding-mutants
+cd EvaluatingResults
+dotnet test
 ```
 
-That branch contains the AI-generated implementation, generated tests, and Stryker.NET configuration.
+This branch contains the AI-generated implementation, the AI-generated tests, and the Stryker.NET configuration. The tests should be green before starting the exercise.
 
-Available branches:
+For each mutation, decide whether the current tests would fail.
 
-- `evaluation/mutation/01-finding-mutants`: exercise branch for manual reasoning and running Stryker.NET.
-- `evaluation/mutation/02-finding-mutants-solution`: completed solution for comparison after the exercise.
+| Mutation | Would tests fail? |
+| --- | --- |
+| Change `weightKg <= 5.0` to `weightKg < 5.0` | ? |
+| Change `weightKg <= 20.0` to `weightKg < 20.0` | ? |
+| Change `return 9.99` to `return 4.99` | ? |
+| Change `isPremium || weightKg <= 5.0` to `isPremium && weightKg <= 5.0` | ? |
+| Change `return 4.99` to `return 0.0` | ? |
+
+## Step 2 - Run a Real Mutation Testing Tool
+
+Run Stryker.NET from the `EvaluatingResults` directory:
+
+```bash
+dotnet stryker
+```
+
+The exercise branch includes a `stryker-config.json` file, so students can run the tool without choosing the solution, test project, production project, or mutation target manually.
+
+Use the mutation report to compare the real result with your predictions from step 1. The HTML report is generated under `StrykerOutput`.
+
+If `dotnet stryker` is not installed, install it first:
+
+```bash
+dotnet tool install --global dotnet-stryker
+```
+
+## Student Tasks
+
+1. Predict which mutations survive.
+2. Run the mutation testing tool.
+3. Compare the report with your predictions.
+4. Identify which missing tests would kill the surviving mutations.
+5. Decide whether the green AI-generated test suite gives enough confidence.
