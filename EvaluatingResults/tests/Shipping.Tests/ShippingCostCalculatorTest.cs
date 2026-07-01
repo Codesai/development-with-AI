@@ -7,8 +7,20 @@ public sealed class ShippingCostCalculatorTest
     private readonly ShippingCostCalculator _calculator = new();
 
     [Fact]
-    public void AddTestsForTheShippingRules()
+    public void PremiumUsersGetFreeShipping()
     {
-        _ = _calculator;
+        Assert.Equal(0.0, _calculator.Calculate(20.0, isPremium: true));
+    }
+
+    [Fact]
+    public void StandardShippingCostsFourNinetyNine()
+    {
+        Assert.Equal(4.99, _calculator.Calculate(10.0, isPremium: false));
+    }
+
+    [Fact]
+    public void HeavyPackagesCostNineNinetyNine()
+    {
+        Assert.Equal(9.99, _calculator.Calculate(30.0, isPremium: false));
     }
 }
