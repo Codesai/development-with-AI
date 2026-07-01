@@ -4,15 +4,19 @@ namespace ArchitectureFitness.Application.Orders;
 
 public sealed class ReviewOrderRisk
 {
+    private readonly IOrderRiskGateway _riskGateway;
     private readonly OrderRiskPolicy _riskPolicy;
 
-    public ReviewOrderRisk(OrderRiskPolicy riskPolicy)
+    public ReviewOrderRisk(IOrderRiskGateway riskGateway, OrderRiskPolicy riskPolicy)
     {
+        _riskGateway = riskGateway;
         _riskPolicy = riskPolicy;
     }
 
-    public Task<bool> Execute(string orderId, CancellationToken cancellationToken = default)
+    public async Task<bool> Execute(string orderId, CancellationToken cancellationToken = default)
     {
-        return _riskPolicy.IsRisky(orderId, cancellationToken);
+        var assessment = await _riskGateway.GetRiskAssessment(orderId, cancellationToken);
+
+        return _riskPolicy.IsRisky(assessment);
     }
 }

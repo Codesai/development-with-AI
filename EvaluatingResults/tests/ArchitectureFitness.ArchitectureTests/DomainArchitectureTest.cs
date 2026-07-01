@@ -6,15 +6,15 @@ namespace ArchitectureFitness.ArchitectureTests;
 public sealed class DomainArchitectureTest
 {
     [Fact]
-    public void DomainMustNotDependOnHttpClients()
+    public void DomainMustNotDependOnInfrastructureConcerns()
     {
         var result = Types.InAssembly(typeof(OrderRiskPolicy).Assembly)
             .Should()
-            .NotHaveDependencyOnAny("System.Net.Http", "System.Net.Http.Json")
+            .NotHaveDependencyOnAny("ArchitectureFitness.Infrastructure", "System.*")
             .GetResult();
 
         Assert.True(
             result.IsSuccessful,
-            "Domain classes must not depend on HTTP clients. Move external communication to infrastructure.");
+            "Domain classes must not depend on infrastructure-related concerns. Move external communication and infrastructure integrations to the infrastructure layer.");
     }
 }
