@@ -21,10 +21,10 @@ For each mutation, decide whether the current tests would fail.
 
 | Mutation | Would tests fail? |
 | --- | --- |
-| Change `weightKg <= 5.0` to `weightKg < 5.0` | ? |
-| Change `weightKg <= 20.0` to `weightKg < 20.0` | ? |
+| Change `weightKg < 5.0` to `weightKg <= 5.0` | ? |
+| Change `weightKg < 20.0` to `weightKg <= 20.0` | ? |
 | Change `return 9.99` to `return 4.99` | ? |
-| Change `isPremium || weightKg <= 5.0` to `isPremium && weightKg <= 5.0` | ? |
+| Change `isPremium || weightKg < 5.0` to `isPremium && weightKg < 5.0` | ? |
 | Change `return 4.99` to `return 0.0` | ? |
 
 ## Run Stryker

@@ -18,10 +18,10 @@ dotnet stryker
 
 | Mutation | Would tests fail? | Meaning |
 | --- | --- | --- |
-| Change `weightKg <= 5.0` to `weightKg < 5.0` | No | Boundary not tested |
-| Change `weightKg <= 20.0` to `weightKg < 20.0` | No | Boundary not tested |
+| Change `weightKg < 5.0` to `weightKg <= 5.0` | No | Boundary not tested |
+| Change `weightKg < 20.0` to `weightKg <= 20.0` | No | Boundary not tested |
 | Change `return 9.99` to `return 4.99` | Yes | Heavy package behavior tested |
-| Change `isPremium || weightKg <= 5.0` to `isPremium && weightKg <= 5.0` | Yes | Premium behavior tested |
+| Change `isPremium || weightKg < 5.0` to `isPremium && weightKg < 5.0` | Yes | Premium behavior tested |
 | Change `return 4.99` to `return 0.0` | Yes | Standard shipping behavior tested |
 
 ## Expected Learning
