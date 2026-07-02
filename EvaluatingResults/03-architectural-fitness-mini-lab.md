@@ -34,13 +34,10 @@ domain -> no framework dependencies
 - Identify the architectural violation.
 - Explain why it is dangerous.
 - Propose a better design.
-- Write one natural-language architectural rule.
+- Write one architectural rule in natural-language.
 - Decide whether the rule belongs in:
   - `AGENTS.md`
   - code review checklist
   - CI architecture test
   - all of the above
 - Optionally express it as an ArchUnit-style rule.
-
-
-

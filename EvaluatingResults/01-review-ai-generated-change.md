@@ -14,7 +14,7 @@ Use the prepared folders in `main`. Students do not need to copy or create the c
 
 The exercise reviews the generated implementation and generated tests for this prompt:
 
-> Implement free shipping for premium users and for non-premium users when the package weighs less than 5 kg.
+> Implement shipping cost calculation where premium users and non-premium users with packages under 5 kg get free shipping, and packages of 20 kg or more are classified as heavy shipping.
 
 ## Steps
 

@@ -8,7 +8,7 @@ Review the tests as a human reviewer. The tests are green, but the review questi
 
 Prompt:
 
-> Implement free shipping for premium users and for non-premium users when the package weighs less than 5 kg.
+> Implement shipping cost calculation where premium users and non-premium users with packages under 5 kg get free shipping, and packages of 20 kg or more are classified as heavy shipping.
 
 ## Run
 
