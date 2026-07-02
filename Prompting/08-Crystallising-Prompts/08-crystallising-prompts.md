@@ -33,5 +33,6 @@ Use these values to try it out:
 
 - What does the script do that the template alone could not?
 - Is user story creation a good fit for this approach? What feels forced?
-- What kind of task would be a better candidate for this pattern?
+- Imagine you repeatedly prompt AI to generate a `curl` command. Which inputs would change and which parts would stay the same?
+- Would a deterministic script be a better fit for generating that command? What flexibility would you lose by removing AI?
 - At what point does a task become structured enough to no longer need AI?
