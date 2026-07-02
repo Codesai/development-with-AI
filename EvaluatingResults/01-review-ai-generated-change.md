@@ -10,14 +10,14 @@ Practice human-in-the-loop code review.
 
 ## Setup
 
-Use the prepared evaluation branches. Students do not need to copy or create the code manually.
+Use the prepared folders in `main`. Students do not need to copy or create the code manually.
 
-The branch contains the generated implementation and generated tests for this prompt:
+The exercise reviews the generated implementation and generated tests for this prompt:
 
 > Implement free shipping for premium users and for non-premium users when the package weighs less than 5 kg.
 
-Available branches:
+## Steps
 
-- `evaluation/tests/01-no-tests`: exercise starting point without meaningful tests.
-- `evaluation/tests/02-my-ai-generated-tests`: AI-generated implementation and tests to review.
-- `evaluation/tests/03-complete-review-solution`: completed review solution for comparison after the exercise.
+- `Testing/Step1`: starting point without meaningful tests. Read `Testing/Step1/README.md`.
+- `Testing/Step2`: AI-generated implementation and tests to review. Read `Testing/Step2/README.md`.
+- `Testing/Step3`: completed review solution for comparison after the exercise. Read `Testing/Step3/README.md`.
