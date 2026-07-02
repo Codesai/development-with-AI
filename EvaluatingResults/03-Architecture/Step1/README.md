@@ -13,7 +13,6 @@ The project follows this layered architecture:
 ```text
 api -> application
 application -> domain
-application -> infrastructure
 domain -> no framework dependencies
 ```
 
