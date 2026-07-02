@@ -1,0 +1,22 @@
+{
+  "stryker-config": {
+    "solution": "Shipping.sln",
+    "project": "src/Shipping/Shipping.csproj",
+    "test-projects": [
+      "tests/Shipping.Tests/Shipping.Tests.csproj"
+    ],
+    "mutate": [
+      "ShippingCostCalculator.cs"
+    ],
+    "reporters": [
+      "progress",
+      "cleartext",
+      "html"
+    ],
+    "thresholds": {
+      "high": 80,
+      "low": 60,
+      "break": 0
+    }
+  }
+}

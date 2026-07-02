@@ -1,0 +1,33 @@
+# Mutation Step 2 - Expected Answers
+
+This step contains the expected mutation-testing answers and learning notes.
+
+## Goal
+
+Compare your predictions and Stryker.NET results from `Mutation/Step1` with the expected interpretation.
+
+## Run
+
+```bash
+cd Mutation/Step2
+dotnet test
+dotnet stryker
+```
+
+## Expected Answers
+
+| Mutation | Would tests fail? | Meaning |
+| --- | --- | --- |
+| Change `weightKg <= 5.0` to `weightKg < 5.0` | No | Boundary not tested |
+| Change `weightKg <= 20.0` to `weightKg < 20.0` | No | Boundary not tested |
+| Change `return 9.99` to `return 4.99` | Yes | Heavy package behavior tested |
+| Change `isPremium || weightKg <= 5.0` to `isPremium && weightKg <= 5.0` | Yes | Premium behavior tested |
+| Change `return 4.99` to `return 0.0` | Yes | Standard shipping behavior tested |
+
+## Expected Learning
+
+Coverage is not enough.
+
+A line can be executed without the test being strong enough to detect faults.
+
+Mutation testing becomes especially relevant when AI writes both the implementation and the tests.

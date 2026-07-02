@@ -6,21 +6,15 @@ Understand why green tests can be weak.
 
 ## Duration
 
-15 minutes
+25 minutes
 
 ## Setup
 
-Use the prepared mutation testing branches. Students do not need to copy or create the code manually.
+Use the prepared folders in `main`. Students do not need to copy or create the code manually.
 
-Start from the exercise branch:
+## Steps
 
-```bash
-git switch evaluation/mutation/01-finding-mutants
-```
+- `Mutation/Step1`: predict surviving mutations, run the tests, and run Stryker.NET. Read `Mutation/Step1/README.md`.
+- `Mutation/Step2`: compare your predictions with the expected answers and learning notes. Read `Mutation/Step2/README.md`.
 
-That branch contains the AI-generated implementation, generated tests, and Stryker.NET configuration.
-
-Available branches:
-
-- `evaluation/mutation/01-finding-mutants`: exercise branch for manual reasoning and running Stryker.NET.
-- `evaluation/mutation/02-finding-mutants-solution`: completed solution for comparison after the exercise.
+The goal is to see why a green AI-generated test suite can still miss important faults.
