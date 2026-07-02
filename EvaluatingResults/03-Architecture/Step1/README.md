@@ -25,6 +25,6 @@ dotnet build ArchitectureFitness.slnx
 
 ## Task
 
-- Inspect `src/ArchitectureFitness.Domain/Order/OrderRiskPolicy.cs`.
+- Inspect [`src/ArchitectureFitness.Domain/Order/OrderRiskPolicy.cs`](src/ArchitectureFitness.Domain/Order/OrderRiskPolicy.cs).
 - Explain if you see any problem and make a proposal to fix it.
 - Write one natural-language architectural rule that would prevent this.

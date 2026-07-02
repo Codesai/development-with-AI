@@ -4,7 +4,7 @@ This step contains the corrected design with the architecture fitness test passi
 
 ## Goal
 
-Compare the final design with the violation from `03-Architecture/Step1`.
+Compare the final design with the violation from [`03-Architecture/Step1`](../Step1).
 
 ## Architecture Rule
 

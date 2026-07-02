@@ -18,6 +18,6 @@ The exercise reviews the generated implementation and generated tests for this p
 
 ## Steps
 
-- `01-Testing/Step1`: starting point without meaningful tests. Read `01-Testing/Step1/README.md`.
-- `01-Testing/Step2`: AI-generated implementation and tests to review. Read `01-Testing/Step2/README.md`.
-- `01-Testing/Step3`: completed review solution for comparison after the exercise. Read `01-Testing/Step3/README.md`.
+- [`01-Testing/Step1`](Step1): starting point without meaningful tests. Read [`01-Testing/Step1/README.md`](Step1/README.md).
+- [`01-Testing/Step2`](Step2): AI-generated implementation and tests to review. Read [`01-Testing/Step2/README.md`](Step2/README.md).
+- [`01-Testing/Step3`](Step3): completed review solution for comparison after the exercise. Read [`01-Testing/Step3/README.md`](Step3/README.md).

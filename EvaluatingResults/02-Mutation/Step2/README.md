@@ -4,7 +4,7 @@ This step contains the expected mutation-testing answers and learning notes.
 
 ## Goal
 
-Compare your predictions and Stryker.NET results from `02-Mutation/Step1` with the expected interpretation.
+Compare your predictions and Stryker.NET results from [`02-Mutation/Step1`](../Step1) with the expected interpretation.
 
 ## Run
 

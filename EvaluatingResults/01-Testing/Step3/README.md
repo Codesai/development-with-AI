@@ -4,7 +4,7 @@ This step contains the improved test suite and corrected production code.
 
 ## Goal
 
-Compare these tests with your review notes from `01-Testing/Step2` and check how the production code was corrected.
+Compare these tests with your review notes from [`01-Testing/Step2`](../Step2) and check how the production code was corrected.
 
 ## Run
 

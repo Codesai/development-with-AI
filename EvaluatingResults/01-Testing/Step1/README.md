@@ -21,8 +21,8 @@ The existing test is only a placeholder. It should not give confidence in the sh
 
 ## Task
 
-- Read `src/Shipping/ShippingCostCalculator.cs`.
-- Read `tests/Shipping.Tests/ShippingCostCalculatorTest.cs`.
+- Read [`src/Shipping/ShippingCostCalculator.cs`](src/Shipping/ShippingCostCalculator.cs).
+- Read [`tests/Shipping.Tests/ShippingCostCalculatorTest.cs`](tests/Shipping.Tests/ShippingCostCalculatorTest.cs).
 - Ask an agent to add tests for the prompt.
 - Review the generated tests before accepting them.
 - Comment on what the tests cover, what they miss, and whether they give enough confidence.

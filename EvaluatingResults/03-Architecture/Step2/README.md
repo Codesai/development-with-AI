@@ -27,6 +27,6 @@ The test should fail because the domain layer still depends on infrastructure co
 
 ## Task
 
-- Read `tests/ArchitectureFitness.ArchitectureTests/DomainArchitectureTest.cs`.
-- Compare the test rule with the natural-language rule from `03-Architecture/Step1`.
+- Read [`tests/ArchitectureFitness.ArchitectureTests/DomainArchitectureTest.cs`](tests/ArchitectureFitness.ArchitectureTests/DomainArchitectureTest.cs).
+- Compare the test rule with the natural-language rule from [`03-Architecture/Step1`](../Step1).
 - Decide whether this rule also belongs in `AGENTS.md`, a code review checklist, CI, or all of them.
