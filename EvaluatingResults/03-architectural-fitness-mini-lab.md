@@ -10,19 +10,13 @@ Translate architectural intent into executable rules.
 
 ## Setup
 
-Use the prepared architecture fitness branches. Students do not need to copy or create the code manually.
+Use the prepared folders in `main`. Students do not need to copy or create the code manually.
 
-Start from the generated architectural violation:
+## Steps
 
-```bash
-git switch evaluation/architecture/01-finding-violation
-```
-
-Available branches:
-
-- `evaluation/architecture/01-finding-violation`: generated code with an architectural violation.
-- `evaluation/architecture/02-fitness-test-red`: same code with a failing architecture fitness test.
-- `evaluation/architecture/03-fitness-test-green`: corrected design with the architecture fitness test passing.
+- `Architecture/Step1`: generated code with an architectural violation. Read `Architecture/Step1/README.md`.
+- `Architecture/Step2`: same code with a failing architecture fitness test. Read `Architecture/Step2/README.md`.
+- `Architecture/Step3`: corrected design with the architecture fitness test passing. Read `Architecture/Step3/README.md`.
 
 ## Scenario
 
@@ -47,7 +41,6 @@ domain -> no framework dependencies
   - CI architecture test
   - all of the above
 - Optionally express it as an ArchUnit-style rule.
-
 
 
 
