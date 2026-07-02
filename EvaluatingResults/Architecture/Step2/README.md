@@ -6,6 +6,17 @@ This step adds an executable architecture fitness test while keeping the violati
 
 Turn the architectural rule into a failing test.
 
+## Architecture Rule
+
+The project follows this layered architecture:
+
+```text
+api -> application
+application -> domain
+application -> infrastructure
+domain -> no framework dependencies
+```
+
 ## Run
 
 ```bash

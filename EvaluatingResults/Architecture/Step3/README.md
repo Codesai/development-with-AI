@@ -6,6 +6,17 @@ This step contains the corrected design with the architecture fitness test passi
 
 Compare the final design with the violation from `Architecture/Step1`.
 
+## Architecture Rule
+
+The project follows this layered architecture:
+
+```text
+api -> application
+application -> domain
+application -> infrastructure
+domain -> no framework dependencies
+```
+
 ## Run
 
 ```bash

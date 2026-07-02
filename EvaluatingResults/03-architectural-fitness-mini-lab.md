@@ -28,16 +28,3 @@ application -> domain
 application -> infrastructure
 domain -> no framework dependencies
 ```
-
-## Student Tasks
-
-- Identify the architectural violation.
-- Explain why it is dangerous.
-- Propose a better design.
-- Write one architectural rule in natural-language.
-- Decide whether the rule belongs in:
-  - `AGENTS.md`
-  - code review checklist
-  - CI architecture test
-  - all of the above
-- Optionally express it as an ArchUnit-style rule.

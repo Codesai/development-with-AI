@@ -8,9 +8,12 @@ Identify where domain code depends on infrastructure concerns.
 
 ## Architecture Rule
 
+The project follows this layered architecture:
+
 ```text
-api -> application -> domain
-infrastructure -> application
+api -> application
+application -> domain
+application -> infrastructure
 domain -> no framework dependencies
 ```
 
@@ -24,6 +27,6 @@ dotnet build ArchitectureFitness.slnx
 ## Task
 
 - Inspect `src/ArchitectureFitness.Domain/Order/OrderRiskPolicy.cs`.
-- Explain why depending on `HttpClient` from the domain layer is dangerous.
-- Propose where external HTTP communication should live instead.
+- Explain if you see any problem and make a proposal to fix it.
 - Write one natural-language architectural rule that would prevent this.
+
