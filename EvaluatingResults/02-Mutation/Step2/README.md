@@ -4,12 +4,12 @@ This step contains the expected mutation-testing answers and learning notes.
 
 ## Goal
 
-Compare your predictions and Stryker.NET results from `Mutation/Step1` with the expected interpretation.
+Compare your predictions and Stryker.NET results from `02-Mutation/Step1` with the expected interpretation.
 
 ## Run
 
 ```bash
-cd Mutation/Step2
+cd 02-Mutation/Step2
 dotnet test
 dotnet stryker
 ```

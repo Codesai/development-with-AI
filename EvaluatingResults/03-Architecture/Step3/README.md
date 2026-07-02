@@ -4,7 +4,7 @@ This step contains the corrected design with the architecture fitness test passi
 
 ## Goal
 
-Compare the final design with the violation from `Architecture/Step1`.
+Compare the final design with the violation from `03-Architecture/Step1`.
 
 ## Architecture Rule
 
@@ -20,7 +20,7 @@ domain -> no framework dependencies
 ## Run
 
 ```bash
-cd Architecture/Step3
+cd 03-Architecture/Step3
 dotnet test ArchitectureFitness.slnx
 ```
 

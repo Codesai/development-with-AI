@@ -14,9 +14,9 @@ Use the prepared folders in `main`. Students do not need to copy or create the c
 
 ## Steps
 
-- `Architecture/Step1`: generated code with an architectural violation. Read `Architecture/Step1/README.md`.
-- `Architecture/Step2`: same code with a failing architecture fitness test. Read `Architecture/Step2/README.md`.
-- `Architecture/Step3`: corrected design with the architecture fitness test passing. Read `Architecture/Step3/README.md`.
+- `03-Architecture/Step1`: generated code with an architectural violation. Read `03-Architecture/Step1/README.md`.
+- `03-Architecture/Step2`: same code with a failing architecture fitness test. Read `03-Architecture/Step2/README.md`.
+- `03-Architecture/Step3`: corrected design with the architecture fitness test passing. Read `03-Architecture/Step3/README.md`.
 
 ## Scenario
 

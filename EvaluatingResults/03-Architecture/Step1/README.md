@@ -20,7 +20,7 @@ domain -> no framework dependencies
 ## Run
 
 ```bash
-cd Architecture/Step1
+cd 03-Architecture/Step1
 dotnet build ArchitectureFitness.slnx
 ```
 
@@ -29,4 +29,3 @@ dotnet build ArchitectureFitness.slnx
 - Inspect `src/ArchitectureFitness.Domain/Order/OrderRiskPolicy.cs`.
 - Explain if you see any problem and make a proposal to fix it.
 - Write one natural-language architectural rule that would prevent this.
-

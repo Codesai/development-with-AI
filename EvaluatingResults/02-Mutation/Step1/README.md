@@ -9,7 +9,7 @@ Think like a mutation testing tool before running it.
 ## Run Tests
 
 ```bash
-cd Mutation/Step1
+cd 02-Mutation/Step1
 dotnet test
 ```
 

@@ -20,7 +20,7 @@ domain -> no framework dependencies
 ## Run
 
 ```bash
-cd Architecture/Step2
+cd 03-Architecture/Step2
 dotnet test ArchitectureFitness.slnx
 ```
 
@@ -29,5 +29,5 @@ The test should fail because the domain layer still depends on infrastructure co
 ## Task
 
 - Read `tests/ArchitectureFitness.ArchitectureTests/DomainArchitectureTest.cs`.
-- Compare the test rule with the natural-language rule from `Architecture/Step1`.
+- Compare the test rule with the natural-language rule from `03-Architecture/Step1`.
 - Decide whether this rule also belongs in `AGENTS.md`, a code review checklist, CI, or all of them.

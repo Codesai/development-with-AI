@@ -13,7 +13,7 @@ Prompt:
 ## Run
 
 ```bash
-cd Testing/Step2
+cd 01-Testing/Step2
 dotnet test
 ```
 
