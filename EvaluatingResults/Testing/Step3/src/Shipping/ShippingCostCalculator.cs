@@ -9,7 +9,7 @@ public sealed class ShippingCostCalculator
             return 0.0;
         }
 
-        if (weightKg <= 20.0)
+        if (weightKg < 20.0)
         {
             return 4.99;
         }

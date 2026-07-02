@@ -31,6 +31,18 @@ public sealed class ShippingCostCalculatorTest
     }
 
     [Fact]
+    public void NonPremiumPackageBelowTwentyKilogramsIsStandardShipping()
+    {
+        Assert.Equal(4.99, _calculator.Calculate(19.99, isPremium: false));
+    }
+
+    [Fact]
+    public void NonPremiumPackageOfExactlyTwentyKilogramsIsHeavyShipping()
+    {
+        Assert.Equal(9.99, _calculator.Calculate(20.0, isPremium: false));
+    }
+
+    [Fact]
     public void HeavyPackagesCostNineNinetyNine()
     {
         Assert.Equal(9.99, _calculator.Calculate(30.0, isPremium: false));

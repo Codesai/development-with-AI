@@ -4,7 +4,7 @@ This step contains the shipping project before meaningful tests have been added.
 
 ## Goal
 
-Use this state to understand the code shape and the prompt before reviewing any generated test suite.
+Ask an agent to create tests for the given production code, then examine and comment on the generated tests.
 
 Prompt:
 
@@ -23,4 +23,6 @@ The existing test is only a placeholder. It should not give confidence in the sh
 
 - Read `src/Shipping/ShippingCostCalculator.cs`.
 - Read `tests/Shipping.Tests/ShippingCostCalculatorTest.cs`.
-- Identify which behaviors need real tests before trusting a generated change.
+- Ask an agent to add tests for the prompt.
+- Review the generated tests before accepting them.
+- Comment on what the tests cover, what they miss, and whether they give enough confidence.

@@ -1,10 +1,10 @@
-# Testing Step 3 - Review Solution
+# Testing Step 3 - Good Tests
 
-This step contains the completed review solution.
+This step contains the improved test suite and corrected production code.
 
 ## Goal
 
-Compare this test suite with your review notes from `Testing/Step2`.
+Compare these tests with your review notes from `Testing/Step2` and check how the production code was corrected.
 
 ## Run
 
@@ -15,6 +15,8 @@ dotnet test
 
 ## Expected Learning
 
-The solution adds tests for the missing non-premium free-shipping rule and the 5 kg boundary, and corrects the implementation to match "under 5 kg".
+The solution adds the missing boundary tests for 5 kg and 20 kg.
+
+The production code is corrected so standard shipping is below 20 kg and heavy shipping starts at 20 kg.
 
 Green generated tests are not enough if they do not assert the behavior from the prompt.

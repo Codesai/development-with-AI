@@ -4,7 +4,7 @@ This step contains the AI-generated implementation and test suite.
 
 ## Goal
 
-Review the tests as a human reviewer. The tests are green, but the review question is whether they prove the requested behavior.
+Review the generated tests as a human reviewer. The tests are green, but the review question is whether they prove the requested behavior and its boundaries.
 
 Prompt:
 
@@ -19,7 +19,8 @@ dotnet test
 
 ## Task
 
-- Check whether premium users get free shipping.
-- Check whether non-premium packages below 5 kg get free shipping.
+- Check whether premium users and non-premium users under 5 kg get free shipping.
 - Check the boundary at exactly 5 kg.
-- Decide which missing tests should block accepting the generated change.
+- Check whether heavy shipping is tested.
+- Check the boundary at exactly 20 kg.
+- Decide which missing boundary tests should block accepting the generated change.
