@@ -34,17 +34,3 @@ Usar docker-compose (mapea interests.txt para persistencia):
 
 Alternativamente, usar `docker run` con volumen:
    docker run --rm -p 8080:8080 -v $(pwd)/back/interests.txt:/app/interests.txt interest-app
-
-Cosas pendientes:
-   - eliminar todas las validaciones tanto en front como en back para el proyecto de partida
-   - añadir un poquito de arquitectura en el back, separar controlador-dominio-repositorio al menos, algo muy sencillo
-     - Slides explicando los ficheros de contexto (explicar un poco los que son particulares de github copilot y los que son genericos para cualquier agente)
-   - planteamiento del primer ejercicio:
-      - Gestión del contexto con ficheros (en un sólo y estructurado por directorios)
-      - Validación de email con reglas para el front y el back
-      - Enunciado y pruebas
-   - Slides para skills
-   - planteamiento del segundo ejercicio:
-      - Gestión del contexto mediante skills (intención vs posición)
-      - El mismo ejercicio que el anterior pero solucionandolo con skills así nos centramos en el mecanismo de skills dado un problema ya resuelto
-      - Enunciado y pruebas
