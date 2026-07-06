@@ -1,36 +1,42 @@
-Pequeña API que recibe registros de interés y los guarda en interests.txt.
+Small API that receives interest records and saves them in interests.txt.
 
-Requisitos:
-- .NET 9 SDK/runtime para desarrollo o usar la imagen Docker incluida.
+Requirements:
+- .NET 9 SDK/runtime for development or use the included Docker image.
 
-Ejecutar localmente (sin Docker):
-1. Abrir terminal en la carpeta back
+Run locally (without Docker):
+1. Open a terminal in the back folder
 2. dotnet restore
 3. dotnet run
 
-La API se expondrá en http://localhost:8080 (dentro del contenedor). El front también se sirve desde el backend en /. (index.html en wwwroot)
+The API will be available at http://localhost:8080 (inside the container). The front end is also served by the backend at /. (index.html in wwwroot)
 
-Nota: si el puerto 8080 del host está ocupado, ajustar el mapeo en docker-compose.yml.
-Construir y ejecutar con Docker (recomendado):
-Desde la raíz del proyecto (donde están las carpetas front/ y back/):
+Note: if port 8080 on the host is already in use, adjust the mapping in docker-compose.yml.
+Build and run with Docker (recommended):
+From the project root (where the front/ and back/ folders are):
 
-1. Construir la imagen:
+1. Build the image:
    docker build -t interest-app .
 
-2. Ejecutar el contenedor:
+2. Run the container:
    docker run --rm -p 8080:8080 interest-app
 
-Abrir http://localhost:8080 en el navegador; la UI estará disponible y el endpoint POST /api/register gestionará los envíos.
+Open http://localhost:8080 in the browser; the UI will be available and the POST /api/register endpoint will handle submissions.
 
-Usar docker-compose (mapea interests.txt para persistencia):
+Use docker-compose (maps interests.txt for persistence):
 
-1. Crear el fichero interests.txt en la carpeta back si no existe:
+1. Create the interests.txt file in the back folder if it doesn't exist:
    touch back/interests.txt
 
-2. Levantar el servicio con docker-compose:
+2. Start the service with docker-compose:
    docker compose up --build -d
 
-3. Ver registros en el host en back/interests.txt (se actualiza conforme lleguen envíos)
+3. View records on the host in back/interests.txt (it updates as submissions arrive)
 
-Alternativamente, usar `docker run` con volumen:
+Alternatively, use `docker run` with a volume:
    docker run --rm -p 8080:8080 -v $(pwd)/back/interests.txt:/app/interests.txt interest-app
+
+## Exercises
+
+- One-file exercise: practice for working with a single file and keeping the context focused. [Read the description](./01-one-file-exercise.md)
+- Modular files exercise: exercise for splitting the work across multiple files and improving context organization. [Read the description](./02-modular-files-exercise.md)
+- Skills exercise: exercise for using specialized skills and keeping instructions more focused. [Read the description](./03-skills-exercise.md)
