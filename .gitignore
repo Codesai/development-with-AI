@@ -31,5 +31,4 @@ node_modules/
 # Temporary files
 *.txt~
 *.log
-/ContextMangement/back/interests.txt
-/ContextMangement/publish
+/ContextManagement/publish
