@@ -28,6 +28,3 @@ Learn how to progressively improve your prompts by incorporating key techniques:
 
 7. [**07-Reusable-Prompts**](07-Reusable-Prompts/07-reusable-prompts.md)  
    Build prompt templates for consistent reuse across projects.
-
-8. [**08-Crystallising-Prompts**](08-Crystallising-Prompts/08-crystallising-prompts.md)  
-   Turn repeated prompts into deterministic commands.
