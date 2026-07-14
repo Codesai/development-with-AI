@@ -17,14 +17,30 @@ These exercises use a .NET 9 codebase and GitHub Copilot as the AI assistant.
 
 | Setup | Choose it when... | Avoid it when... |
 |---|---|---|
+| **Codespaces** *(default option)* | You want zero local installs — just a browser and a GitHub account. Best for locked-down corporate laptops, quick trials, or Chromebook/tablet use. | You're already comfortable with Docker/Podman locally or need to work fully offline. |
 | **Local environment** | You have (or can get) admin rights to install tools, want the fastest day-to-day performance, and will reuse the setup beyond this training. | Your machine is locked down (no admin rights, no ability to install .NET/Node/Copilot), or you don't want the exercises' tooling on your main machine. |
-| **Codespaces** *(default virtual option)* | You want zero local installs — just a browser and a GitHub account. Best for locked-down corporate laptops, quick trials, or Chromebook/tablet use. | You're already comfortable with Docker/Podman locally or need to work fully offline. |
 | **Docker** | You want a container on your own machine (offline-capable, no usage quota), and Docker Desktop is allowed on your machine/network. | Your company blocks Docker Desktop (licensing) or its daemon — use Podman instead. |
 | **Podman** | Same use case as Docker, but your company disallows Docker Desktop specifically (e.g. licensing terms) or you prefer a daemonless tool. | You just want the path of least resistance and Docker is already allowed — Docker has more first-party tooling/documentation. |
 
 If you're unsure, start with **Codespaces** — it needs no local setup at all and works from a browser. Switch to a local environment or Docker/Podman if you outgrow the free quota or need offline access.
 
+## Codespaces (recommended default)
+
+[Codespaces](https://github.com/features/codespaces) runs a Dev Container in the cloud, so there's nothing to install locally at all — not even Docker/Podman. This is the recommended default: fastest to start, no local footprint. Free tier: **120 core-hours/month** and **15 GB-months** of storage for personal accounts (more on GitHub Pro/paid plans); see https://docs.github.com/en/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot.
+- From the repo on GitHub: `Code` → `Codespaces` → `Create codespace on main` (this picks up the `.devcontainer/devcontainer.json` from the Docker section below if present, or falls back to a default image).
+- Codespaces opens either in the **browser** (a full VS Code UI served from the cloud instance) or you can attach your **desktop VS Code** to it via the "Dev Containers"/"GitHub Codespaces" extension (`Ctrl+Shift+P` → "Codespaces: Connect to Codespace") — Codespaces is built on the same Dev Containers spec.
+- **Copilot in VS Code**: works exactly as on your local machine — sign in with the same GitHub account (Codespaces inherits your GitHub identity automatically since the codespace *is* tied to your account), and the Copilot/Copilot Chat extensions are typically pre-installed or auto-enabled; if not, install them from the Extensions view same as usual.
+- **Copilot CLI**: Should be already present in the image, if not install/run it exactly as in the Docker section's Option B below (`npm install -g @github/copilot`, then `copilot` + `/login`). Since you're already authenticated to GitHub in that environment, login is often just a confirmation click rather than a full device-code flow.
+- **Known issue — outdated Copilot CLI version**: the default Codespaces image can ship an old Copilot CLI (e.g. `10.0.3`) that's incompatible with the current model-selection behavior for free accounts. If model selection fails or looks wrong, upgrade it:
+  1. Run `npm install -g @github/copilot` to pull the latest version.
+  2. Open a **new terminal** (the currently running `copilot` session won't pick up the upgrade) and run `copilot`.
+  3. Confirm the version shown is the latest (`10.0.70` or newer) — if it still shows the old version, close all terminals/Copilot sessions and retry.
+- Everything is ephemeral per-codespace but persists across stop/start (not across deletion), so you don't need to redo setup every session — only if you delete the codespace.
+- **Not a fit if**: you'll exceed the free quota regularly, or you need to work offline.
+
 ## Local environment
+
+See the [decision table](#choosing-your-setup) above for which setup fits your situation. If you'd rather not install tools locally, skip to Docker or Podman below.
 
 Install these on your machine:
 
@@ -65,21 +81,7 @@ npm install -g @github/copilot
 - GitHub Copilot requires an active subscription, but individuals can start a free trial or use the free tier (limited monthly usage) — see https://github.com/features/copilot/plans
 - Once enabled, sign in from both VS Code and the Copilot CLI as described above to use the same account across both tools.
 
-## Virtual environment
-
-If you don't want (or can't) install tools locally, use one of these instead. See the [decision table](#choosing-your-setup) above for which fits your situation.
-
-### Codespaces (recommended virtual option)
-
-[Codespaces](https://github.com/features/codespaces) runs a Dev Container in the cloud, so there's nothing to install locally at all — not even Docker/Podman. This is the recommended default: fastest to start, no local footprint. Free tier: **120 core-hours/month** and **15 GB-months** of storage for personal accounts (more on GitHub Pro/paid plans); see https://docs.github.com/en/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot.
-- From the repo on GitHub: `Code` → `Codespaces` → `Create codespace on main` (this picks up the `.devcontainer/devcontainer.json` from the Docker section below if present, or falls back to a default image).
-- Codespaces opens either in the **browser** (a full VS Code UI served from the cloud instance) or you can attach your **desktop VS Code** to it via the "Dev Containers"/"GitHub Codespaces" extension (`Ctrl+Shift+P` → "Codespaces: Connect to Codespace") — Codespaces is built on the same Dev Containers spec.
-- **Copilot in VS Code**: works exactly as on your local machine — sign in with the same GitHub account (Codespaces inherits your GitHub identity automatically since the codespace *is* tied to your account), and the Copilot/Copilot Chat extensions are typically pre-installed or auto-enabled; if not, install them from the Extensions view same as usual.
-- **Copilot CLI**: Should be already present in the image, if not install/run it exactly as in the Docker section's Option B below (`npm install -g @github/copilot`, then `copilot` + `/login`). Since you're already authenticated to GitHub in that environment, login is often just a confirmation click rather than a full device-code flow.
-- Everything is ephemeral per-codespace but persists across stop/start (not across deletion), so you don't need to redo setup every session — only if you delete the codespace.
-- **Not a fit if**: you'll exceed the free quota regularly, or you need to work offline.
-
-### Docker-based setup
+## Docker-based setup
 
 Choose this over Codespaces if you want a container on your own machine — offline-capable, no usage quota — and Docker Desktop is allowed in your environment. You need Docker Desktop (or Docker Engine) installed on the host: https://www.docker.com/products/docker-desktop/
 
@@ -123,7 +125,7 @@ copilot
 
 **Not a fit if**: Docker Desktop is blocked in your environment — use Podman below instead.
 
-### Podman-based setup
+## Podman-based setup
 
 Choose this over Docker specifically when your company blocks Docker Desktop (e.g. licensing restrictions under Docker's subscription terms for larger organizations) or doesn't allow it. [Podman](https://podman.io/) is a drop-in, daemonless alternative — same CLI syntax, no background daemon, and no Docker Desktop license involved. If Docker is already allowed in your environment, just use Docker — it has more first-party tooling/documentation.
 - Install Podman Desktop or the CLI: https://podman.io/docs/installation
