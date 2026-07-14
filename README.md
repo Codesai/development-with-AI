@@ -11,7 +11,7 @@ Exercises for practicing evaluation of AI-generated code, tests, and architectur
 
 ## Prerequisites
 
-These exercises use a .NET 9 codebase and GitHub Copilot as the AI assistant.
+These exercises use a .NET 10 codebase and GitHub Copilot as the AI assistant.
 
 ### Choosing your setup
 
@@ -51,9 +51,9 @@ Required to clone the repo and work with version control.
 - **Linux**: via your package manager, e.g. `sudo apt install git` (Debian/Ubuntu), `sudo dnf install git` (Fedora), `sudo pacman -S git` (Arch)
 - Verify with `git --version`
 
-### 2. .NET 9 SDK
-Install the .NET 9 SDK (some exercises pin SDK version `9.0.308` via `global.json`):
-- Download: https://dotnet.microsoft.com/download/dotnet/9.0
+### 2. .NET 10 SDK
+Install the .NET 10 SDK (some exercises pin SDK version `10.0.200` via `global.json`):
+- Download: https://dotnet.microsoft.com/download/dotnet/10.0
 - Verify with `dotnet --version`
 
 ### 3. Visual Studio Code
@@ -92,7 +92,7 @@ The GitHub Copilot extension runs on the host side of VS Code and talks to whate
    ```json
    {
      "name": "development-with-AI",
-     "image": "mcr.microsoft.com/dotnet/sdk:9.0",
+     "image": "mcr.microsoft.com/dotnet/sdk:10.0",
      "features": {
        "ghcr.io/devcontainers/features/node:1": { "version": "22" }
      },
@@ -111,7 +111,7 @@ Useful for the Copilot CLI exercises without installing Node/.NET on the host:
 ```
 docker run -it --rm \
   -v "$(pwd)":/workspace -w /workspace \
-  mcr.microsoft.com/dotnet/sdk:9.0 bash
+  mcr.microsoft.com/dotnet/sdk:10.0 bash
 ```
 Then inside the container:
 ```
@@ -133,7 +133,7 @@ Choose this over Docker specifically when your company blocks Docker Desktop (e.
   ```
   podman run -it --rm \
     -v "$(pwd)":/workspace -w /workspace \
-    mcr.microsoft.com/dotnet/sdk:9.0 bash
+    mcr.microsoft.com/dotnet/sdk:10.0 bash
   ```
 - For the Docker section's Option A (VS Code Dev Containers), point the extension at Podman instead of Docker:
   - Install/run [Podman Desktop](https://podman.io/) or start the Podman machine (`podman machine init && podman machine start` on macOS/Windows).
