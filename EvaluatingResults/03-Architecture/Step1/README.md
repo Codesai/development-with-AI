@@ -11,7 +11,7 @@ Identify where domain code depends on infrastructure concerns.
 The project follows this layered architecture:
 
 ```text
-api -> application
+infrastructure -> application
 application -> domain
 domain -> no framework dependencies
 ```

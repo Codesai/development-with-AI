@@ -11,7 +11,7 @@ Compare the final design with the violation from [`03-Architecture/Step1`](../St
 The project follows this layered architecture:
 
 ```text
-api -> application
+infrastructure -> application
 application -> domain
 domain -> no framework dependencies
 ```

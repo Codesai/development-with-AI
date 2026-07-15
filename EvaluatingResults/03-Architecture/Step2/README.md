@@ -11,7 +11,7 @@ Turn the architectural rule into a failing test.
 The project follows this layered architecture:
 
 ```text
-api -> application
+infrastructure -> application
 application -> domain
 domain -> no framework dependencies
 ```
