@@ -31,6 +31,11 @@ If you're unsure, start with **Codespaces** — it needs no local setup at all a
 - Codespaces opens either in the **browser** (a full VS Code UI served from the cloud instance) or you can attach your **desktop VS Code** to it via the "Dev Containers"/"GitHub Codespaces" extension (`Ctrl+Shift+P` → "Codespaces: Connect to Codespace") — Codespaces is built on the same Dev Containers spec.
 - **Copilot in VS Code**: works exactly as on your local machine — sign in with the same GitHub account (Codespaces inherits your GitHub identity automatically since the codespace *is* tied to your account), and the Copilot/Copilot Chat extensions are typically pre-installed or auto-enabled; if not, install them from the Extensions view same as usual.
 - **Copilot CLI**: Should be already present in the image, if not install/run it exactly as in the Docker section's Option B below (`npm install -g @github/copilot`, then `copilot` + `/login`). Since you're already authenticated to GitHub in that environment, login is often just a confirmation click rather than a full device-code flow.
+- **Stryker.NET**: install it in the Codespaces terminal before starting the mutation-testing exercises:
+  ```bash
+  dotnet tool install --global dotnet-stryker
+  ```
+  If it is already installed, use `dotnet tool update --global dotnet-stryker`. Verify it with `dotnet stryker --version`.
 - **Known issue — outdated Copilot CLI version**: the default Codespaces image can ship an old Copilot CLI (e.g. `10.0.3`) that's incompatible with the current model-selection behavior for free accounts. If model selection fails or looks wrong, upgrade it:
   1. Run `npm install -g @github/copilot` to pull the latest version.
   2. Open a **new terminal** (the currently running `copilot` session won't pick up the upgrade) and run `copilot`.
@@ -80,6 +85,21 @@ npm install -g @github/copilot
 - If you don't have a GitHub account yet, create one for free: https://github.com/signup
 - GitHub Copilot requires an active subscription, but individuals can start a free trial or use the free tier (limited monthly usage) — see https://github.com/features/copilot/plans
 - Once enabled, sign in from both VS Code and the Copilot CLI as described above to use the same account across both tools.
+
+### 6. Stryker.NET (mutation-testing exercises)
+The mutation-testing exercises use the Stryker.NET command-line tool. In a local environment, install it globally after installing the .NET SDK. For Codespaces, run the same command in the Codespaces terminal.
+
+```bash
+dotnet tool install --global dotnet-stryker
+```
+
+If it is already installed, update it with `dotnet tool update --global dotnet-stryker`. Verify the installation with:
+
+```bash
+dotnet stryker --version
+```
+
+See [the mutation-testing exercise](EvaluatingResults/02-Mutation/02-mutation-testing-thinking.md) for how to run it.
 
 ## Docker-based setup
 
