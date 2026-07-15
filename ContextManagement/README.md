@@ -2,7 +2,7 @@ Small API that receives interest records and saves them in interests.txt.
 
 ## Requirements
 
-- docker and docker compose
+- Docker and Docker Compose
 
 ## Run application
 

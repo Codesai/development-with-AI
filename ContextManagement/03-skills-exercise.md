@@ -2,30 +2,32 @@
 
 ## Goal
 
-Lear how to create a skill to include coding standardars or rules
+Learn how to create a skill that includes coding standards or rules.
 
 ## Instructions
 
-Instead of defining the validations rules in AGENTS.md files we want to create two skills:
-    front-validation
-    back-validation
+Instead of defining the validation rules in `AGENTS.md` files, create two skills:
 
-Front-end rules:
+- `front-validation`
+- `back-validation`
+
+Frontend rules:
 
 - Include all validation functions in a JavaScript file called `validations.js`.
-- Do not use standard HTML validations.
+- Do not use standard HTML validation.
 
-Back-end rules:
+Backend rules:
 
-- Perform validations in controller classes before calling the repository.
-- When validation fails, return an HTTP bad request.
+- Perform validation in controller classes before calling the repository.
+- When validation fails, return an HTTP Bad Request response.
  
 
-## Recomendations
+## Recommendations
 
-Useful commands to work with skills in copilot:
-    /skills reload (skills are only loaded when copilot start a session)
-    /skills list
-    /skills info SKILL-NAME
+Useful commands for working with skills in Copilot:
 
-Verify with copilot cli output that the skill is loaded when needed
+- `/skills reload` (skills are only loaded when Copilot starts a session)
+- `/skills list`
+- `/skills info SKILL-NAME`
+
+Verify in the Copilot CLI output that the required skill is loaded when needed.

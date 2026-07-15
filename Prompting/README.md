@@ -1,6 +1,6 @@
 # Prompting
 
-A comprehensive series to experiment on how the structure of a prompt matter.
+A comprehensive series for experimenting with how the structure of a prompt matters.
 
 ## Objective
 

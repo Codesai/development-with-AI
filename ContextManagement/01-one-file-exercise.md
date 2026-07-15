@@ -2,20 +2,24 @@
 
 ## Goal
 
-Learn to define project specific instructions using one AGENTS.md in the root of the project
+Learn to define project-specific instructions using one `AGENTS.md` file in the project root.
 
 ## Instructions
 
-We want to validate that the email is syntactically valid before persists the request, for our project we have some rules for validations:
+Validate that the email is syntactically valid before persisting the request. The project has these validation rules:
 
-Front-end:
-    Include all the validations functions in a javascript file called validations.js 
-    Don’t use standard html validations
-Back-end:
-    The validations are done in the controller classes before calling the repository 
-    When a validation fails, return an HTTP bad request
+Frontend:
 
-## Recomendations
+- Include all validation functions in a JavaScript file called `validations.js`.
+- Do not use standard HTML validation.
 
-Try to create one rule at a time, look at the generated code after creating the rule, and if it's what you expected, move on to the next one
-Try to ask the IA “what are the rules for validation in this project” if we want to check is the agent has access to the file with the rules.
+Backend:
+
+- Perform validation in controller classes before calling the repository.
+- When validation fails, return an HTTP Bad Request response.
+
+## Recommendations
+
+Create one rule at a time. Review the generated code after creating each rule; if it meets your expectation, move on to the next one.
+
+Ask the AI, “What are the validation rules for this project?” to check whether it has access to the file containing the rules.
