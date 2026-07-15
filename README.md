@@ -9,6 +9,14 @@ Hands-on exercises for managing context when working with AI agents. Learn how t
 ### [EvaluatingResults](EvaluatingResults/README.md)
 Exercises for practicing evaluation of AI-generated code, tests, and architectural changes. Develop skills in code review, mutation testing, and architectural fitness validation.
 
+## Tools required by exercise set
+
+| Exercise set | Required tools |
+| --- | --- |
+| Prompting | GitHub Copilot Chat or GitHub Copilot CLI |
+| Context Management | GitHub Copilot CLI and Docker with Docker Compose |
+| Evaluating Results | .NET 10 SDK and GitHub Copilot; the mutation-testing exercise also requires Stryker.NET |
+
 ## Prerequisites
 
 These exercises use a .NET 10 codebase and GitHub Copilot as the AI assistant.
