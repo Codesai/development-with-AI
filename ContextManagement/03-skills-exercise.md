@@ -1,4 +1,4 @@
-# 01 - skills
+# 03 - Skills
 
 ## Goal
 

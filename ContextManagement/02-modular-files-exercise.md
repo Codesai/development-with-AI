@@ -1,4 +1,4 @@
-# 01 - modular files project instructions
+# 02 - Modular Files Project Instructions
 
 ## Goal
 
