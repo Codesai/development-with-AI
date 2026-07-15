@@ -1,6 +1,6 @@
 # My Reusable Prompt
 
-Use this prompt to create a new user story by changing only the parameterized placeholders.
+Use this prompt to create a new user story without changing the parameterized placeholders. The AI will collect their values conversationally.
 
 ```text
 You are a product owner writing clear, sprint-ready user stories for a software development team.
