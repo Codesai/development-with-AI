@@ -26,7 +26,7 @@ If you're unsure, start with **Codespaces** — it needs no local setup at all a
 
 ## Codespaces (recommended default)
 
-[Codespaces](https://github.com/features/codespaces) runs a Dev Container in the cloud, so there's nothing to install locally at all — not even Docker/Podman. This is the recommended default: fastest to start, no local footprint. Free tier: **120 core-hours/month** and **15 GB-months** of storage for personal accounts (more on GitHub Pro/paid plans); see https://docs.github.com/en/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot.
+[Codespaces](https://github.com/features/codespaces) runs a Dev Container in the cloud, so there's nothing to install locally at all — not even Docker/Podman. This is the recommended default: fastest to start, no local footprint. Codespaces plans have limited quotas; check the [current GitHub billing documentation](https://docs.github.com/en/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot) for details.
 - From the repo on GitHub: `Code` → `Codespaces` → `Create codespace on main` (this picks up the `.devcontainer/devcontainer.json` from the Docker section below if present, or falls back to a default image).
 - Codespaces opens either in the **browser** (a full VS Code UI served from the cloud instance) or you can attach your **desktop VS Code** to it via the "Dev Containers"/"GitHub Codespaces" extension (`Ctrl+Shift+P` → "Codespaces: Connect to Codespace") — Codespaces is built on the same Dev Containers spec.
 - **Copilot in VS Code**: works exactly as on your local machine — sign in with the same GitHub account (Codespaces inherits your GitHub identity automatically since the codespace *is* tied to your account), and the Copilot/Copilot Chat extensions are typically pre-installed or auto-enabled; if not, install them from the Extensions view same as usual.
@@ -36,10 +36,10 @@ If you're unsure, start with **Codespaces** — it needs no local setup at all a
   dotnet tool install --global dotnet-stryker
   ```
   If it is already installed, use `dotnet tool update --global dotnet-stryker`. Verify it with `dotnet stryker --version`.
-- **Known issue — outdated Copilot CLI version**: the default Codespaces image can ship an old Copilot CLI (e.g. `10.0.3`) that's incompatible with the current model-selection behavior for free accounts. If model selection fails or looks wrong, upgrade it:
+- **Copilot CLI version**: the default Codespaces image can ship an outdated Copilot CLI. If model selection fails or looks wrong, update it:
   1. Run `npm install -g @github/copilot` to pull the latest version.
   2. Open a **new terminal** (the currently running `copilot` session won't pick up the upgrade) and run `copilot`.
-  3. Confirm the version shown is the latest (`10.0.70` or newer) — if it still shows the old version, close all terminals/Copilot sessions and retry.
+  3. Confirm that the new session reports the updated version. If it does not, close all terminals and Copilot sessions, then retry.
 - Everything is ephemeral per-codespace but persists across stop/start (not across deletion), so you don't need to redo setup every session — only if you delete the codespace.
 - **Not a fit if**: you'll exceed the free quota regularly, or you need to work offline.
 
