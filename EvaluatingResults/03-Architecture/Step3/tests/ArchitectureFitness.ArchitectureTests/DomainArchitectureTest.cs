@@ -10,11 +10,11 @@ public sealed class DomainArchitectureTest
     {
         var result = Types.InAssembly(typeof(OrderRiskPolicy).Assembly)
             .Should()
-            .NotHaveDependencyOnAny("ArchitectureFitness.Infrastructure", "System.*")
+            .NotHaveDependencyOnAny("ArchitectureFitness.Infrastructure", "System.Net.Http", "System.Net.Http.Json")
             .GetResult();
 
         Assert.True(
             result.IsSuccessful,
-            "Domain classes must not depend on infrastructure-related concerns. Move external communication and infrastructure integrations to the infrastructure layer.");
+            "Domain classes must not depend on infrastructure or HTTP concerns. Move external communication and infrastructure integrations to the infrastructure layer.");
     }
 }

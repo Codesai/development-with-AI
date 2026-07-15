@@ -25,5 +25,5 @@ The project follows this layered architecture:
 ```text
 infrastructure -> application
 application -> domain
-domain -> no framework dependencies
+domain -> no infrastructure or HTTP dependencies
 ```
