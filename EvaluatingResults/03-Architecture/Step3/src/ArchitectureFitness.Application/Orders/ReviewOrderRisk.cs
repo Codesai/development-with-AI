@@ -11,11 +11,11 @@ public sealed class ReviewOrderRisk
         _riskGateway = riskGateway;
     }
 
-    public async Task<bool> Execute(string orderId, CancellationToken cancellationToken = default)
+    public async Task<bool> Execute(string orderId)
     {
         var order = new Order(orderId);
         var riskPolicy = new OrderRiskPolicy(order);
-        var assessment = await _riskGateway.GetRiskAssessment(order.Id, cancellationToken);
+        var assessment = await _riskGateway.GetRiskAssessment(order.Id);
 
         return riskPolicy.IsRisky(assessment);
     }

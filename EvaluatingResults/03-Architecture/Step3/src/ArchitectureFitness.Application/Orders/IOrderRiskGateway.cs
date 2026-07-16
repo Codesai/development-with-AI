@@ -4,5 +4,5 @@ namespace ArchitectureFitness.Application.Orders;
 
 public interface IOrderRiskGateway
 {
-    Task<OrderRiskAssessment> GetRiskAssessment(string orderId, CancellationToken cancellationToken = default);
+    Task<OrderRiskAssessment> GetRiskAssessment(string orderId);
 }

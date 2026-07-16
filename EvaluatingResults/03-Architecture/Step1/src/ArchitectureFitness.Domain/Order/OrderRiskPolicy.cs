@@ -1,4 +1,4 @@
-using ArchitectureFitness.Infrastructure.Orders;
+using HttpOrderRiskGateway = ArchitectureFitness.Infrastructure.Orders.HttpOrderRiskGateway;
 
 namespace ArchitectureFitness.Domain.Order;
 
@@ -12,8 +12,8 @@ public sealed class OrderRiskPolicy
         _order = order;
     }
 
-    public async Task<bool> IsRisky(CancellationToken cancellationToken = default)
+    public async Task<bool> IsRisky()
     {
-        return await _riskGateway.IsRisky(_order.Id, cancellationToken);
+        return await _riskGateway.IsRisky(_order.Id);
     }
 }

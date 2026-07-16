@@ -16,10 +16,9 @@ public sealed class HttpOrderRiskGateway
         _httpClient = httpClient;
     }
 
-    public async Task<bool> IsRisky(string orderId, CancellationToken cancellationToken = default)
+    public async Task<bool> IsRisky(string orderId)
     {
         return await _httpClient.GetFromJsonAsync<bool>(
-            $"https://risk.example.com/orders/{orderId}",
-            cancellationToken);
+            $"https://risk.example.com/orders/{orderId}");
     }
 }
