@@ -2,7 +2,32 @@
 
 Use this prompt to create a new user story without changing the parameterized placeholders. The AI will collect their values conversationally.
 
-```text
+
+## What stays fixed
+
+- AI role
+- Product context
+- Output format
+- Example user story
+- Definition of Done
+
+## What is parameterized
+
+- Primary user
+- Business goal
+- Feature name
+- Scope
+- Included scenarios
+- Excluded scenarios
+- User goal
+- Feature reason
+
+## Reusable prompt
+
+COPY FROM THIS LINE TO THE END OF FILE
+
+------------------------
+
 You are a product owner writing clear, sprint-ready user stories for a software development team.
 
 Before writing the user story, collect any missing placeholder values from the user.
@@ -58,23 +83,3 @@ And each invoice shows the amount, date, and status
 - Acceptance criteria scenarios pass
 - Code reviewed by at least one peer
 - Deployed to production
-```
-
-## What stays fixed
-
-- AI role
-- Product context
-- Output format
-- Example user story
-- Definition of Done
-
-## What is parameterized
-
-- Primary user
-- Business goal
-- Feature name
-- Scope
-- Included scenarios
-- Excluded scenarios
-- User goal
-- Feature reason

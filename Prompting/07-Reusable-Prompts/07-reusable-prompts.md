@@ -46,7 +46,7 @@ In this stage, you run the prompt without replacing its placeholders. The AI col
 
 1. Start a new conversation with your AI assistant.
 2. Open [interactive-reusable-prompt.md](./interactive-reusable-prompt.md).
-3. Copy only the prompt inside its code block into the conversation.
+3. Copy `## Reusable prompt` into the conversation.
 4. Keep every placeholder unchanged and run the prompt.
 5. Check that the AI asks for one missing parameter at a time instead of producing a user story immediately.
 6. Answer each question using the **Transaction search parameters** below.
