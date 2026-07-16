@@ -6,7 +6,7 @@ Experience how the same task produces very different results depending on how yo
 
 ## Instructions
 
-1. Open the GitHub Copilot CLI.
+1. Open the VS Code Chat or GitHub Copilot CLI.
 2. Write a prompt asking the LLM to write a user story.
 3. Copy the output
 4. Run the exact same prompt again without changing anything
