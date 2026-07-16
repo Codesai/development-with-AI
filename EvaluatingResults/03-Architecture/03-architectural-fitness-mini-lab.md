@@ -25,5 +25,7 @@ The project follows this layered architecture:
 ```text
 infrastructure -> application
 application -> domain
-domain -> no infrastructure or HTTP dependencies
+domain -> no application or infrastructure module dependencies
 ```
+
+The infrastructure module owns external technical details such as HTTP clients. The exercise focuses on preventing the domain model from depending directly on outer modules.

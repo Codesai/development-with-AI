@@ -12,15 +12,15 @@ public sealed class DomainArchitectureTest
     ];
 
     [Fact]
-    public void DomainMustNotDependOnInfrastructure()
+    public void DomainMustNotDependOnOuterModules()
     {
         var result = Types.InAssemblies(DomainAssemblies)
             .Should()
-            .NotHaveDependencyOnAny("ArchitectureFitness.Infrastructure", "System.Net.Http", "System.Net.Http.Json")
+            .NotHaveDependencyOnAny("ArchitectureFitness.Application", "ArchitectureFitness.Infrastructure")
             .GetResult();
 
         Assert.True(
             result.IsSuccessful,
-            "Domain classes must not depend on infrastructure. Keep infrastructure concerns outside the domain.");
+            "Domain classes must not depend on application or infrastructure modules. Keep orchestration and infrastructure integrations outside the domain.");
     }
 }
