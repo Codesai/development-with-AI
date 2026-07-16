@@ -13,8 +13,10 @@ The project follows this layered architecture:
 ```text
 infrastructure -> application
 application -> domain
-domain -> no infrastructure or HTTP dependencies
+domain -> no application or infrastructure module dependencies
 ```
+
+The infrastructure module owns external technical details such as HTTP clients.
 
 ## Run
 
@@ -23,7 +25,7 @@ cd 03-Architecture/Step2
 dotnet test ArchitectureFitness.slnx
 ```
 
-The test should fail because the domain layer still depends on infrastructure concerns.
+The test should fail because the domain layer still depends directly on an outer module.
 
 ## Task
 

@@ -1,21 +1,18 @@
-using System.Net.Http;
-using System.Net.Http.Json;
+using ArchitectureFitness.Infrastructure.Orders;
 
 namespace ArchitectureFitness.Domain.Order;
 
 public sealed class OrderRiskPolicy
 {
-    private readonly HttpClient _httpClient;
+    private readonly HttpOrderRiskGateway _riskGateway;
 
-    public OrderRiskPolicy(HttpClient httpClient)
+    public OrderRiskPolicy(HttpOrderRiskGateway riskGateway)
     {
-        _httpClient = httpClient;
+        _riskGateway = riskGateway;
     }
 
     public async Task<bool> IsRisky(string orderId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.GetFromJsonAsync<bool>(
-            $"https://risk.example.com/orders/{orderId}",
-            cancellationToken);
+        return await _riskGateway.IsRisky(orderId, cancellationToken);
     }
 }
