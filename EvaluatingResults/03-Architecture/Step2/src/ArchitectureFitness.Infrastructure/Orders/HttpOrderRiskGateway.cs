@@ -6,6 +6,11 @@ public sealed class HttpOrderRiskGateway
 {
     private readonly HttpClient _httpClient;
 
+    public HttpOrderRiskGateway()
+        : this(new HttpClient())
+    {
+    }
+
     public HttpOrderRiskGateway(HttpClient httpClient)
     {
         _httpClient = httpClient;

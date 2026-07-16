@@ -29,6 +29,6 @@ dotnet test ArchitectureFitness.slnx
 
 The domain layer no longer depends on application or infrastructure modules. HTTP communication is handled by an infrastructure adapter behind an application-owned port.
 
-The infrastructure module also provides the composition registration that connects `IOrderRiskGateway` to `HttpOrderRiskGateway`. The DI test validates that the real object graph can be built without moving those dependencies into the domain model.
+The use case builds the domain `Order` entity from the input and creates `OrderRiskPolicy` directly from that entity. The infrastructure module provides the composition registration that connects `IOrderRiskGateway` to `HttpOrderRiskGateway`. The DI test validates that the real object graph can be built without moving those dependencies into the domain model.
 
 The architecture rule is strongest when it is documented for humans and agents, reviewed manually, and enforced through an executable test in CI.

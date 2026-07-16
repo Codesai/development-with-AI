@@ -21,6 +21,6 @@ public sealed class HttpOrderRiskGateway : IOrderRiskGateway
             $"https://risk.example.com/orders/{orderId}",
             cancellationToken);
 
-        return new OrderRiskAssessment(isRisky);
+        return new OrderRiskAssessment(orderId, isRisky);
     }
 }
