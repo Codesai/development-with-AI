@@ -1,4 +1,4 @@
-# 01 - One file project instructions
+# 01 - Project instructions
 
 ## Goal
 
@@ -18,12 +18,9 @@ Backend:
 - Perform validation in controller classes before calling the repository.
 - When validation fails, return an HTTP Bad Request response.
 
-
 Exercise 1 - Create one Agents.md file in the root of ContextManagement with the validation rules.
 
-
 Exercise 2 - Create modular Agents.md files: try to define the same rules but this time using modular Agents.md files.
-
 
 ## Recommendations
 
