@@ -2,7 +2,7 @@
 
 ## Goal
 
-Learn to define project-specific instructions using project instructions. 
+Learn to define project-specific instructions.
 
 ## Instructions
 
@@ -20,14 +20,12 @@ Backend:
 
 Exercise 1 - Create one Agents.md file in the root of ContextManagement with the validation rules.
 
-Exercise 2 - Create modular Agents.md files: try to define the same rules but this time using modular Agents.md files.
+Exercise 2 - Create modular AGENTS.md files that define the same rules.
 
 ## Recommendations
 
-Create an AGENTS.md file in ContexMangement root
-
 Create one rule at a time. Review the generated code after creating each rule; if it meets your expectation, move on to the next one.
 
-Ask the AI, “What are the validation rules for this project?” to check whether it has access to the file containing the rules. 
+Ask the AI, “What are the validation rules for this project?” to check whether it has access to the file containing the rules.
 
-Remenber you can always revert changes using version control 
+Remember you can always revert changes using version control.

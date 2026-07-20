@@ -2,7 +2,7 @@ Small API that receives interest records and saves them in interests.txt.
 
 ## Requirements
 
-- Use Github Codespaces 
+- Use GitHub Codespaces
 
 OR 
 
