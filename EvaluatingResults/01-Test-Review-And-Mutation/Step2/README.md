@@ -63,4 +63,3 @@ Try to **fix the tests yourself**:
 2. Run `dotnet test`. Do they pass? If they fail, why? (Hint: Does the AI implementation match the prompt's rules precisely?)
 3. Fix the production code if needed.
 4. Run `dotnet stryker` again and aim for **0 surviving mutants**.
-
