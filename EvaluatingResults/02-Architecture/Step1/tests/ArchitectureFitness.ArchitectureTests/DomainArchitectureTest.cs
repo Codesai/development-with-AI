@@ -8,7 +8,7 @@ public sealed class DomainArchitectureTest
 {
     private static readonly Assembly[] DomainAssemblies =
     [
-        typeof(OrderRiskPolicy).Assembly
+        typeof(Order).Assembly
     ];
 
     [Fact(Skip = ">>>>>> EXERCISE: Remove Skip to activate the architecture rule.")]

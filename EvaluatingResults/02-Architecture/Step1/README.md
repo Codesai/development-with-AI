@@ -22,7 +22,7 @@ The infrastructure module owns external technical details such as HTTP clients.
 
 ### Task 1 - Define the Architectural Rule
 
-- Inspect [`src/ArchitectureFitness.Domain/Order/OrderRiskPolicy.cs`](src/ArchitectureFitness.Domain/Order/OrderRiskPolicy.cs) and the project dependencies.
+- Inspect [`src/ArchitectureFitness.Domain/Order/Order.cs`](src/ArchitectureFitness.Domain/Order/Order.cs) and the project dependencies.
 - Notice that [`src/ArchitectureFitness.Infrastructure/Orders/HttpOrderRiskGateway.cs`](src/ArchitectureFitness.Infrastructure/Orders/HttpOrderRiskGateway.cs) is an infrastructure adapter that uses HTTP.
 - **Write one natural-language architectural rule** that would prevent the domain layer from depending on application or infrastructure.
 

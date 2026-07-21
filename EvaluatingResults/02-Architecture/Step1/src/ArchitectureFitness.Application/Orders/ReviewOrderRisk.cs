@@ -7,8 +7,7 @@ public sealed class ReviewOrderRisk
     public Task<bool> Execute(string orderId)
     {
         var order = new Order(orderId);
-        var riskPolicy = new OrderRiskPolicy(order);
 
-        return riskPolicy.IsRisky();
+        return order.IsRisky();
     }
 }
