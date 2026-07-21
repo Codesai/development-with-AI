@@ -22,7 +22,7 @@ dotnet tool install --global dotnet-stryker
 
 ## Predict Mutants
 
-Before running Stryker, predict whether the current AI tests would fail for each injected mutation:
+Before running Stryker, predict whether the current AI tests would fail for each mutation listed below:
 
 | Mutation | Would tests fail? |
 | --- | --- |
@@ -33,6 +33,8 @@ Before running Stryker, predict whether the current AI tests would fail for each
 | Change `return 4.99` to `return 0.0` | ? |
 
 ## Run Stryker
+
+From the `EvaluatingResults` directory, run:
 
 ```bash
 cd 01-Test-Review-And-Mutation/Step2
@@ -56,7 +58,7 @@ Green tests and high code coverage are not enough. A line of code can be execute
 
 ## 🏆 Challenge: Fix it!
 
-Before looking at the reference solution in Step 3, try to **fix the tests yourself**:
+Try to **fix the tests yourself**:
 1. Add the missing boundary tests to `tests/Shipping.Tests/ShippingCostCalculatorTest.cs`.
 2. Run `dotnet test`. Do they pass? If they fail, why? (Hint: Does the AI implementation match the prompt's rules precisely?)
 3. Fix the production code if needed.

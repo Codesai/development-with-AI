@@ -4,13 +4,7 @@
 
 Learn how to evaluate AI-generated tests through **manual code review** (Step 1) and **tool-assisted mutation testing** (Step 2), before validating the **complete solution** (Step 3).
 
-## Duration
-
-35 minutes
-
 ## Setup
-
-Use the prepared folders in `main`. Students do not need to copy or create code manually.
 
 Stryker.NET is used in Step 2 and Step 3 to evaluate test strength. Verify it is installed:
 
@@ -32,7 +26,7 @@ dotnet tool install --global dotnet-stryker
 
 1. [`01-Test-Review-And-Mutation/Step1`](Step1): **Manual Test Review**
    - Review AI-generated code and green tests manually.
-   - Identify missing boundary tests and evaluate whether green tests give sufficient confidence.
+   - Check boundary tests and evaluate whether green tests give sufficient confidence.
    - Read [`Step1/README.md`](Step1/README.md).
 
 2. [`01-Test-Review-And-Mutation/Step2`](Step2): **Tool-Assisted Review (Mutation Testing)**

@@ -23,7 +23,5 @@ dotnet test
 - Read [`tests/Shipping.Tests/ShippingCostCalculatorTest.cs`](tests/Shipping.Tests/ShippingCostCalculatorTest.cs).
 - Perform a **manual review** of the tests:
   - Check whether premium users and non-premium users under 5 kg get free shipping.
-  - Check the boundary at exactly 5 kg.
   - Check whether heavy shipping is tested.
-  - Check the boundary at exactly 20 kg.
-- Note down which boundary tests are missing and whether the green tests give enough confidence to accept the AI-generated change.
+- Note down which tests are missing and whether the green tests give enough confidence to accept the AI-generated change.

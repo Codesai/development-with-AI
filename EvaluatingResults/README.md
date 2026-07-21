@@ -7,8 +7,6 @@ Exercises for practicing evaluation of AI-generated code, tests, and architectur
 - [Exercise 1 - Review AI-Generated Tests & Mutation Testing](01-Test-Review-And-Mutation/01-test-review-and-mutation.md)
 - [Exercise 2 - Architectural Fitness Mini-Lab](02-Architecture/02-architectural-fitness-mini-lab.md)
 
-All exercise states are available as folders in `main`. Students do not need to switch branches.
-
 ## Exercise Folders
 
 ### Exercise 1 - Test Review & Mutation Testing

@@ -4,14 +4,6 @@
 
 Translate architectural intent into executable rules.
 
-## Duration
-
-20 minutes
-
-## Setup
-
-Use the prepared folders in `main`. Students do not need to copy or create the code manually.
-
 ## Steps
 
 - [`02-Architecture/Step1`](Step1): generated code with an architectural violation. Read [`02-Architecture/Step1/README.md`](Step1/README.md).
