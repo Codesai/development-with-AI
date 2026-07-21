@@ -1,20 +1,14 @@
 using ArchitectureFitness.Domain.Order;
 using NetArchTest.Rules;
-using System.Reflection;
 
 namespace ArchitectureFitness.ArchitectureTests;
 
 public sealed class DomainArchitectureTest
 {
-    private static readonly Assembly[] DomainAssemblies =
-    [
-        typeof(OrderRiskPolicy).Assembly
-    ];
-
     [Fact]
     public void DomainMustNotDependOnOuterModules()
     {
-        var result = Types.InAssemblies(DomainAssemblies)
+        var result = Types.InAssembly(typeof(OrderRiskPolicy).Assembly)
             .Should()
             .NotHaveDependencyOnAny("ArchitectureFitness.Application", "ArchitectureFitness.Infrastructure")
             .GetResult();

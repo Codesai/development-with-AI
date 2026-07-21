@@ -17,6 +17,5 @@ Exercises for practicing evaluation of AI-generated code, tests, and architectur
 
 ### Exercise 2 - Architectural Fitness
 - [`02-Architecture/02-architectural-fitness-mini-lab.md`](02-Architecture/02-architectural-fitness-mini-lab.md)
-  - [`Step1`](02-Architecture/Step1): generated code with an architectural violation.
-  - [`Step2`](02-Architecture/Step2): same code with a failing architecture fitness test.
-  - [`Step3`](02-Architecture/Step3): corrected design with the architecture fitness test passing.
+  - [`Step1`](02-Architecture/Step1): code with an architectural violation and a failing architecture fitness test.
+  - [`Step2`](02-Architecture/Step2): corrected design with the architecture fitness test passing.

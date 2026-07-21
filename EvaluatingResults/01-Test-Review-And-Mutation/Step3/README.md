@@ -33,3 +33,4 @@ dotnet stryker
 - All unit tests pass (`dotnet test`).
 - Stryker reports **0 surviving mutants** (100% mutant kill rate).
 - Both manual review and mutation testing findings have been fully addressed by robust boundary testing.
+

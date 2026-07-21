@@ -25,3 +25,4 @@ dotnet test
   - Check whether premium users and non-premium users under 5 kg get free shipping.
   - Check whether heavy shipping is tested.
 - Note down which tests are missing and whether the green tests give enough confidence to accept the AI-generated change.
+

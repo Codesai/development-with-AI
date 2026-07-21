@@ -1,24 +1,23 @@
 using System.Net.Http.Json;
+using ArchitectureFitness.Application.Orders;
+using ArchitectureFitness.Domain.Order;
 
 namespace ArchitectureFitness.Infrastructure.Orders;
 
-public sealed class HttpOrderRiskGateway
+public sealed class HttpOrderRiskGateway : IOrderRiskGateway
 {
     private readonly HttpClient _httpClient;
-
-    public HttpOrderRiskGateway()
-        : this(new HttpClient())
-    {
-    }
 
     public HttpOrderRiskGateway(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
 
-    public async Task<bool> IsRisky(string orderId)
+    public async Task<OrderRiskAssessment> GetRiskAssessment(string orderId)
     {
-        return await _httpClient.GetFromJsonAsync<bool>(
+        var isRisky = await _httpClient.GetFromJsonAsync<bool>(
             $"https://risk.example.com/orders/{orderId}");
+
+        return new OrderRiskAssessment(orderId, isRisky);
     }
 }

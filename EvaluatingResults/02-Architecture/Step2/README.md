@@ -1,10 +1,10 @@
-# Architecture Step 2 - Fitness Test Red
+# Architecture Step 2 - Fitness Test Green
 
-This step adds an executable architecture fitness test while keeping the violation.
+This step contains the corrected design with the architecture fitness test passing.
 
 ## Goal
 
-Turn the architectural rule into a failing test.
+Compare the final design with the violation from [`02-Architecture/Step1`](../Step1).
 
 ## Architecture Rule
 
@@ -22,13 +22,11 @@ The infrastructure module owns external technical details such as HTTP clients.
 
 ```bash
 cd 02-Architecture/Step2
-dotnet test ArchitectureFitness.slnx
+dotnet test
 ```
 
-The test should fail because the domain layer still depends directly on an outer module.
+## Expected Learning
 
-## Task
+The domain layer no longer depends on application or infrastructure modules. HTTP communication is handled by an infrastructure adapter behind an application-owned port.
 
-- Read [`tests/ArchitectureFitness.ArchitectureTests/DomainArchitectureTest.cs`](tests/ArchitectureFitness.ArchitectureTests/DomainArchitectureTest.cs).
-- Compare the test rule with the natural-language rule from [`02-Architecture/Step1`](../Step1).
-- Decide whether this rule also belongs in `AGENTS.md`, a code review checklist, CI, or all of them.
+The architecture rule is strongest when it is documented for humans and agents, reviewed manually, and enforced through an executable test in CI.
