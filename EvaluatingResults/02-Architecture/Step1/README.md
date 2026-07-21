@@ -36,3 +36,10 @@ The infrastructure module owns external technical details such as HTTP clients.
 - Run `dotnet test` again to activate the architecture rule.
 - Explain which architectural rule the test enforces, which dependency violates it, and which domain type causes the failure.
 - Do not fix the production code yet.
+
+### Task 3 - Ask AI to Fix the Violation
+
+- Ask an AI coding assistant to fix the architecture rule violation while preserving the application's behavior.
+- Give the assistant the failing test output and the architectural rule as context.
+- Review the proposed changes and confirm that dependencies point in the intended direction.
+- Run `dotnet test` and verify that the architecture test now passes.
