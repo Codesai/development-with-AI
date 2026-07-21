@@ -32,5 +32,7 @@ The infrastructure module owns external technical details such as HTTP clients.
 
 - Go to `cd 02-Architecture/Step1`
 - Run tests: `dotnet test`.
+- Notice the skipped architecture test and remove `Skip` from its `[Fact]` attribute.
+- Run `dotnet test` again to activate the architecture rule.
 - Explain which architectural rule the test enforces, which dependency violates it, and which domain type causes the failure.
 - Do not fix the production code yet.
