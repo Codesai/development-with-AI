@@ -10,8 +10,8 @@ OR
 
 ## Run application
 
-From the ContextManagement folder start the service with docker-compose:
-   docker compose up --build -d
+From the ContextManagement folder start the service with:
+   make run
 
 View records on the host in back/interests.txt (it updates as submissions arrive)
 
