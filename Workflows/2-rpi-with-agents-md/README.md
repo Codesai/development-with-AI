@@ -12,7 +12,7 @@ OR
 
 ## Run the application
 
-From the `ContextManagement` directory, start the service with:
+From this directory, start the service with:
 
 ```bash
 make run
