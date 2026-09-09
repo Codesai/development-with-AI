@@ -1,0 +1,9 @@
+services:
+  interest-app:
+    build: .
+    ports:
+      - "8080:8080"  # host:container (host 8080 -> container 8080)
+    volumes:
+      # Map the interests.txt file from host to container so registrations persist on host
+      - ./back/interests.txt:/app/interests.txt
+    restart: unless-stopped
