@@ -1,0 +1,3 @@
+# Config
+
+Follow actual architecture.
