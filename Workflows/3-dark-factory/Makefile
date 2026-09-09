@@ -1,8 +1,5 @@
-.PHONY: build validate run deployment-config
+.PHONY: build run
 build:
 	docker compose build
-deployment-config:
-	docker compose config --quiet
-validate: build deployment-config
 run:
 	docker compose up --build -d
