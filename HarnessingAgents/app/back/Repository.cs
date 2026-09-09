@@ -18,19 +18,14 @@ namespace InterestApi.Repository
     /// </summary>
     public class FileRegistrationRepository
     {
-        // Absolute path to the data file. Resolved once in the constructor so
-        // every write targets the same file even if the working directory
-        // changes later.
         private readonly string _filePath;
 
         /// <summary>
-        /// Resolves the data file path relative to the current working
-        /// directory. In the container this is <c>/app/interests.txt</c>, which
-        /// is bind-mounted back to the host.
+        /// Resolves the data file path once so every write targets the same file.
         /// </summary>
         public FileRegistrationRepository()
         {
-            _filePath = Path.Combine(Directory.GetCurrentDirectory(), "interests.txt");
+            _filePath = ResolveDataFilePath();
         }
 
         /// <summary>
@@ -45,14 +40,27 @@ namespace InterestApi.Repository
             // Fail fast on a null argument rather than writing a malformed line.
             if (registration == null) throw new ArgumentNullException(nameof(registration));
 
-            // Build the line: an ISO-8601 UTC timestamp followed by the three
-            // fields, separated by tabs and terminated with a newline. The
-            // "O" format specifier gives a round-trippable timestamp.
-            var line = $"{DateTime.UtcNow:O}\t{registration.Name}\t{registration.Email}\t{registration.Course}\n";
+            var line = FormatRecordLine(registration);
 
             // Append (do not overwrite). AppendAllTextAsync creates the file on
             // first use.
             await System.IO.File.AppendAllTextAsync(_filePath, line);
+        }
+
+        private static string ResolveDataFilePath()
+        {
+            // Resolve against the current working directory rather than the
+            // assembly location: in the container that directory is /app, and
+            // interests.txt there is bind-mounted back to the host.
+            return Path.Combine(Directory.GetCurrentDirectory(), "interests.txt");
+        }
+
+        private static string FormatRecordLine(Registration registration)
+        {
+            // One tab-separated line per registration: an ISO-8601 UTC timestamp
+            // ("O" round-trips) then the three fields, newline at the end.
+            // Column order is fixed - readers split on '\t' by position.
+            return $"{DateTime.UtcNow:O}\t{registration.Name}\t{registration.Email}\t{registration.Course}\n";
         }
     }
 }

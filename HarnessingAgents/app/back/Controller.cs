@@ -48,11 +48,16 @@ namespace InterestApi.Controllers
             // not valid JSON. Nothing to persist in that case.
             if (registration == null) return BadRequest();
 
-            // Delegate the actual write to the repository.
+            // Persist first, then acknowledge.
             await _repository.SaveAsync(registration);
+            return AcknowledgeRegistration();
+        }
 
-            // Report success. The location points back at the collection
-            // endpoint because individual registrations are not addressable.
+        private IActionResult AcknowledgeRegistration()
+        {
+            // 201 Created with the collection URL as Location: individual
+            // registrations are not addressable, so we point back at the
+            // endpoint that created them rather than at a per-item resource.
             return Created("/api/register", new { status = "ok" });
         }
     }
