@@ -2,7 +2,7 @@
 
 After completing the README tutorial, imagine the next feature request arrives with these instructions:
 
-> Add `GET /api/courses`, returning the two offered course names. Inspect existing patterns first. Do not change registration behavior. Wait for plan approval. Run validation and report the results.
+> Add `GET /api/courses`, returning the two offered course names. Inspect existing patterns first. Do not change registration behavior. Wait for research and plan approval. Create tests, run all validations and report the results.
 
 Read the existing `AGENTS.md`. Split the request into:
 

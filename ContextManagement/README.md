@@ -1,4 +1,6 @@
-Small API that receives interest records and saves them in interests.txt.
+# Context Management
+
+A small API in .NET 10, that receives interest records and saves them to `interests.txt`.
 
 ## Requirements
 
@@ -8,10 +10,15 @@ OR
 
 - Docker and Docker Compose
 
-## Run application
+## Run the application
 
-From the ContextManagement folder start the service with:
-   make run
+From the `ContextManagement` directory, start the service with:
+
+```bash
+make run
+```
+
+The application is available at <http://localhost:8080>.
 
 View records on the host in back/interests.txt (it updates as submissions arrive)
 
@@ -19,6 +26,9 @@ View records on the host in back/interests.txt (it updates as submissions arrive
 
 Complete the exercises in order:
 
-1. [One-file project instructions](../ContextManagement-docs/01-project-instructions-exercise.md): define validation rules in a root `AGENTS.md`, then organize the same rules using modular `AGENTS.md` files.
-2. [Skills](../ContextManagement-docs/02-skills-exercise.md): create separate frontend and backend validation skills instead of defining the rules in `AGENTS.md` files.
-3. [Code is context](../ContextManagement-docs/03-code-is-context.md): remove the explicit project instructions and skills, then observe how the existing validation code guides the agent's implementation.
+1. [One-file project instructions](../ContextManagement-docs/01-project-instructions-exercise.md)  
+   Define validation rules in a root `AGENTS.md`, then organize the same rules using modular `AGENTS.md` files.
+2. [Skills](../ContextManagement-docs/02-skills-exercise.md)  
+   Create separate frontend and backend validation skills instead of defining the rules in `AGENTS.md` files.
+3. [Code is context](../ContextManagement-docs/03-code-is-context.md)  
+   Remove the explicit project instructions and skills, then observe how the existing validation code guides the agent’s implementation.

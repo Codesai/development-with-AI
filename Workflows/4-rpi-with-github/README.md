@@ -1,12 +1,35 @@
-# Exercise 7 — GitHub becomes part of the feedback loop
+# Workflows - Exercise 7 — GitHub becomes part of the feedback loop
+
+A small API in .NET 10, that receives interest records and saves them to `interests.txt`.
+
+## Requirements
+
+- Use GitHub Codespaces
+
+OR 
+
+- Docker and Docker Compose
+
+## Run the application
+
+From the `ContextManagement` directory, start the service with:
+
+```bash
+make run
+```
+
+The application is available at <http://localhost:8080>.
+
+View records on the host in back/interests.txt (it updates as submissions arrive)
 
 ## Learning goal
 
 Make GitHub Actions another feedback channel the agent can inspect and act on within a bounded loop.
 
+
 ## Setup
 
-Copy this folder to the root of a new repository, initialize and push it as in Exercise 6, then create the `normalize-registration.md` issue. Confirm Actions is enabled and `gh auth status` succeeds. The issue requests storage-safety validation, giving the agent a concrete local change to implement.
+Copy this folder to the root of a new repository, initialize and push it, then create the `normalize-registration.md` issue. Confirm Actions is enabled and `gh auth status` succeeds. The issue requests storage-safety validation, giving the agent a concrete local change to implement.
 
 ## Starting state
 

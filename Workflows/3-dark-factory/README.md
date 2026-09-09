@@ -1,10 +1,30 @@
-# Exercise 8 — Run a local Dark Factory
+# Workflows - Exercise 3 — Run a local Dark Factory
+
+A small API in .NET 10, that receives interest records and saves them to `interests.txt`.
+
+## Requirements
+
+- Use GitHub Codespaces
+
+OR 
+
+- Docker and Docker Compose
+
+## Run the application
+
+From the `ContextManagement` directory, start the service with:
+
+```bash
+make run
+```
+
+The application is available at <http://localhost:8080>.
+
+View records on the host in back/interests.txt (it updates as submissions arrive)
 
 ## Learning goal
 
 Deliver a queue of small issues without human intervention while keeping autonomy bounded by isolated Git branches, deterministic validation, independent review, limited repair rounds, explicit stop conditions, and an observable local history.
-
-This exercise is deliberately local. It does not use GitHub, pull requests, remotes, or GitHub Actions.
 
 ## Setup
 
@@ -19,8 +39,6 @@ git commit -m "chore: add dark factory starter"
 git tag dark-factory-start
 make factory-preflight
 ```
-
-The exercise requires Git, Make, and the .NET 10 SDK. No remote is required.
 
 ## Starting state
 
