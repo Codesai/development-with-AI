@@ -9,6 +9,9 @@ Hands-on exercises for managing context when working with AI agents. Learn how t
 ### [EvaluatingResults](EvaluatingResults/README.md)
 Exercises for practicing evaluation of AI-generated code, tests, and architectural changes. Develop skills in code review, mutation testing, and architectural fitness validation.
 
+### [HarnessingAgents](HarnessingAgents/README.md)
+Exercises for building your own harness around a coding agent — the guidelines, guardrails, and gateways you put in place to keep its output aligned with what you value: behaviour, style, architecture, security, and process. Learn to steer the harness itself, not just fix each result.
+
 ## Tools required by exercise set
 
 | Exercise set | Required tools |
@@ -16,6 +19,7 @@ Exercises for practicing evaluation of AI-generated code, tests, and architectur
 | Prompting | GitHub Copilot Chat or GitHub Copilot CLI |
 | Context Management | GitHub Copilot CLI and Docker with Docker Compose |
 | Evaluating Results | .NET 10 SDK and GitHub Copilot; the mutation-testing exercise also requires Stryker.NET |
+| Harnessing Agents | GitHub Copilot CLI and Docker with Docker Compose |
 
 ## Prerequisites
 

@@ -1,0 +1,61 @@
+<!doctype html>
+<!--
+  index.html
+  ---------------------------------------------------------------------------
+  The public interest form. It is a single static page: the browser loads it
+  from the site root, the visitor fills in three fields, and script.js posts
+  them as JSON to /api/register.
+
+  The page is in Spanish because that is the audience for this sample.
+  ---------------------------------------------------------------------------
+-->
+<html lang="es">
+<head>
+  <!-- UTF-8 so accented characters (interés, Introducción) render correctly. -->
+  <meta charset="utf-8" />
+  <!-- Responsive viewport: fit the layout to the device width on mobile. -->
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro de interés - Curso</title>
+  <style>
+    /* Centre a narrow column and use a plain system-ish font. */
+    body { font-family: Arial, sans-serif; max-width:600px; margin:40px auto; }
+    /* Stack each label above its field. */
+    label { display:block; margin-top:12px }
+    /* Make inputs fill the column; border-box keeps padding inside the width. */
+    input, select { width:100%; padding:8px; box-sizing:border-box }
+    button { margin-top:12px; padding:10px 16px }
+    /* Feedback line shown after submit. */
+    .msg { margin-top:12px }
+  </style>
+</head>
+<body>
+  <h1>Registro de interés</h1>
+
+  <!-- The form has no action/method: submission is handled in JS (see script.js)
+       so we can send JSON and show inline feedback without a page reload. -->
+  <form id="regForm">
+    <!-- Full name. -->
+    <label>Nombre
+      <input type="text" name="name" />
+    </label>
+    <!-- Email. Plain text input on purpose: validation is a later exercise. -->
+    <label>Email
+      <input type="text" name="email" />
+    </label>
+    <!-- Course picker. The option values are what actually gets posted. -->
+    <label>Curso
+      <select name="course">
+        <option value="Introducción">Introducción</option>
+        <option value="Avanzado">Avanzado</option>
+      </select>
+    </label>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <!-- script.js writes the success or error message here. -->
+  <div class="msg" id="msg"></div>
+
+  <!-- Load the submit handler after the form exists in the DOM. -->
+  <script src="./script.js"></script>
+</body>
+</html>

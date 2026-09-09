@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <!-- Web SDK: brings in the ASP.NET Core framework reference and static-file
+       publishing so wwwroot is copied on build. -->
+  <PropertyGroup>
+    <!-- Target the .NET 10 runtime. -->
+    <TargetFramework>net10.0</TargetFramework>
+    <!-- ImplicitUsings adds the common global usings (System, System.Linq, ...)
+         so individual files do not need to repeat them. -->
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Nullable reference types on: the compiler warns about possible nulls. -->
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>
