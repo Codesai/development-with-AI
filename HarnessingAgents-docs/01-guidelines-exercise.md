@@ -27,11 +27,11 @@ Use the same prompt for every run:
 
 3. Revert the feature changes, keep `AGENTS.md`.
 
-4. Rewrite `HarnessingAgents/AGENTS.md` so it forbids comments: no `//`, `/* */`, or `///`. The agent should rely on descriptive names and small functions, and put anything that needs explaining in the guideline or a test.
+4. Add a guideline to `HarnessingAgents/AGENTS.md` so it forbids comments. The agent should rely on descriptive names and small functions. When having to edit code that already has comments, it should remove them and rename or abstract if necessary.
 
 5. Start a fresh `copilot` session so it reloads `AGENTS.md`, and give it the same prompt.
 
-6. Compare the two implementations. Are the comments gone? Did behaviour change? Is the code harder or easier to read without them?
+6. Compare the two implementations. Did the agent write comments for the new code? Did the agent leave or update comments already present in code it had to edit?
 
 ## Recommendations
 
