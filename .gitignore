@@ -32,4 +32,4 @@ node_modules/
 *.txt~
 *.log
 /ContextManagement/publish
-/HarnessingAgents/publish
+/HarnessingAgents/app/publish

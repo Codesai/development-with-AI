@@ -21,13 +21,13 @@ Use the same prompt for every run:
 
 > Add a registration confirmation code to this project. Implement the feature end to end: generate the code when a registration is saved, store it in `interests.txt`, return it in the API response, and show it in the frontend confirmation message. The code format is `AAA-YYYYMMDD-NNN-C` (course prefix, UTC date, daily per-course sequence, check character).
 
-1. Baseline. Read the `AGENTS.md` that ships with the project. It asks for readable, intent-revealing code but never says how: that could mean explanatory comments, or it could mean good names and small functions. The heavily commented starter code tips the balance. Start `copilot` in the `HarnessingAgents` folder and give it the prompt. Run `make run`, submit a registration, and confirm the code appears.
+1. Baseline. Read `app/AGENTS.md`. It asks for readable, intent-revealing code but never says how: that could mean explanatory comments, or it could mean good names and small functions. The heavily commented starter code tips the balance. Start `copilot` in `HarnessingAgents/app` and give it the prompt. Run `make run`, submit a registration, and confirm the code appears.
 
 2. Read the diff. Between the commented starter code and the ambiguous `AGENTS.md`, the agent tends to fill the new feature with `///` docs and `//` step comments.
 
 3. Revert the feature changes, keep `AGENTS.md`.
 
-4. Add a guideline to `HarnessingAgents/AGENTS.md` so it forbids comments. The agent should rely on descriptive names and small functions. When having to edit code that already has comments, it should remove them and rename or abstract if necessary.
+4. Add a guideline to `app/AGENTS.md` so it forbids comments. The agent should rely on descriptive names and small functions. When having to edit code that already has comments, it should remove them and rename or abstract if necessary.
 
 5. Start a fresh `copilot` session so it reloads `AGENTS.md`, and give it the same prompt.
 
