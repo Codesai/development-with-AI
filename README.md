@@ -12,6 +12,10 @@ Exercises for practicing evaluation of AI-generated code, tests, and architectur
 ### [HarnessingAgents](HarnessingAgents/README.md)
 Exercises for building your own harness around a coding agent — the guidelines, guardrails, and gateways you put in place to keep its output aligned with what you value: behaviour, style, architecture, security, and process. Learn to steer the harness itself, not just fix each result.
 
+### [Workflows](Workflows/README.md)
+Exercises for practicing workflows as RPI.
+
+
 ## Tools required by exercise set
 
 | Exercise set | Required tools |
@@ -20,6 +24,7 @@ Exercises for building your own harness around a coding agent — the guidelines
 | Context Management | GitHub Copilot CLI and Docker with Docker Compose |
 | Evaluating Results | .NET 10 SDK and GitHub Copilot; the mutation-testing exercise also requires Stryker.NET |
 | Harnessing Agents | GitHub Copilot CLI and Docker with Docker Compose |
+| Workflows | GitHub Copilot CLI and Docker with Docker Compose |
 
 ## Prerequisites
 
