@@ -1,4 +1,13 @@
-.PHONY: build contract-test validate factory-scaffold factory-preflight factory-audit
+.PHONY: run stop logs build contract-test validate factory-scaffold factory-preflight factory-audit
+
+run:
+	docker compose up --build -d
+
+stop:
+	docker compose down
+
+logs:
+	docker compose logs -f interest-app
 
 build:
 	dotnet build Checks/Checks.csproj --nologo
