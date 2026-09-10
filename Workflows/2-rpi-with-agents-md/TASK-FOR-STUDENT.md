@@ -1,15 +1,59 @@
-# Five-minute challenge — Put instructions in the right place
+# Additional challenge — From a big plan to vertical slices
 
-After completing the README tutorial, imagine the next feature request arrives with these instructions:
+## 1. Start with a big feature
 
-> Add `GET /api/courses`, returning the two offered course names. Inspect existing patterns first. Do not change registration behavior. Wait for research and plan approval. Create tests, run all validations and report the results.
+Start from the starter application on a new branch. Paste this prompt:
 
-Read the existing `AGENTS.md`. Split the request into:
+> Turn this registration form into a course discovery experience. Replace the course dropdown with a list of courses, each with a short description, a way to select it, and a link to its own landing page so visitors can learn more before registering. Each landing page should include learning outcomes, the intended audience, prerequisites, a detailed syllabus, teaching format, duration, instructor information, and frequently asked questions. Let visitors compare courses and register their interest from any course page with that course already selected. Make the experience work well on mobile and allow visitors to share direct links to individual courses. Use sample content where information is missing.
 
-- a minimal feature prompt containing only requirements specific to this change;
-- reusable workflow instructions already supplied by `AGENTS.md`;
-- any reusable instruction you think is missing, with a reason to add it—or a reason no change is needed.
+Approve a research approach and let the agent produce a plan. **Stop before implementation.** Keep the plan for comparison.
 
-Add one concrete acceptance example to your feature prompt. Do not implement the endpoint or edit `AGENTS.md` just to make it different.
+## 2. Teacher checkpoint: “This is too big”
 
-Deliver the prompt and your placement decisions in at most ten lines. Could another feature reuse the repository instructions without inheriting course-specific behavior?
+Discuss the plan's size, assumptions, and time to deliver something useful.
+
+The teacher introduces **vertical slicing**: each slice delivers a usable outcome across the layers it needs. Database, API, and UI tasks alone are not vertical slices.
+
+Ask the agent:
+
+> This plan is too big. Split it into vertical slices. For each, explain the user outcome, scope, deferred work, and how to verify it. Do not implement yet.
+
+Can the first slice be used without the rest?
+
+## 3. Update AGENTS.md
+
+Add reusable workflow rules covering:
+
+- When to propose slicing.
+- BIG, MEDIUM, and SMALL options, each with a slice count, user outcomes, and tradeoffs.
+- Usable, demonstrable, and independently verifiable slices.
+- User selection of granularity and approval of the first slice’s plan.
+- Implementation, review, and validation of only the approved slice.
+
+Keep feature details in the prompt. Preserve research and plan approvals and all quality checks.
+
+## 4. Try again
+
+Start a fresh session with the updated `AGENTS.md` and unchanged starter application. Repeat the original prompt.
+
+Does the agent offer slice granularities? Compare with the first plan and refine your rules if needed.
+
+## 5. Implement one slice
+
+Choose a granularity, agree on the first slice's outcome and acceptance examples, and approve its plan. Ask:
+
+> Implement only the first agreed slice. Leave the remaining slices for later.
+
+Complete the review and validation workflow, then demonstrate the user outcome.
+
+## Deliverables
+
+- Original plan and proposed slices.
+- Updated `AGENTS.md` and fresh-session granularity options.
+- One working slice with acceptance evidence and validation results.
+
+What can the user do now? What is deferred? Would your rules work for another feature?
+
+## Preserving the plan
+
+How can we preserve the plan and agreed slices so we can continue in a new agent session?
