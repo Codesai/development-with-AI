@@ -1,9 +1,18 @@
 services:
   interest-app:
-    build: .
+    build:
+      context: .
+      target: development
     ports:
       - "8080:8080"  # host:container (host 8080 -> container 8080)
     volumes:
-      # Map the interests.txt file from host to container so registrations persist on host
-      - ./back/interests.txt:/app/interests.txt
+      - ./back:/src/back
+      - ./front:/src/back/wwwroot:ro
+      # Keep container-generated files out of the host build directories.
+      - backend-bin:/src/back/bin
+      - backend-obj:/src/back/obj
     restart: unless-stopped
+
+volumes:
+  backend-bin:
+  backend-obj:

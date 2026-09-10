@@ -1,5 +1,14 @@
 # Multi-stage build: build with SDK, run with ASP.NET runtime
 
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS development
+WORKDIR /src/back
+ENV ASPNETCORE_URLS=http://+:8080 \
+    ASPNETCORE_ENVIRONMENT=Development \
+    DOTNET_USE_POLLING_FILE_WATCHER=1 \
+    DOTNET_WATCH_RESTART_ON_RUDE_EDIT=1
+EXPOSE 8080
+ENTRYPOINT ["dotnet", "watch", "--non-interactive", "--project", "InterestApi.csproj", "run"]
+
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 

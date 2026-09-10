@@ -12,13 +12,23 @@ OR
 
 ## Run the application
 
-From this directory, start the service with:
+From this repository directory, start the development service with:
 
 ```bash
 make run
 ```
 
 The application is available at <http://localhost:8080>.
+
+Docker mounts `front/` and `back/` into the development container. Saving HTML or
+JavaScript refreshes the browser automatically through `dotnet watch`. Backend
+changes are hot-reloaded, or the server restarts automatically when required.
+The homepage is `/`; API routes use the same host, including `POST /api/register`.
+Use `make logs` to follow build errors and reload events, and `make stop` to stop.
+After changing Docker configuration or dependencies, run `make run` again.
+Container build outputs use separate volumes so they do not change host file ownership.
+
+The production image remains available with `docker build --target runtime -t interest-app .`.
 
 View records on the host in back/interests.txt (it updates as submissions arrive)
 
