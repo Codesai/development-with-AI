@@ -81,11 +81,13 @@ Same task as exercise 01. Use this prompt for every run:
    }
    ```
 
-2. Start a fresh `copilot` session in `HarnessingAgents/app` (hooks load at session start) and give it the same prompt.
+4. Start a fresh `copilot` session in `HarnessingAgents/app` (hooks load at session start) and give it the same prompt.
 
-3. Watch the run. After each `edit`, `create`, or `apply_patch` the hook fires. When the agent writes a comment, the check feeds it back and the agent should remove it on a following turn.
+5. Watch the run. After each `edit`, `create`, or `apply_patch` the hook fires. When the agent writes a comment, the check feeds it back and the agent should remove it on a following turn.
 
-4. Compare with the baseline diff. Are the new comments gone? How many extra turns did it cost? Because the check covers the whole enclosing function, editing a starter method pulls its existing `///` docs and `//` comments into scope too — does the agent strip them, push back, or ignore the feedback and move on?
+6. Check the feature works. Run `make run`, submit the form, and confirm a code in the `AAA-YYYYMMDD-NNN-C` shape comes back in the API response, lands as a new column in `back/interests.txt`, and shows in the page message. Only judge the code style once the behaviour is right.
+
+7. Compare with the baseline diff. Are the new comments gone? How many extra turns did it cost? Because the check covers the whole enclosing function, editing a starter method pulls its existing `///` docs and `//` comments into scope too — does the agent strip them, push back, or ignore the feedback and move on?
 
 ## Recommendations
 
