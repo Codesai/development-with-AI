@@ -35,13 +35,13 @@ Docs:
 
 `HarnessingAgents/harness/guardrails/check-no-comments.sh` ships ready to run. It works on whatever git working tree `copilot` is running in. After each edit it:
 
-1. lists every source file that differs from `HEAD` (`git diff --name-only` over `.cs .js .ts .html .css`),
-2. scans each of those files in full and flags any line containing a comment (`//`, `/* */`, `///`, `<!-- -->`, a `*`-prefixed line),
+1. finds the lines that changed since `HEAD` (`git diff` over `.cs .js .ts`),
+2. for each changed line, takes the function or method that encloses it, and flags any comment (`//`, `/* */`, `///`, a `*`-prefixed line) anywhere in that function,
 3. if any are found, returns `{"additionalContext": "..."}` listing them and asking the agent to remove them; otherwise it exits silently.
 
-The rule is "a file you edit must contain no comments" — pre-existing comments in a file the agent touches count too. (True per-method scoping would need a real parser; `git diff --function-context` over-expands to the whole enclosing class, so the check works at file granularity instead.)
+The rule is "a function you touch must contain no comments" — a pre-existing comment in a method the agent modified counts; a comment in an untouched method in the same file does not.
 
-Limits, by design: it does not parse the source (a `//` inside a string literal is a false positive; a `*`-prefixed continuation line is treated as a doc comment), and it only nudges. Nothing forces the agent to re-run it or to obey.
+Limits, by design: enclosing-function detection is brace-based, not a parser, so expression-bodied members and top-level-statement files can be missed, and a `//` inside a string literal is a false positive. It only nudges — nothing forces the agent to re-run it or to obey.
 
 ## The feature
 
@@ -85,7 +85,7 @@ Same task as exercise 01. Use this prompt for every run:
 
 3. Watch the run. After each `edit`, `create`, or `apply_patch` the hook fires. When the agent writes a comment, the check feeds it back and the agent should remove it on a following turn.
 
-4. Compare with the baseline diff. Are the new comments gone? How many extra turns did it cost? Because the check covers the whole file, editing any of the heavily commented starter files puts every one of their comments in scope — does the agent strip them, push back, or ignore the feedback and move on?
+4. Compare with the baseline diff. Are the new comments gone? How many extra turns did it cost? Because the check covers the whole enclosing function, editing a starter method pulls its existing `///` docs and `//` comments into scope too — does the agent strip them, push back, or ignore the feedback and move on?
 
 ## Recommendations
 
