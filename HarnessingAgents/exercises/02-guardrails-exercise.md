@@ -55,7 +55,7 @@ Same task as exercise 01. Use this prompt for every run:
 
 2. Run the guardrail by hand. From `HarnessingAgents/app`, add a throwaway `// note` to one of the `back/*.cs` files, run `../harness/guardrails/check-no-comments.sh`, and see it report the line. Remove the comment and run it again to see it pass. Revert.
 
-3. Install the hook for your user, so it never enters the project the agent reads:
+3. Install the hook for your user, so it never enters the project the agent reads. From `HarnessingAgents/app`:
 
    ```bash
    mkdir -p ~/.copilot/hooks
@@ -72,7 +72,7 @@ Same task as exercise 01. Use this prompt for every run:
        "postToolUse": [
          {
            "type": "command",
-           "matcher": "edit|create",
+           "matcher": "edit|create|apply_patch",
            "bash": "~/.copilot/hooks/check-no-comments.sh",
            "timeoutSec": 30
          }
@@ -81,26 +81,16 @@ Same task as exercise 01. Use this prompt for every run:
    }
    ```
 
-4. Start a fresh `copilot` session in `HarnessingAgents/app` (hooks load at session start) and give it the same prompt.
+2. Start a fresh `copilot` session in `HarnessingAgents/app` (hooks load at session start) and give it the same prompt.
 
-5. Watch the run. After each `edit` or `create` the hook fires. When the agent writes a comment, the check feeds it back and the agent should remove it on a following turn.
+3. Watch the run. After each `edit`, `create`, or `apply_patch` the hook fires. When the agent writes a comment, the check feeds it back and the agent should remove it on a following turn.
 
-6. Compare with the baseline diff. Are the new comments gone? How many extra turns did it cost? Because the check covers the whole file, editing any of the heavily commented starter files puts every one of their comments in scope — does the agent strip them, push back, or ignore the feedback and move on?
-
-## Extend the guardrail
-
-Ask `copilot` (in a session without this exercise open) to add another language to `~/.copilot/hooks/check-no-comments.sh`, for example `.py`, or to also catch block comments that span several lines. Keep the source of truth in `HarnessingAgents/harness/guardrails/` and re-copy.
-
-## Committing the hook with the project instead
-
-If you would rather version the hook with the exercise, put `no-comments.json` in `HarnessingAgents/app/.github/hooks/` with `"bash": "bash ../harness/guardrails/check-no-comments.sh"` (the command runs from `app/`, where you launch `copilot`). The trade-off: the agent can now see that a `postToolUse` hook is configured (it still cannot read the rules, since the script stays outside `app/`).
+4. Compare with the baseline diff. Are the new comments gone? How many extra turns did it cost? Because the check covers the whole file, editing any of the heavily commented starter files puts every one of their comments in scope — does the agent strip them, push back, or ignore the feedback and move on?
 
 ## Recommendations
 
-Run `bash -n ../harness/guardrails/check-no-comments.sh` and try the script by hand before wiring the hook.
+If the hook never fires: check that you launched `copilot` from `HarnessingAgents/app`, that `~/.copilot/hooks/no-comments.json` is valid JSON, that the script is executable (`chmod +x`), and that the `matcher` covers the tool the agent actually used - Copilot writes files with `edit`, `create`, or `apply_patch`.
 
-If the hook never fires: check that you launched `copilot` from `HarnessingAgents/app`, that `~/.copilot/hooks/no-comments.json` is valid JSON, and that the script is executable (`chmod +x`).
-
-A `postToolUse` hook cannot block a change. Hard-stopping the edit instead of nudging afterwards needs a `preToolUse` hook, which is a different exercise.
+A `postToolUse` hook cannot block a change. Hard-stopping the edit instead of nudging afterwards needs a `preToolUse` hook.
 
 Revert freely with version control between runs.
