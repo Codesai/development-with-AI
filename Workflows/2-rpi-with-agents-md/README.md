@@ -44,7 +44,7 @@ The application currently saves `Name`, `Email`, and `Course` through `POST /api
 2. Return to the starter state on another branch `b`.
 3. Launch `copilot` and paste `prompts/feature-b.md`; approve the research and plan and inspect the result.
 
-Feature A adds a field. Feature B adds registration validation.
+Feature A adds a field. Feature B prevents duplicate registrations.
 
 ## Success and reflection
 

@@ -1,1 +1,1 @@
-Validate interest registrations. Name, Email and Course are required; Rest are optional; Email must be syntactically valid. Invalid requests return HTTP 400 and are not written to `interests.txt`. Preserve valid behavior and add tests for automated validation.
+Prevent duplicate interest registrations.
