@@ -9,6 +9,12 @@ When instructions conflict, the agent should follow them in this order. If instr
 3. Other repository guidance
 4. General defaults and environment settings
 
+## Scope
+
+Everything needed for any task in this project is inside this directory. Do not read, list, or search files or folders outside it.
+
+Do not run git commands or inspect git history, status, diffs, or commit messages. Version control is handled outside this session.
+
 ## Coding style
 
 - Optimise for the reader, not the writer. Someone new to the project should be able to open any file and understand what the code does and why.
