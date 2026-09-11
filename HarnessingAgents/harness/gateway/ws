@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ws - the workspace file interface for the HarnessingAgents "Gateways" exercise.
+#
+# When copilot is launched through ../copilot-gated.sh, the raw file tools
+# (cat, ls, find, grep, and the native view/glob/grep) are banned and this is
+# the only way the agent can list, read, or search files. It is confined to
+# WS_ROOT (the directory copilot was launched from) and it hides a fixed set of
+# sensitive paths - a missing file and a hidden file give the identical error, so
+# the agent cannot even confirm a secret exists.
+#
+#   ws ls [dir]                list a directory (relative paths)
+#   ws read <file>             print a file
+#   ws grep <pattern> [path]   search file contents
+
+readonly ROOT="$( (cd "${WS_ROOT:-$PWD}" 2>/dev/null && pwd -P) || true )"
+
+# Glob patterns (matched against the path relative to ROOT and against the
+# basename) that ws refuses to list, read, or search. Override with WS_HIDDEN.
+readonly DEFAULT_HIDDEN='config/credentials.json:*credential*:*secret*:.env:.env.*:*.pem:*.key:*.p12:*.pfx:id_rsa*:*token*'
+IFS=':' read -r -a HIDDEN <<< "${WS_HIDDEN:-$DEFAULT_HIDDEN}"
+
+nofile() { printf 'ws: no such file: %s\n' "${1:-}" >&2; exit 1; }
+usage()  { printf 'usage: ws (ls [dir] | read <file> | grep <pattern> [path])\n' >&2; exit 2; }
+
+[ -n "$ROOT" ] || { printf 'ws: WS_ROOT is not a directory\n' >&2; exit 1; }
+
+# Absolute, symlink-resolved path for something that must live under ROOT.
+resolve() {
+  local arg="$1" abs
+  case "$arg" in
+    /*|*/../*|../*|*/..|..) nofile "$arg" ;;
+  esac
+  abs="$ROOT/$arg"
+  if [ -e "$abs" ]; then
+    abs="$(readlink -f "$abs" 2>/dev/null || echo "$abs")"
+  fi
+  case "$abs" in
+    "$ROOT"|"$ROOT"/*) : ;;
+    *) nofile "$arg" ;;
+  esac
+  printf '%s\n' "$abs"
+}
+
+is_hidden() {
+  local rel="$1" base pat
+  base="${rel##*/}"
+  for pat in "${HIDDEN[@]}"; do
+    # shellcheck disable=SC2053
+    [[ "$rel" == $pat || "$base" == $pat ]] && return 0
+  done
+  return 1
+}
+
+rel_of() { printf '%s\n' "${1#"$ROOT"/}"; }
+
+cmd_ls() {
+  local arg="${1:-.}" dir rel entry
+  dir="$(resolve "$arg")"
+  [ -d "$dir" ] || nofile "$arg"
+  while IFS= read -r entry; do
+    rel="$(rel_of "$entry")"
+    if [ "$rel" = ".git" ] || [[ "$rel" == .git/* ]]; then continue; fi
+    if is_hidden "$rel"; then continue; fi
+    if [ -d "$entry" ]; then printf '%s/\n' "$rel"; else printf '%s\n' "$rel"; fi
+  done < <(find "$dir" -mindepth 1 -maxdepth 1 | sort)
+}
+
+cmd_read() {
+  local arg="${1:-}" file rel
+  [ -n "$arg" ] || usage
+  file="$(resolve "$arg")"
+  rel="$(rel_of "$file")"
+  { [ -f "$file" ] && ! is_hidden "$rel"; } || nofile "$arg"
+  cat -- "$file"
+}
+
+cmd_grep() {
+  local pattern="${1:-}" arg="${2:-.}" base rel
+  [ -n "$pattern" ] || usage
+  base="$(resolve "$arg")"
+  [ -e "$base" ] || nofile "$arg"
+  while IFS= read -r f; do
+    rel="$(rel_of "$f")"
+    if [[ "$rel" == .git/* ]]; then continue; fi
+    if is_hidden "$rel"; then continue; fi
+    grep -Hn -- "$pattern" "$f" 2>/dev/null | sed "s#^${f}:#${rel}:#" || true
+  done < <(find "$base" -type f | sort)
+}
+
+case "${1:-}" in
+  ls)   shift; cmd_ls "$@" ;;
+  read) shift; cmd_read "$@" ;;
+  grep) shift; cmd_grep "$@" ;;
+  *)    usage ;;
+esac

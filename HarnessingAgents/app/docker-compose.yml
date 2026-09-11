@@ -6,4 +6,6 @@ services:
     volumes:
       # Map the interests.txt file from host to container so registrations persist on host
       - ./back/interests.txt:/app/interests.txt
+      # Operator credentials for the admin endpoint (read by the app at runtime)
+      - ./config:/app/config
     restart: unless-stopped

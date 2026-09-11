@@ -14,7 +14,7 @@ Each exercise uses one throwaway feature as the vehicle. The feature is not the 
 
 - `app/` - a small .NET 10 API that stores interest registrations. This is the only folder the agent works in. Launch `copilot` here and run `make run` here (Docker and Docker Compose, or Codespaces).
 - `exercises/` - the exercise instructions.
-- `harness/` - guardrail scripts and other harness pieces the student installs.
+- `harness/` - guardrail scripts, the gated launcher, and other harness pieces the student installs or runs.
 
 `exercises/` and `harness/` sit outside `app/` on purpose. Several exercises only work if the agent does not know what is being tested: if it can read the exercise brief or a guardrail script, it just complies up front and you never see the control do its work. Keep `copilot` in `app/` and keep the rest out of its reach.
 
@@ -22,3 +22,4 @@ Each exercise uses one throwaway feature as the vehicle. The feature is not the 
 
 1. [Guidelines](exercises/01-guidelines-exercise.md): write a guideline in `AGENTS.md` for writing code without comments, and observe how it steers the way the agent implements a feature.
 2. [Guardrails](exercises/02-guardrails-exercise.md): wire a comment-checking script into a Copilot CLI `postToolUse` hook and re-run the exercise 01 feature to see the guardrail correct the agent after each edit.
+3. [Gateways](exercises/03-gateways-exercise.md): launch `copilot` with the raw file tools banned and one sanctioned `ws` command in their place, then ask it to validate an auth-protected endpoint and watch how it does (or does not) reach the credentials file next to it.
