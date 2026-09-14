@@ -12,7 +12,7 @@ public class ArchitectureTests
     private const string RepositoryNamespace = "InterestApi.Repository";
 
     [Fact]
-    public void Controllers_can_only_access_the_domain_layer()
+    public void Controllers_does_not_access_repository()
     {
         var result = Types.InAssembly(typeof(Registration).Assembly)
             .That()
@@ -36,6 +36,20 @@ public class ArchitectureTests
 
         Assert.True(result.IsSuccessful, FormatFailingTypes(result));
     }
+
+    [Fact]
+    public void Repository_does_not_access_controllers()
+    {
+        var result = Types.InAssembly(typeof(Registration).Assembly)
+            .That()
+            .ResideInNamespace(RepositoryNamespace)
+            .ShouldNot()
+            .HaveDependencyOn(ControllersNamespace)
+            .GetResult();
+
+        Assert.True(result.IsSuccessful, FormatFailingTypes(result));
+    }
+
 
     private static string FormatFailingTypes(TestResult result) =>
         $"Architectural rule failed for: {string.Join(", ", result.FailingTypeNames ?? [])}";
