@@ -7,6 +7,8 @@ have in our project
 
 ## Instructions
 
+### Exercise 2.1
+
 Using architecture test (deterministic):
 
     - Check the file /back/test/architecture/ArhitectureTests.cs to understand the architectural restrictions that we want
@@ -21,6 +23,8 @@ solutions to the problems.
 copilot to propose a solutions without touching any file, compare with your solution and after that decide the way to go.
 
     - After the solution is implemented execute the test to ensure the architecturla integrity
+
+### Exercise 2.2
 
 Using the architectural code review skill (inference):
 
