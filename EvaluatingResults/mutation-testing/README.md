@@ -1,6 +1,8 @@
-# Front/back .NET mutation-testing example
+# .NET mutation-testing example
 
 A small API in .NET 10, that receives interest records and saves them to `interests.txt`.
+
+It also contains a focused domain rule, `RegistrationPolicy`, used to demonstrate how mutation testing finds weaknesses that ordinary passing tests can miss.
 
 ## Requirements
 
@@ -12,37 +14,35 @@ OR
 
 ## Run the application
 
-From the `ContextManagement` directory, start the service with:
+From this directory, start the container:
 
 ```bash
 make run
 ```
 
-The application is available at <http://localhost:8080>.
+Open <http://localhost:8080>. Submitted registrations are persisted in `back/interests.txt` through the Docker volume.
 
-View records on the host in back/interests.txt (it updates as submissions arrive)
+## Registration policy
 
-## Policy and boundary
+`RegistrationPolicy` is intentionally pure domain logic, which makes it a compact target for unit and mutation tests.
 
-The course capacity is 30:
-
-| Confirmed registrations | Decision |
+| Condition | Decision |
 | --- | --- |
+| Course is closed, or terms are not accepted | `Rejected` |
 | 0–29 | `Accepted` |
 | 30+ | `Waitlisted` |
-| Course closed or terms not accepted | `Rejected` |
 
-## Exercise
 
-Run Stryker and see what mutants survive. 
-
-Stryker mutates only `back/RegistrationPolicy.cs` and writes its HTML report to `StrykerOutput`.
-
+## Run the tests
 
 ```bash
-cd mutation-testing
-dotnet test
-dotnet stryker
+make test
 ```
 
-See report in ./StrykerOutput directory.
+## Run mutation testing
+
+```bash
+make mutation-test
+```
+
+This target runs the unit tests first, then Stryker. Stryker mutates only `back/RegistrationPolicy.cs` and writes an HTML report under `StrykerOutput/`. 
