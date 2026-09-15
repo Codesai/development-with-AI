@@ -25,6 +25,20 @@ public class ArchitectureTests
     }
 
     [Fact]
+    public void Controllers_does_not_access_domain()
+    {
+        var result = Types.InAssembly(typeof(Registration).Assembly)
+            .That()
+            .ResideInNamespace(ControllersNamespace)
+            .ShouldNot()
+            .HaveDependencyOn(DomainNamespace)
+            .GetResult();
+
+        Assert.True(result.IsSuccessful, FormatFailingTypes(result));
+    }
+
+
+    [Fact]
     public void Domain_does_not_access_controllers()
     {
         var result = Types.InAssembly(typeof(Registration).Assembly)
