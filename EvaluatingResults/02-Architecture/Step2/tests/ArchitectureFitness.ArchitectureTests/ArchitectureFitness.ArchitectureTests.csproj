@@ -20,9 +20,4 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\ArchitectureFitness.Domain\ArchitectureFitness.Domain.csproj" />
-    <ProjectReference Include="..\..\src\ArchitectureFitness.Infrastructure\ArchitectureFitness.Infrastructure.csproj" />
-  </ItemGroup>
-
 </Project>
