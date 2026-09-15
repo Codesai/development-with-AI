@@ -11,7 +11,7 @@ public sealed class DomainArchitectureTest
         typeof(Order).Assembly
     ];
 
-    [Fact(Skip = ">>>>>> EXERCISE: Remove Skip to activate the architecture rule.")]
+//    [Fact]
     public void DomainMustNotDependOnOuterModules()
     {
         var result = Types.InAssemblies(DomainAssemblies)
