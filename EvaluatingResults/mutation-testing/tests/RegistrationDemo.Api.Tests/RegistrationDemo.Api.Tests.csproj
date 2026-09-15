@@ -16,6 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <Using Include="Xunit" />
-    <ProjectReference Include="../../backend/RegistrationDemo.Api.csproj" />
+    <ProjectReference Include="../../back/InterestApi.csproj" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
-using RegistrationDemo.Api.Domain;
+using InterestApi.Domain;
 
-namespace RegistrationDemo.Api.Tests;
+namespace InterestApi.Tests;
 
 public sealed class RegistrationPolicyTests
 {

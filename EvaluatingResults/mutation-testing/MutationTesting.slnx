@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="back/InterestApi.csproj" />
+  <Project Path="tests/RegistrationDemo.Api.Tests/RegistrationDemo.Api.Tests.csproj" />
+</Solution>
