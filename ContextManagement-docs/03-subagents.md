@@ -38,7 +38,3 @@ this plan in subtask than can be delegated to subagents and executed in parallel
     - inside the new dedicated agent?
     - using skills?
     - using AGENTS.md?
-
-todo:
-
-    - probar /fleet para ver si los usa en paralelo
