@@ -14,7 +14,7 @@ The trade-off: a script gives the same verdict on the same input every time. A j
 
 `HarnessingAgents/harness/evals/`:
 
-- `run-trial.sh` - the same trial runner as exercise 04; both exercises share it so the trials are comparable.
+- `run-trial.sh` - the same trial runner as exercise 04; both exercises share it so the trials are comparable. Agent output streams live to the terminal as each trial runs, so a slow trial does not sit silent.
 - `judge-readability.sh <trial-dir>` - takes one trial, stages and diffs it against its baseline commit, and sends that diff inline in a rubric prompt to a *second*, independent `copilot -p ... -s` call, run from an empty scratch directory (it has no reason to use any tool, so none is given anything to touch). Prints one line: `READABLE` or `NOT-READABLE`, a dash, then the judge's one-sentence reasoning.
 - `eval-readability.sh [N]` - runs N trials and judges each one, printing `k/N judged readable`. Unlike exercise 04's eval, trial directories are kept (not deleted) so you can re-judge them.
 - `eval-readability.sh --repeat-judge <trial-dir> [M]` - holds one trial's code fixed and re-runs only the judge M times. This isolates judge-side non-determinism from agent-side non-determinism: the code cannot have changed between runs, so any disagreement is the judge talking to itself.
@@ -25,11 +25,11 @@ Limits, by design: one judge call, one model, one rubric wording - all things kn
 
 Same feature prompt as exercise 04. Keep the no-comments instruction in `app/AGENTS.md` from that exercise. Use this prompt:
 
-> Add a registration confirmation code to this project. Implement the feature end to end: generate the code when a registration is saved, store it in `interests.txt`, return it in the API response, and show it in the frontend confirmation message. The code format is `AAA-YYYYMMDD-NNN-C` (course prefix, UTC date, daily per-course sequence, check character).
+> Add a registration confirmation code to this project. Implement the feature end to end: generate the code when a registration is saved, store it in `interests.txt`, return it in the API response, and show it in the frontend confirmation message. The code format is `AAA-YYYYMMDD-NNN-C` (course prefix, UTC date, daily per-course sequence, check character). Make the smallest change that satisfies this - do not refactor or touch unrelated code. Do not build, run, or otherwise validate the app (no build, no server start, no curl, no manual testing) - just make the code change and stop.
 
 ## Instructions
 
-1. From `HarnessingAgents/harness/evals`, run `./eval-readability.sh 10`. Note the `k/N judged readable` summary and the list of kept trial directories.
+1. From `HarnessingAgents/harness/evals`, run `./eval-readability.sh 3`. Note the `k/N judged readable` summary and the list of kept trial directories.
 
 2. Cross-reference with exercise 04. Run `../guardrails/check-no-comments.sh <trial-dir>` against a couple of the same trials `eval-readability.sh` just judged. Do the two graders ever disagree - a trial that is comment-free but judged `NOT-READABLE` (terse rather than clear), or one the heuristic missed that the judge still calls out?
 
@@ -43,6 +43,6 @@ Same feature prompt as exercise 04. Keep the no-comments instruction in `app/AGE
 
 ## Recommendations
 
-Trial directories are kept under `${TMPDIR:-/tmp}/harnessingagents-eval-*` by this exercise - clean them up yourself (`rm -rf /tmp/harnessingagents-eval-*`) once you are done.
+Trial directories are kept under `harness/evals/results/` by this exercise, gitignored so they never end up in a commit - clean them up yourself (`rm -rf results/trial-*` from `harness/evals`) once you are done.
 
 If every verdict comes back `NOT-READABLE - no changes were made`, the trial's diff was empty - check `agent.log` in that trial's directory before suspecting the judge.

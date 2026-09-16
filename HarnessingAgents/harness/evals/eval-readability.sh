@@ -5,7 +5,7 @@ set -euo pipefail
 # eval-no-comments.sh, graded by judge-readability.sh's LLM-as-judge instead
 # of a script. Trial directories are kept (not deleted) so you can re-judge
 # or inspect them afterward - clean them up yourself when done
-# (rm -rf /tmp/harnessingagents-eval-*).
+# (rm -rf results/trial-*).
 #
 # Usage:
 #   eval-readability.sh [N]
@@ -27,7 +27,7 @@ if [ "${1:-}" = "--repeat-judge" ]; then
   exit 0
 fi
 
-n="${1:-10}"
+n="${1:-3}"
 passed=0
 declare -a dirs=()
 
