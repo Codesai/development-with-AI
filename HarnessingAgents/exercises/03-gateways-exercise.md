@@ -4,7 +4,7 @@
 
 Launch `copilot` with the raw filesystem tools banned and one sanctioned command in their place. Give the agent a task that needs a credential, and watch whether it can reach the credentials file sitting right next to its work.
 
-A gateway is not a guideline (ask) or a guardrail (catch afterwards). It removes the capability: the path the agent would take does not exist. For a secret, that is the only control that helps - by the time a guardrail sees the read, the secret is already in the transcript.
+A gateway is not a guideline (ask) or a guardrail (catch afterwards). It blocks all capabilities that can lead to undesired results but leaves an alternative (gateway) capability under our control that the agent can use to complete its task.
 
 ## Keep the gateway out of the agent's view
 
@@ -62,7 +62,7 @@ Limits, by design (as in exercise 02): denial is by command name, so `curl file:
 
 5. Decide what to close. For each workaround, what would the gateway need - deny `docker`, deny `curl` and provide a `files-gateway` HTTP verb, ...? And which reaction is the *right* one: should the agent be asking you for a throwaway test credential rather than digging one out?
 
-6. Compare with 01 and 02. A guideline ("do not read `config/`") only asks. A post-hoc guardrail sees the read after the secret is already in context. Only the gateway makes the path not exist.
+6. Compare with 01 and 02. A guideline ("do not read `config/`") feedsforward information and asks. A guardrail gives feedback after the agent executes the action or expresses the intention to do so. The gateway makes the possibility hard enough so that the agent will try to use the easiest option.
 
 ## Recommendations
 

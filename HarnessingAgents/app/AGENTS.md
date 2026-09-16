@@ -2,7 +2,7 @@
 
 ## Instruction priority
 
-When instructions conflict, the agent should follow them in this order. If instructions conflict, consider if there is way to satisfy both:
+When instructions conflict, consider if there is way to satisfy both. If they are irreconciliable the agent should follow them in this order:
 
 1. User requests
 2. The guidance in this file (`AGENTS.md`)
