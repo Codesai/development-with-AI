@@ -26,7 +26,7 @@ public sealed class RegistrationPolicy
             return RegistrationDecision.Rejected;
         }
 
-        return confirmedRegistrations < CourseCapacity
+        return confirmedRegistrations <= CourseCapacity
             ? RegistrationDecision.Accepted
             : RegistrationDecision.Waitlisted;
     }
