@@ -29,8 +29,8 @@ Open <http://localhost:8080>. Submitted registrations are persisted in `back/int
 | Condition | Decision |
 | --- | --- |
 | Course is closed, or terms are not accepted | `Rejected` |
-| 0–29 | `Accepted` |
-| 30+ | `Waitlisted` |
+| 0–30 | `Accepted` |
+| 31+ | `Waitlisted` |
 
 
 ## Run the tests
