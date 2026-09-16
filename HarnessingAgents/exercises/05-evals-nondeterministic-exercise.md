@@ -23,15 +23,17 @@ Limits, by design: one judge call, one model, one rubric wording - all things kn
 
 ## The feature
 
-Same task and prompt as exercises 01, 02, and 04 - see 04 for the exact prompt. Keep the no-comments guideline in `app/AGENTS.md` from exercise 04.
+Same task as exercises 01, 02, and 04. Keep the no-comments guideline in `app/AGENTS.md` from exercise 04. Use this prompt:
+
+> Add a registration confirmation code to this project. Implement the feature end to end: generate the code when a registration is saved, store it in `interests.txt`, return it in the API response, and show it in the frontend confirmation message. The code format is `AAA-YYYYMMDD-NNN-C` (course prefix, UTC date, daily per-course sequence, check character).
 
 ## Instructions
 
-1. From `HarnessingAgents/harness/evals`, run `./eval-readability.sh 5`. Note the `k/N judged readable` summary and the list of kept trial directories.
+1. From `HarnessingAgents/harness/evals`, run `./eval-readability.sh 10`. Note the `k/N judged readable` summary and the list of kept trial directories.
 
 2. Cross-reference with exercise 04. Run `../guardrails/check-no-comments.sh <trial-dir>` against a couple of the same trials `eval-readability.sh` just judged. Do the two graders ever disagree - a trial that is comment-free but judged `NOT-READABLE` (terse rather than clear), or one the heuristic missed that the judge still calls out?
 
-3. Pick one trial directory and run `./eval-readability.sh --repeat-judge <trial-dir> 5`. The code is identical on every call - only the judge runs again. Does it give the same verdict five times, or does it waver?
+3. Pick one trial directory and run `./eval-readability.sh --repeat-judge <trial-dir> 10`. The code is identical on every call - only the judge runs again. Does it give the same verdict ten times, or does it waver?
 
 4. Read the reasoning the judge gives on a wavering trial. Is it actually engaging with the diff, or does it read like a plausible-sounding sentence that would fit almost any code?
 

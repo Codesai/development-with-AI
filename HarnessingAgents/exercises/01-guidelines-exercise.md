@@ -27,7 +27,7 @@ Use the same prompt for every run:
 
 3. Read the diff. Between the commented starter code and the ambiguous `AGENTS.md`, the agent tends to fill the new feature with `///` docs and `//` step comments.
 
-4. Revert the feature changes, keep `AGENTS.md`.
+4. Revert the feature changes, keep `AGENTS.md`: `git checkout -- back front` (from `HarnessingAgents/app`).
 
 5. Add a guideline to `app/AGENTS.md` so it forbids comments. The agent should rely on descriptive names and small functions. When having to edit code that already has comments, it should remove them and rename or abstract if necessary.
 
@@ -41,4 +41,4 @@ Change one line of `AGENTS.md` at a time and re-run the same prompt.
 
 Ask the agent, "What guidelines does this project have?" to check whether it has access to the `AGENTS.md` file.
 
-Remember you can always revert changes using version control.
+Remember you can always revert changes using version control: `git checkout -- .` (from `HarnessingAgents/app`) resets everything, including `AGENTS.md`.

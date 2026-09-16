@@ -41,9 +41,9 @@ Same task and prompt as exercises 01 and 02:
 
 1. Add the no-comments guideline to `app/AGENTS.md` (from exercise 01), if it is not already there: the agent should rely on descriptive names and small functions, and should strip comments from any code it has to edit that already has them.
 
-2. From `HarnessingAgents/harness/evals`, run `./eval-no-comments.sh 5`. Each trial launches its own `copilot` run against a private copy of `app/` - your real `app/` and its git state are untouched.
+2. From `HarnessingAgents/harness/evals`, run `./eval-no-comments.sh 10`. Each trial launches its own `copilot` run against a private copy of `app/` - your real `app/` and its git state are untouched.
 
-3. Read the summary. Is it `5/5`? Most guidelines are not. If any trial failed, open its kept directory: `grade.log` shows exactly which lines were flagged and in which file, `agent.log` shows the full run.
+3. Read the summary. Is it `10/10`? Most guidelines are not. If any trial failed, open its kept directory: `grade.log` shows exactly which lines were flagged and in which file, `agent.log` shows the full run.
 
 4. Re-run a few times, and vary N. A single run tells you almost nothing about a guideline's reliability; five or ten runs start to.
 

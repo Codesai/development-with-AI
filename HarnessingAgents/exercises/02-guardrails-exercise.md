@@ -51,9 +51,9 @@ Same task as exercise 01. Use this prompt for every run:
 
 ## Instructions
 
-1. Baseline. Make sure `app/AGENTS.md` is the committed starter version (revert any no-comments rule you added in exercise 01). No hook yet. Start `copilot` in `HarnessingAgents/app`, give it the prompt, and note the comments in the diff. Revert the feature changes.
+1. Baseline. Make sure `app/AGENTS.md` is the committed starter version (revert any no-comments rule you added in exercise 01: `git checkout -- .` from `HarnessingAgents/app`). No hook yet. Start `copilot` in `HarnessingAgents/app`, give it the prompt, and note the comments in the diff. Revert the feature changes: `git checkout -- back front` (from `HarnessingAgents/app`).
 
-2. Run the guardrail by hand. From `HarnessingAgents/app`, add a throwaway `// note` to one of the `back/*.cs` files, run `../harness/guardrails/check-no-comments.sh`, and see it report the line. Remove the comment and run it again to see it pass. Revert.
+2. Run the guardrail by hand. From `HarnessingAgents/app`, add a throwaway `// note` to one of the `back/*.cs` files, run `../harness/guardrails/check-no-comments.sh`, and see it report the line. Remove the comment and run it again to see it pass. Revert: `git checkout -- back` (from `HarnessingAgents/app`).
 
 3. Install the hook for your user, so it never enters the project the agent reads. From `HarnessingAgents/app`:
 
@@ -95,4 +95,4 @@ If the hook never fires: check that you launched `copilot` from `HarnessingAgent
 
 A `postToolUse` hook cannot block a change. Hard-stopping the edit instead of nudging afterwards needs a `preToolUse` hook.
 
-Revert freely with version control between runs.
+Revert freely with version control between runs: `git checkout -- .` (from `HarnessingAgents/app`) resets everything, including `AGENTS.md`.

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # eval-no-comments.sh - exercise 04's eval. Runs the confirmation-code prompt
-# N times (default 5) via run-trial.sh, and grades each run deterministically
+# N times (default 10) via run-trial.sh, and grades each run deterministically
 # by pointing exercise 02's guardrail script directly at the resulting diff -
 # no hook, no live session, just the finished result.
 #
@@ -14,7 +14,7 @@ set -euo pipefail
 #
 # Usage: eval-no-comments.sh [N]
 
-readonly N="${1:-5}"
+readonly N="${1:-10}"
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 grader="$script_dir/../guardrails/check-no-comments.sh"
 
