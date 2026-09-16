@@ -1,6 +1,6 @@
 # .NET mutation-testing example
 
-A small API in .NET 10, that receives interest records and saves them to `interests.txt`.
+A small API in .NET 10, that receives interest records and saves them to `interests.txt` together with their registration status.
 
 It also contains a focused domain rule, `RegistrationPolicy`, used to demonstrate how mutation testing finds weaknesses that ordinary passing tests can miss.
 
@@ -31,6 +31,10 @@ Open <http://localhost:8080>. Submitted registrations are persisted in `back/int
 | Course is closed, or terms are not accepted | `Rejected` |
 | 0–30 | `Accepted` |
 | 31+ | `Waitlisted` |
+
+The form requires accepting the terms. Every submission is saved with an `Accepted`,
+`Waitlisted`, or `Rejected` status in the fifth `interests.txt` column. Capacity is
+calculated independently for each course from accepted registrations only.
 
 
 ## Run the tests

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using InterestApi.Domain;
@@ -11,7 +10,16 @@ namespace InterestApi.Controllers
     [Route("api")]
     public class RegistrationController : ControllerBase
     {
-        private readonly FileRegistrationRepository _repository = new FileRegistrationRepository();
+        private readonly FileRegistrationRepository _repository;
+        private readonly RegistrationPolicy _policy;
+
+        public RegistrationController(
+            FileRegistrationRepository repository,
+            RegistrationPolicy policy)
+        {
+            _repository = repository;
+            _policy = policy;
+        }
        
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] Registration registration)
@@ -25,14 +33,18 @@ namespace InterestApi.Controllers
                 return BadRequest();
 
             var registrations = await _repository.GetAllAsync();
-            var isDuplicate = registrations.Any(existingRegistration =>
-                string.Equals(existingRegistration.Email.Trim(), registration.Email, StringComparison.OrdinalIgnoreCase)
+            var confirmedRegistrations = registrations.Count(existingRegistration =>
+                existingRegistration.Status == RegistrationDecision.Accepted
                 && string.Equals(existingRegistration.Course.Trim(), registration.Course, StringComparison.OrdinalIgnoreCase));
 
-            if (!isDuplicate)
-                await _repository.SaveAsync(registration);
+            registration.Status = _policy.Decide(
+                isCourseOpen: true,
+                hasAcceptedTerms: registration.HasAcceptedTerms,
+                confirmedRegistrations: confirmedRegistrations);
 
-            return Created("/api/register", new { status = "ok" });
+            await _repository.SaveAsync(registration);
+
+            return Created("/api/register", new { status = registration.Status.ToString() });
         }
     }
 

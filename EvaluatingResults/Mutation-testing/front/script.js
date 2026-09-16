@@ -4,6 +4,7 @@ form.addEventListener('submit', async (ev) => {
   ev.preventDefault();
   msg.textContent = 'Enviando...';
   const data = Object.fromEntries(new FormData(form).entries());
+  data.hasAcceptedTerms = form.elements.hasAcceptedTerms.checked;
   try {
     const res = await fetch('/api/register', {
       method: 'POST',
@@ -11,7 +12,13 @@ form.addEventListener('submit', async (ev) => {
       body: JSON.stringify(data)
     });
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-    msg.textContent = 'Registro enviado. Gracias!';
+    const { status } = await res.json();
+    const messages = {
+      Accepted: 'Registro aceptado. Gracias!',
+      Waitlisted: 'El curso está completo. Te hemos añadido a la lista de espera.',
+      Rejected: 'No podemos aceptar el registro sin la aceptación de los términos.'
+    };
+    msg.textContent = messages[status] ?? 'Registro enviado.';
     form.reset();
   } catch (err) {
     console.error(err);

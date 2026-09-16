@@ -10,9 +10,9 @@ namespace InterestApi.Repository
     {
         private readonly string _filePath;
 
-        public FileRegistrationRepository()
+        public FileRegistrationRepository(string? filePath = null)
         {
-            _filePath = Path.Combine(Directory.GetCurrentDirectory(), "interests.txt");
+            _filePath = filePath ?? Path.Combine(Directory.GetCurrentDirectory(), "interests.txt");
         }
 
         public async Task<IReadOnlyList<Registration>> GetAllAsync()
@@ -24,12 +24,18 @@ namespace InterestApi.Repository
             {
                 var fields = line.Split('\t');
                 if (fields.Length < 4) continue;
+                if (string.Equals(fields[0], "Timestamp", StringComparison.OrdinalIgnoreCase)) continue;
 
                 registrations.Add(new Registration
                 {
                     Name = fields[1],
                     Email = fields[2],
-                    Course = fields[3]
+                    Course = fields[3],
+                    // Rows written before status support represent registrations that were accepted.
+                    Status = fields.Length > 4
+                        && Enum.TryParse<RegistrationDecision>(fields[4], ignoreCase: true, out var status)
+                        ? status
+                        : RegistrationDecision.Accepted
                 });
             }
 
@@ -40,7 +46,7 @@ namespace InterestApi.Repository
         {
             if (registration == null) throw new ArgumentNullException(nameof(registration));
 
-            var line = $"{DateTime.UtcNow:O}\t{registration.Name}\t{registration.Email}\t{registration.Course}\n";
+            var line = $"{DateTime.UtcNow:O}\t{registration.Name}\t{registration.Email}\t{registration.Course}\t{registration.Status}\n";
             await System.IO.File.AppendAllTextAsync(_filePath, line);
         }
     }
