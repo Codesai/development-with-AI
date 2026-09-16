@@ -4,45 +4,6 @@
 
 Wire a check into a GitHub Copilot CLI `postToolUse` hook and watch it correct the agent while it implements a feature. See how a guardrail (feedback, after the change) differs from a guideline (feedforward, before the change).
 
-## Keep the guardrail out of the agent's view
-
-This exercise only works if the agent does not know what you are checking. If it can read the guardrail script or an exercise brief that says "no comments", it will write comment-free code from the first turn and you never see the loop.
-
-So nothing about the guardrail lives in `HarnessingAgents/app/`, the folder the agent runs in:
-
-- the exercise instructions are in `HarnessingAgents/exercises/`;
-- the script is `HarnessingAgents/harness/guardrails/check-no-comments.sh`;
-- the hook is installed at the user level (`~/.copilot/hooks/`), not in the project.
-
-Launch `copilot` from `HarnessingAgents/app/` and keep it there. Treat "what must the student know that the agent must not?" as part of designing any guardrail.
-
-## Lifecycle hooks
-
-Hooks are scripts Copilot CLI runs at fixed points in a session, no matter what the model reasons about. The events include `sessionStart`, `userPromptSubmitted`, `preToolUse`, `postToolUse`, `agentStop`, and more. Hook config is loaded from `.github/hooks/*.json` in the directory where you launch `copilot`, and from `~/.copilot/hooks/` for the current user.
-
-- `preToolUse` runs *before* a tool and can allow, deny, or modify the call.
-- `postToolUse` runs *after* the tool succeeded. It cannot undo the edit. It can return an `additionalContext` string that the agent sees on its next turn and can act on.
-
-A comment check therefore has to be a `postToolUse` hook: the file is already written, so the guardrail reacts rather than blocks. This is the self-correcting loop.
-
-Docs:
-
-- Using hooks: https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/use-hooks
-- Hooks reference (events, payloads, output contract): https://docs.github.com/en/copilot/reference/hooks-reference
-- Copilot CLI general availability: https://github.blog/changelog/2026-02-25-github-copilot-cli-is-now-generally-available/
-
-## The guardrail
-
-`HarnessingAgents/harness/guardrails/check-no-comments.sh` ships ready to run. It works on whatever git working tree `copilot` is running in. After each edit it:
-
-1. finds the lines that changed since `HEAD` (`git diff` over `.cs .js .ts`),
-2. for each changed line, takes the function or method that encloses it, and flags any comment (`//`, `/* */`, `///`, a `*`-prefixed line) anywhere in that function,
-3. if any are found, returns `{"additionalContext": "..."}` listing them and asking the agent to remove them; otherwise it exits silently.
-
-The rule is "a function you touch must contain no comments" — a pre-existing comment in a method the agent modified counts; a comment in an untouched method in the same file does not.
-
-Limits, by design: enclosing-function detection is brace-based, not a parser, so expression-bodied members and top-level-statement files can be missed, and a `//` inside a string literal is a false positive. It only nudges — nothing forces the agent to re-run it or to obey.
-
 ## The feature
 
 Same task as exercise 01. Use this prompt for every run:
@@ -87,7 +48,40 @@ Same task as exercise 01. Use this prompt for every run:
 
 6. Check the feature works. Run `make run`, submit the form, and confirm a code in the `AAA-YYYYMMDD-NNN-C` shape comes back in the API response, lands as a new column in `back/interests.txt`, and shows in the page message. Only judge the code style once the behaviour is right.
 
-7. Compare with the baseline diff. Are the new comments gone? How many extra turns did it cost? Because the check covers the whole enclosing function, editing a starter method pulls its existing `///` docs and `//` comments into scope too — does the agent strip them, push back, or ignore the feedback and move on?
+7. Compare with the baseline diff. Are the new comments gone? How many extra turns did it cost? Because the check covers the whole enclosing function, editing a starter method pulls its existing `///` docs and `//` comments into scope too - does the agent strip them, push back, or ignore the feedback and move on?
+
+## How it works
+
+### Keeping the guardrail out of view
+
+The agent must not be able to tell what's being checked - if it can read the guardrail script or an exercise brief that says "no comments", it writes comment-free code from the first turn and there's no loop to observe. That's why nothing about the guardrail lives in `HarnessingAgents/app/`, the folder the agent runs in: the exercise instructions are in `HarnessingAgents/exercises/`, the script is `HarnessingAgents/harness/guardrails/check-no-comments.sh`, and the hook installs at the user level (`~/.copilot/hooks/`), not in the project. Treat "what must the student know that the agent must not?" as part of designing any guardrail.
+
+### Lifecycle hooks
+
+Hooks are scripts Copilot CLI runs at fixed points in a session, no matter what the model reasons about. The events include `sessionStart`, `userPromptSubmitted`, `preToolUse`, `postToolUse`, `agentStop`, and more. Hook config is loaded from `.github/hooks/*.json` in the directory where you launch `copilot`, and from `~/.copilot/hooks/` for the current user.
+
+- `preToolUse` runs *before* a tool and can allow, deny, or modify the call.
+- `postToolUse` runs *after* the tool succeeded. It cannot undo the edit. It can return an `additionalContext` string that the agent sees on its next turn and can act on.
+
+A comment check therefore has to be a `postToolUse` hook: the file is already written, so the guardrail reacts rather than blocks. This is the self-correcting loop.
+
+Docs:
+
+- Using hooks: https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/use-hooks
+- Hooks reference (events, payloads, output contract): https://docs.github.com/en/copilot/reference/hooks-reference
+- Copilot CLI general availability: https://github.blog/changelog/2026-02-25-github-copilot-cli-is-now-generally-available/
+
+### The guardrail script
+
+`HarnessingAgents/harness/guardrails/check-no-comments.sh` ships ready to run. It works on whatever git working tree `copilot` is running in. After each edit it:
+
+1. finds the lines that changed since `HEAD` (`git diff` over `.cs .js .ts`),
+2. for each changed line, takes the function or method that encloses it, and flags any comment (`//`, `/* */`, `///`, a `*`-prefixed line) anywhere in that function,
+3. if any are found, returns `{"additionalContext": "..."}` listing them and asking the agent to remove them; otherwise it exits silently.
+
+The rule is "a function you touch must contain no comments" - a pre-existing comment in a method the agent modified counts; a comment in an untouched method in the same file does not.
+
+Limits, by design: enclosing-function detection is brace-based, not a parser, so expression-bodied members and top-level-statement files can be missed, and a `//` inside a string literal is a false positive. It only nudges - nothing forces the agent to re-run it or to obey.
 
 ## Recommendations
 
