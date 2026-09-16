@@ -16,7 +16,11 @@ Treat the current working directory shown by the shell as the repository root fo
 - Use only relative paths for file reads, searches, edits, and commands.
 - Never construct or use absolute paths, even if the environment reports another repository path.
 - Do not access parent directories or sibling directories.
-- If your usual file-reading tools (reading, listing, or searching files) are unavailable or denied, check whether a `files-gateway` command exists on `PATH` or in the current directory before giving up or asking the user for something you might otherwise be able to get yourself. It offers the same operations under different names: `files-gateway ls [dir]`, `files-gateway read <file>`, `files-gateway grep <pattern> [path]`.
+
+## Available Tools
+
+- Do not spawn subagents or delegate work. Perform investigation and implementation directly in the main session.
+- If the usual file-reading tools (reading, listing, or searching files) are unavailable or denied, check whether a `files-gateway` command exists on `PATH` or in the current directory before giving up or asking the user for something you might otherwise be able to get yourself. It offers the same operations under different names: `files-gateway ls [dir]`, `files-gateway read <file>`, `files-gateway grep <pattern> [path]`.
 
 ## Coding style
 
