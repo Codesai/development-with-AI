@@ -16,14 +16,14 @@ public sealed class RegistrationControllerTests : IDisposable
         var repository = new FileRegistrationRepository(_filePath);
         var controller = new RegistrationController(repository, new RegistrationPolicy());
 
-        var accepted = await controller.Register(new Registration
+        var accepted = await controller.Register(new RegistrationRequest
         {
             Name = "Ada",
             Email = "ada@example.com",
             Course = "Introducción",
             HasAcceptedTerms = true
         });
-        var rejected = await controller.Register(new Registration
+        var rejected = await controller.Register(new RegistrationRequest
         {
             Name = "Ada",
             Email = "ada@example.com",
@@ -36,6 +36,18 @@ public sealed class RegistrationControllerTests : IDisposable
         Assert.Equal(
             new[] { RegistrationDecision.Accepted, RegistrationDecision.Rejected },
             (await repository.GetAllAsync()).Select(registration => registration.Status));
+    }
+
+    [Fact]
+    public void IgnoresClientSuppliedStatusDuringRequestDeserialization()
+    {
+        var request = JsonSerializer.Deserialize<RegistrationRequest>(
+            "{\"name\":\"Ada\",\"email\":\"ada@example.com\",\"course\":\"Introducción\",\"status\":null}",
+            new JsonSerializerOptions(JsonSerializerDefaults.Web));
+
+        Assert.NotNull(request);
+        Assert.Equal("Ada", request.Name);
+        Assert.False(request.HasAcceptedTerms);
     }
 
     public void Dispose()

@@ -22,12 +22,16 @@ namespace InterestApi.Controllers
         }
        
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] Registration registration)
+        public async Task<IActionResult> Register([FromBody] RegistrationRequest request)
         {
-            if (registration == null) return BadRequest();
+            if (request == null) return BadRequest();
 
-            registration.Email = registration.Email?.Trim() ?? string.Empty;
-            registration.Course = registration.Course?.Trim() ?? string.Empty;
+            var registration = new Registration
+            {
+                Name = request.Name ?? string.Empty,
+                Email = request.Email?.Trim() ?? string.Empty,
+                Course = request.Course?.Trim() ?? string.Empty
+            };
 
             if (string.IsNullOrEmpty(registration.Email) || string.IsNullOrEmpty(registration.Course))
                 return BadRequest();
@@ -39,7 +43,7 @@ namespace InterestApi.Controllers
 
             registration.Status = _policy.Decide(
                 isCourseOpen: true,
-                hasAcceptedTerms: registration.HasAcceptedTerms,
+                hasAcceptedTerms: request.HasAcceptedTerms,
                 confirmedRegistrations: confirmedRegistrations);
 
             await _repository.SaveAsync(registration);

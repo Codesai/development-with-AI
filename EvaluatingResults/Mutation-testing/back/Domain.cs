@@ -1,5 +1,13 @@
 namespace InterestApi.Domain
 {
+    public sealed class RegistrationRequest
+    {
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public string? Course { get; set; }
+        public bool HasAcceptedTerms { get; set; }
+    }
+
     public class Registration
     {
         public string Name { get; set; } = null!;
