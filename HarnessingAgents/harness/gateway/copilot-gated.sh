@@ -40,5 +40,7 @@ copilot \
   --deny-tool='shell(sed)'   --deny-tool='shell(awk)'   --deny-tool='shell(cut)' \
   --deny-tool='shell(xxd)'   --deny-tool='shell(od)'    --deny-tool='shell(strings)' \
   --deny-tool='shell(dd)'    --deny-tool='shell(cp)'    --deny-tool='shell(install)'  --deny-tool='shell(wget)' \
+  --deny-tool='shell(python)' --deny-tool='shell(python3)' --deny-tool='shell(node)'   --deny-tool='shell(nodejs)' \
+  --deny-tool='shell(perl)'   --deny-tool='shell(ruby)'    --deny-tool='shell(php)'    --deny-tool='shell(lua)' \
   --allow-tool='shell(files-gateway)' --allow-tool='shell(make)' --allow-tool='shell(docker)' --allow-tool='shell(curl)' \
   "$@"
