@@ -20,6 +20,20 @@ grader="$script_dir/../guardrails/check-no-comments.sh"
 
 [ -x "$grader" ] || { printf 'eval-no-comments: grader not found or not executable at %s\n' "$grader" >&2; exit 1; }
 
+# The grader's fail output is a JSON `{"additionalContext": "<message>"}` blob
+# (see the quirk note above) - pull the message back out so a failure prints
+# the actual flagged comments here, not just a directory to go open.
+extract_reason() {
+  printf '%s' "$1" | node -e '
+    let s = "";
+    process.stdin.on("data", d => s += d);
+    process.stdin.on("end", () => {
+      try { process.stdout.write(JSON.parse(s).additionalContext || s); }
+      catch { process.stdout.write(s); }
+    });
+  '
+}
+
 passed=0
 declare -a failed_dirs=()
 
@@ -34,6 +48,7 @@ for i in $(seq 1 "$N"); do
     rm -rf "$dir"
   else
     printf -- '--- Trial %s/%s: FAIL (kept at %s) ---\n' "$i" "$N" "$dir" >&2
+    extract_reason "$output" | sed 's/^/    /' >&2
     failed_dirs+=("$dir")
   fi
 done
