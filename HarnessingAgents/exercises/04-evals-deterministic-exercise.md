@@ -51,6 +51,8 @@ Same feature prompt in every trial:
 
 6. Notice what a single run could never have told you. "It happened this one time" or "it failed this one time" is not a number. Running many trials turns "the agent should behave like X" into something you can track over time, e.g. after every prompt or model change.
 
+7. Optional: measure whether a corrective mechanism changes the number. Install the post-edit script that nudges the agent to remove comments after it edits (`../install-no-comments-hook.sh`, user-level under `~/.copilot/hooks/`, so it applies automatically - no change to `run-trial.sh` needed), then re-run `./eval-no-comments.sh 3`. Compare the pass rate against step 2's baseline. Uninstall it again when done (`../install-no-comments-hook.sh uninstall`) since it stays active for every `copilot` session on this machine, not just this eval, until removed.
+
 ## Recommendations
 
 Trial directories live under `harness/evals/results/`, gitignored so they never end up in a commit. Passing trials are deleted automatically; clean up any leftover failing ones yourself (`rm -rf results/trial-*` from `harness/evals`) once you are done reading them.
