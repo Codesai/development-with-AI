@@ -19,6 +19,8 @@ Copilot CLI gates tools in two independent layers:
 
 `--deny-tool='shell(cat)'` matches the command name, not its arguments, so it blocks every `cat` - which is why reads have to go through a replacement command. These flags are per-session, so the launcher script *is* the gateway; a plain `copilot` has none of it.
 
+Git is the exception: Copilot CLI treats it as subcommand-aware, so `shell(git)` alone only denies a bare `git` with no subcommand - it does not catch `git log`, `git status`, or `git ls-files`. Denying all of git needs the wildcard form, `shell(git:*)`.
+
 Docs:
 
 - Allowing and denying tools: https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools
