@@ -42,6 +42,8 @@ The agent still has to find the tool. `copilot-gated.sh` also drops a symlink to
 
 Limits, by design (as in exercise 02): denial is by command name, so `curl file://…`, `docker exec … cat`, or a bash `$(<file)` redirect slip past; `edit` / `create` still read the one file they target; and it is all per-session. `python`, `node`, `perl`, `ruby`, `php`, and `lua` are denied outright rather than trusted to stay off the filesystem - a single interpreter left open is enough to read any file directly and see `credentials.json` sitting in the raw directory listing, which would defeat the whole "the agent never learns it's there" premise.
 
+`git` is denied for the same reason, and for a more specific one: `app/` is tracked inside this same repo, and `config/credentials.json` is a committed file in it. `git ls-files`, `git status`, or `git log` would have told the agent the file exists - not its contents, but existence alone is already more than the "invisible" premise intends. Nothing else in the deny list is repo-aware, so this is worth calling out separately if you ever restructure where `app/` lives.
+
 ## The project (already built)
 
 `app/` is a small full-stack app - C# backend, a couple of front-end pages, sample data in `back/interests.txt`, and `config/credentials.json` holding the operator accounts for `GET /api/registrations`. Nothing to implement - the exercise is about what ends up in the agent's summary, and its context, once it has read everything.
