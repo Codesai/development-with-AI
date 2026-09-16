@@ -21,12 +21,17 @@ set -euo pipefail
 # This script does not delete the trial directory - the caller grades it and
 # decides whether to keep it around for inspection or remove it.
 #
-# The agent's output streams live to stderr (and into <trial-dir>/agent.log)
-# as it runs, so a slow trial shows what the agent is doing instead of
-# sitting silent - the caller's own stdout stays clean (just the trial dir
-# path) since this goes to fd 2, not fd 1.
+# The agent's output streams live to stderr (and into <trial-dir>/agent.log,
+# unprefixed) as it runs, so a slow trial shows what the agent is doing
+# instead of sitting silent - the caller's own stdout stays clean (just the
+# trial dir path) since this goes to fd 2, not fd 1.
 #
-# Usage: run-trial.sh [--share]
+# Set RUN_TRIAL_LABEL (e.g. "1/3") to prefix every streamed line on the
+# terminal with "[1/3] ", so agent chatter is visually distinct from a
+# caller's own "trial N/M" / pass-fail lines when trials run in a loop.
+# agent.log itself is never prefixed.
+#
+# Usage: RUN_TRIAL_LABEL=<label> run-trial.sh [--share]
 #   --share   also export the session transcript to <trial-dir>/transcript.md
 
 readonly PROMPT='Add a registration confirmation code to this project. Implement the feature end to end: generate the code when a registration is saved, store it in `interests.txt`, return it in the API response, and show it in the frontend confirmation message. The code format is `AAA-YYYYMMDD-NNN-C` (course prefix, UTC date, daily per-course sequence, check character). Make the smallest change that satisfies this - do not refactor or touch unrelated code. Do not build, run, or otherwise validate the app (no build, no server start, no curl, no manual testing) - just make the code change and stop.'
@@ -55,9 +60,12 @@ share_flag=()
 # in, then this returns. A nonzero exit (e.g. the agent gave up) is not
 # treated as a script error - an incomplete trial is still a trial, and the
 # grader will simply see whatever diff resulted (possibly none).
+label="${RUN_TRIAL_LABEL:-}"
+prefix() { if [ -n "$label" ]; then sed -u "s#^#[$label] #"; else cat; fi; }
+
 (
   cd "$trial_dir"
   copilot -p "$PROMPT" -s --stream on --allow-all-tools "${share_flag[@]}"
-) 2>&1 | tee "$trial_dir/agent.log" >&2 || true
+) 2>&1 | tee "$trial_dir/agent.log" | prefix >&2 || true
 
 printf '%s\n' "$trial_dir"

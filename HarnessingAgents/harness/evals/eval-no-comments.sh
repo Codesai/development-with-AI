@@ -24,16 +24,16 @@ passed=0
 declare -a failed_dirs=()
 
 for i in $(seq 1 "$N"); do
-  printf 'trial %s/%s... ' "$i" "$N" >&2
-  dir="$("$script_dir/run-trial.sh")"
+  printf '\n=== Trial %s/%s: agent run (prefixed [%s/%s] below) ===\n' "$i" "$N" "$i" "$N" >&2
+  dir="$(RUN_TRIAL_LABEL="$i/$N" "$script_dir/run-trial.sh")"
   output="$("$grader" "$dir" 2>"$dir/grade.err")" || true
   printf '%s' "$output" >"$dir/grade.log"
   if [ -z "$output" ]; then
-    printf 'pass\n' >&2
+    printf -- '--- Trial %s/%s: PASS ---\n' "$i" "$N" >&2
     passed=$((passed + 1))
     rm -rf "$dir"
   else
-    printf 'FAIL (kept at %s)\n' "$dir" >&2
+    printf -- '--- Trial %s/%s: FAIL (kept at %s) ---\n' "$i" "$N" "$dir" >&2
     failed_dirs+=("$dir")
   fi
 done

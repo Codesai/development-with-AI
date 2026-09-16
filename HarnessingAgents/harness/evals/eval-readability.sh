@@ -32,11 +32,11 @@ passed=0
 declare -a dirs=()
 
 for i in $(seq 1 "$n"); do
-  printf 'trial %s/%s... ' "$i" "$n" >&2
-  dir="$("$script_dir/run-trial.sh")"
+  printf '\n=== Trial %s/%s: agent run (prefixed [%s/%s] below) ===\n' "$i" "$n" "$i" "$n" >&2
+  dir="$(RUN_TRIAL_LABEL="$i/$n" "$script_dir/run-trial.sh")"
   dirs+=("$dir")
   verdict="$("$script_dir/judge-readability.sh" "$dir")"
-  printf '%s\n' "$verdict" >&2
+  printf -- '--- Trial %s/%s: %s ---\n' "$i" "$n" "$verdict" >&2
   case "$verdict" in
     READABLE*) passed=$((passed + 1)) ;;
   esac
