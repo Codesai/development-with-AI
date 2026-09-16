@@ -49,4 +49,7 @@ EOF
 scratch="$(mktemp -d "${TMPDIR:-/tmp}/harnessingagents-judge-XXXXXX")"
 trap 'rm -rf "$scratch"' EXIT
 
-(cd "$scratch" && copilot -p "$prompt" -s --allow-all-tools) 2>/dev/null | tail -n 1
+# -s output ends with a trailing blank line, so a bare `tail -n 1` grabs
+# that instead of the verdict - drop blank lines first, then take the last
+# real one.
+(cd "$scratch" && copilot -p "$prompt" -s --allow-all-tools) 2>/dev/null | sed '/^[[:space:]]*$/d' | tail -n 1
