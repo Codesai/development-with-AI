@@ -23,7 +23,7 @@ Limits, by design: one judge call, one model, one rubric wording - all things kn
 
 ## The feature
 
-Same task as exercises 01, 02, and 04. Keep the no-comments guideline in `app/AGENTS.md` from exercise 04. Use this prompt:
+Same feature prompt as exercise 04. Keep the no-comments instruction in `app/AGENTS.md` from that exercise. Use this prompt:
 
 > Add a registration confirmation code to this project. Implement the feature end to end: generate the code when a registration is saved, store it in `interests.txt`, return it in the API response, and show it in the frontend confirmation message. The code format is `AAA-YYYYMMDD-NNN-C` (course prefix, UTC date, daily per-course sequence, check character).
 
