@@ -8,7 +8,7 @@ See how explicit research, planning, implementation, and validation phases chang
 
 ### Part 1.A
 
-On the `main` branch, launch `copilot` and enter this prompt:
+Go to the `../app` directory, and on the `main` branch, launch `copilot` and enter this prompt:
 
 ```text
 Add a health check endpoint to this application.
