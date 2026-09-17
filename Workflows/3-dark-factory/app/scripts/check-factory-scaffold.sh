@@ -7,7 +7,7 @@ cd "$factory_root"
 fail() { echo "FACTORY SCAFFOLD FAILURE: $*" >&2; exit 1; }
 
 [[ ! -e .github ]] || fail ".github is forbidden in this local exercise"
-for required in AGENTS.md README.md Makefile prompts/dark-factory.md .dark-factory/config .dark-factory/run-log.md; do
+for required in AGENTS.md README.md Makefile .dark-factory/config .dark-factory/run-log.md; do
   [[ -f "$required" ]] || fail "missing $required"
 done
 

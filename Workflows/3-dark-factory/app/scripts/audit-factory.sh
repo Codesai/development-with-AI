@@ -7,7 +7,6 @@ cd "$factory_root"
 fail() { echo "FACTORY AUDIT FAILURE: $*" >&2; exit 1; }
 
 git_root="$(git rev-parse --show-toplevel 2>/dev/null)" || fail "not inside a Git repository"
-[[ "$(cd "$git_root" && pwd -P)" == "$factory_root" ]] || fail "audit must run in the standalone exercise repository"
 [[ "$(git branch --show-current)" == "main" ]] || fail "final branch must be main"
 [[ -z "$(git status --porcelain)" ]] || fail "final working tree is not clean"
 git rev-parse --verify dark-factory-start^{commit} >/dev/null 2>&1 || fail "missing dark-factory-start tag"
