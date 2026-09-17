@@ -12,7 +12,11 @@ A gateway is not a guideline (ask) or a guardrail (catch afterwards): it replace
 
 ## Instructions
 
-1. Uninstall the exercise 02 hook, if you installed it. It is user-level (`~/.copilot/hooks/`), so it stays active across exercises unless removed: `../harness/install-no-comments-hook.sh uninstall`.
+1. Uninstall the exercise 02 hook, if you installed it. It is user-level (`~/.copilot/hooks/`), so it stays active across exercises unless removed. From `HarnessingAgents/app`:
+
+   ```bash
+   make -C ../harness hooks:uninstall
+   ```
 
 2. Baseline. Start plain `copilot` in `HarnessingAgents/app` and give it:
 
@@ -20,7 +24,13 @@ A gateway is not a guideline (ask) or a guardrail (catch afterwards): it replace
 
    Watch it walk the whole tree, including `config/credentials.json`, and describe it - the credential is now in its context and in the report it hands back.
 
-3. Relaunch through the gateway: `../harness/gateway/copilot-gated.sh` from `HarnessingAgents/app`. Give it the exact same prompt.
+3. Relaunch through the gateway. From `HarnessingAgents/app`:
+
+   ```bash
+   make -C ../harness gateway:copilot
+   ```
+
+   Give it the exact same prompt.
 
 4. Compare the two summaries. `files-gateway ls` silently leaves `config/credentials.json` out of every directory listing - not "access denied," just absent. If the agent sticks to `files-gateway` for this task, the summary looks complete and simply has no entry for it: nothing to notice, nothing to ask permission for, nothing to work around. That's the intended case - but nothing stops it from reaching for a different tool instead, see step 5.
 

@@ -16,17 +16,23 @@ Same feature prompt in every trial:
 
 1. Add a no-comments instruction to `app/AGENTS.md`, if it is not already there: the agent should rely on descriptive names and small functions, and should strip comments from any code it has to edit that already has them.
 
-2. From `HarnessingAgents/harness/evals`, run `./eval-no-comments.sh 3`. Each trial launches its own `copilot` run against a private copy of `app/` - your real `app/` and its git state are untouched.
+2. From `HarnessingAgents/harness`, run:
 
-3. Read the summary. Is it `10/10`? Most instructions given to an agent are not. If any trial failed, open its kept directory: `grade.log` shows exactly which lines were flagged and in which file, `agent.log` shows the full run.
+   ```bash
+   make evals:deterministic
+   ```
 
-4. Re-run a few times, and vary N. A single run tells you almost nothing about how reliably an instruction is followed; five or ten runs start to.
+   This is the same as `./eval-no-comments.sh 3` from `harness/evals`. Each trial launches its own `copilot` run against a private copy of `app/` - your real `app/` and its git state are untouched.
+
+3. Read the summary. Is it `3/3`? Most instructions given to an agent are not. If any trial failed, open its kept directory: `grade.log` shows exactly which lines were flagged and in which file, `agent.log` shows the full run.
+
+4. Re-run a few times, and vary N (`make evals:deterministic N=3` from `HarnessingAgents/harness`, or `./eval-no-comments.sh 3` from `harness/evals`). A single run tells you almost nothing about how reliably an instruction is followed; a handful of runs start to.
 
 5. Try weakening or strengthening the wording in `AGENTS.md` (e.g. drop the "when editing code that already has comments" clause) and re-run. Does the pass rate move the way you would expect?
 
 6. Notice what a single run could never have told you. "It happened this one time" or "it failed this one time" is not a number. Running many trials turns "the agent should behave like X" into something you can track over time, e.g. after every prompt or model change.
 
-7. Optional: measure whether a corrective mechanism changes the number. Install the post-edit script that nudges the agent to remove comments after it edits (`../install-no-comments-hook.sh`, user-level under `~/.copilot/hooks/`, so it applies automatically - no change to `run-trial.sh` needed), then re-run `./eval-no-comments.sh 3`. Compare the pass rate against step 2's baseline. Uninstall it again when done (`../install-no-comments-hook.sh uninstall`) since it stays active for every `copilot` session on this machine, not just this eval, until removed.
+7. Optional: measure whether a corrective mechanism changes the number. Install the post-edit script that nudges the agent to remove comments after it edits (`make hooks:install` from `HarnessingAgents/harness`, user-level under `~/.copilot/hooks/`, so it applies automatically - no change to `run-trial.sh` needed), then re-run `make evals:deterministic`. Compare the pass rate against step 2's baseline. Uninstall it again when done (`make hooks:uninstall` from `HarnessingAgents/harness`) since it stays active for every `copilot` session on this machine, not just this eval, until removed.
 
 ## How it works
 

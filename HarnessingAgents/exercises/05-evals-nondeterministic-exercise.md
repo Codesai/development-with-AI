@@ -12,15 +12,27 @@ Same feature prompt as exercise 04. Keep the no-comments instruction in `app/AGE
 
 ## Instructions
 
-1. From `HarnessingAgents/harness/evals`, run `./eval-readability.sh 3`. Note the `k/N judged readable` summary and the list of kept trial directories.
+1. From `HarnessingAgents/harness`, run:
+
+   ```bash
+   make evals:non-deterministic
+   ```
+
+   This is the same as `./eval-readability.sh 3` from `harness/evals` (use `make evals:non-deterministic N=5` to vary the count). Note the `k/N judged readable` summary and the list of kept trial directories.
 
 2. Cross-reference with exercise 04. Run `../guardrails/check-no-comments.sh <trial-dir>` against a couple of the same trials `eval-readability.sh` just judged. Do the two graders ever disagree - a trial that is comment-free but judged `NOT-READABLE` (terse rather than clear), or one the heuristic missed that the judge still calls out?
 
-3. Pick one trial directory and run `./eval-readability.sh --repeat-judge <trial-dir> 10`. The code is identical on every call - only the judge runs again. Does it give the same verdict ten times, or does it waver?
+3. Pick one trial directory and, from `HarnessingAgents/harness`, run:
+
+   ```bash
+   make evals:repeat-judge DIR=<trial-dir>
+   ```
+
+   This is the same as `./eval-readability.sh --repeat-judge <trial-dir> 3` from `harness/evals` (use `M=` to change the count). The code is identical on every call - only the judge runs again. Does it give the same verdict three times, or does it waver?
 
 4. Read the reasoning the judge gives on a wavering trial. Is it actually engaging with the diff, or does it read like a plausible-sounding sentence that would fit almost any code?
 
-5. Try sharpening the rubric in `judge-readability.sh` (e.g. ask it to point at a specific line it found unclear, or require it to name what a hypothetical comment would have said) and re-run `--repeat-judge`. Does a more specific rubric reduce the wobble?
+5. Try sharpening the rubric in `judge-readability.sh` (e.g. ask it to point at a specific line it found unclear, or require it to name what a hypothetical comment would have said) and re-run `make evals:repeat-judge DIR=<trial-dir>`. Does a more specific rubric reduce the wobble?
 
 6. Decide what you would actually do with a wavering judge in a real pipeline - more judge samples and a majority vote, a stronger/more capable judge model, a sharper rubric, or accept that this particular quality is not worth automating and belongs in human review instead.
 
@@ -39,7 +51,7 @@ The trade-off: a script gives the same verdict on the same input every time. A j
 - `run-trial.sh` - the same trial runner as exercise 04; both exercises share it so the trials are comparable. Agent output streams live to the terminal as each trial runs, so a slow trial does not sit silent.
 - `judge-readability.sh <trial-dir>` - takes one trial, stages and diffs it against its baseline commit, and sends that diff inline in a rubric prompt to a *second*, independent `copilot -p ... -s` call, run from an empty scratch directory (it has no reason to use any tool, so none is given anything to touch). Prints one line: `READABLE` or `NOT-READABLE`, a dash, then the judge's one-sentence reasoning.
 - `eval-readability.sh [N]` - runs N trials and judges each one, printing `k/N judged readable`. Unlike exercise 04's eval, trial directories are kept (not deleted) so you can re-judge them.
-- `eval-readability.sh --repeat-judge <trial-dir> [M]` - holds one trial's code fixed and re-runs only the judge M times. This isolates judge-side non-determinism from agent-side non-determinism: the code cannot have changed between runs, so any disagreement is the judge talking to itself.
+- `eval-readability.sh --repeat-judge <trial-dir> [M]` - holds one trial's code fixed and re-runs only the judge M times (default 3), to isolate judge-side non-determinism from agent-side non-determinism: the code cannot have changed between runs, so any disagreement is the judge talking to itself. Shorthand: `make evals:repeat-judge DIR=<trial-dir>` (add `M=` to change the count) from `HarnessingAgents/harness`.
 
 Limits, by design: one judge call, one model, one rubric wording - all things known to sway an LLM-as-judge's verdict. `READABLE`/`NOT-READABLE` is a coarse binary for what is really a spectrum. And the judge is graded on trust: nothing here checks that its stated reasoning actually matches the diff it was given.
 

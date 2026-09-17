@@ -42,6 +42,8 @@ Same task as exercise 01. Use this prompt for every run:
    }
    ```
 
+   Shortcut: from `HarnessingAgents/app`, `make -C ../harness hooks:install` does the same three steps.
+
 4. Start a fresh `copilot` session in `HarnessingAgents/app` (hooks load at session start) and give it the same prompt.
 
 5. Watch the run. After each `edit`, `create`, or `apply_patch` the hook fires. When the agent writes a comment, the check feeds it back and the agent should remove it on a following turn.
