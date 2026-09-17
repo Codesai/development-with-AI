@@ -18,7 +18,8 @@ namespace InterestApi.Repository
         {
             if (registration == null) throw new ArgumentNullException(nameof(registration));
 
-            var line = $"{DateTime.UtcNow:O}\t{registration.Name}\t{registration.Email}\t{registration.Course}\n";
+            var formattedRegistration = RegistrationFormatter.ToStorageLine(registration);
+            var line = $"{DateTime.UtcNow:O}\t{formattedRegistration}\n";
             await System.IO.File.AppendAllTextAsync(_filePath, line);
         }
     }
