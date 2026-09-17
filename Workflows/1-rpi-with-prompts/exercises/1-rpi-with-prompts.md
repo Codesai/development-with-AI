@@ -26,14 +26,13 @@ Add a health check endpoint to this application. Create `GET /api/health`. It mu
 
 Workflow:
 1. Research the application’s architecture and conventions, and clarify any uncertainty about the feature with me.
-2. Present more than one implementation option.
-3. Wait for my approval.
-4. Propose an implementation and testing plan.
-5. Wait for my approval.
-6. Implement the approved plan.
-7. Run the validation checks.
-8. Fix any issues found.
-9. Report a concise summary, including the relevant details, changed files, and validation results.
+2. Wait for my approval.
+3. Propose an implementation and testing plan.
+4. Wait for my approval.
+5. Implement the approved plan.
+6. Run the validation checks.
+7. Fix any issues found.
+8. Report a concise summary, including the relevant details, changed files, and validation results.
 ```
 
 Press <kbd>Enter</kbd>. When Copilot pauses, review its response and approve it if you agree.
