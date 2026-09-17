@@ -1,4 +1,4 @@
-# Issue 008 — List stored registrations
+# Task 008 — List stored registrations
 
 ## Goal
 
@@ -17,4 +17,3 @@ Allow clients to retrieve the registrations in storage order.
 - Extend the existing repository abstraction with asynchronous reading.
 - Keep file parsing inside the file repository.
 - Do not add dependencies or modify unrelated functionality.
-

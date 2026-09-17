@@ -1,4 +1,4 @@
-# Issue 009 — Filter registrations by course
+# Task 009 — Filter registrations by course
 
 ## Goal
 
@@ -17,4 +17,3 @@ Allow the registration list to be narrowed to one course.
 - Apply filtering in the application layer after one repository read.
 - Reuse the shared offered-course definition where relevant.
 - Do not add dependencies or modify unrelated functionality.
-

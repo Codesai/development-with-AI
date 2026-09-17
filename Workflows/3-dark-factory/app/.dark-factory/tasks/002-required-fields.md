@@ -1,4 +1,4 @@
-# Issue 002 — Reject missing registration fields
+# Task 002 — Reject missing registration fields
 
 ## Goal
 
@@ -16,4 +16,3 @@ Prevent incomplete registrations from being stored.
 - Keep validation outside the repository implementation.
 - Do not add dependencies or weaken existing checks.
 - Do not modify unrelated functionality.
-

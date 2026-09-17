@@ -1,4 +1,4 @@
-# Issue 007 — Expose the course catalog
+# Task 007 — Expose the course catalog
 
 ## Goal
 
@@ -17,4 +17,3 @@ Allow clients to discover the courses accepted by registration validation.
 - Do not duplicate the offered-course values in controllers.
 - Do not add dependencies or modify unrelated functionality.
 - Preserve all earlier endpoints and behavior.
-

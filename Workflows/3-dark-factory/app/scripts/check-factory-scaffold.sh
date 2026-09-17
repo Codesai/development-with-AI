@@ -11,21 +11,24 @@ for required in AGENTS.md README.md Makefile .dark-factory/config .dark-factory/
   [[ -f "$required" ]] || fail "missing $required"
 done
 
-issues=()
-while IFS= read -r issue; do
-  issues+=("$issue")
-done < <(find .dark-factory/issues -maxdepth 1 -type f -name '[0-9][0-9][0-9]-*.md' | sort)
-[[ ${#issues[@]} -eq 10 ]] || fail "expected exactly 10 issue files, found ${#issues[@]}"
+tasks=()
+while IFS= read -r task; do
+  tasks+=("$task")
+done < <(find .dark-factory/tasks -maxdepth 1 -type f -name '[0-9][0-9][0-9]-*.md' | sort)
+[[ ${#tasks[@]} -eq 10 ]] || fail "expected exactly 10 task files, found ${#tasks[@]}"
 
-for index in "${!issues[@]}"; do
+for index in "${!tasks[@]}"; do
   expected="$(printf '%03d' "$((index + 1))")"
-  issue="${issues[$index]}"
-  [[ "$(basename "$issue")" == "$expected-"* ]] || fail "expected issue $expected, found $(basename "$issue")"
-  grep -Fxq "# Issue $expected" <(sed -E '1s/ — .*$//' "$issue") || fail "$issue has an invalid title"
+  task="${tasks[$index]}"
+  [[ "$(basename "$task")" == "$expected-"* ]] || fail "expected task $expected, found $(basename "$task")"
+  grep -Fxq "# Task $expected" <(sed -E '1s/ — .*$//' "$task") || fail "$task has an invalid title"
   for heading in '## Goal' '## Acceptance criteria' '## Constraints'; do
-    grep -Fxq "$heading" "$issue" || fail "$issue is missing $heading"
+    grep -Fxq "$heading" "$task" || fail "$task is missing $heading"
   done
 done
+
+grep -Eq '^MAX_TASKS=[0-9]+$' .dark-factory/config || fail "MAX_TASKS must be a number"
+grep -Eq '^MAX_FIX_ROUNDS=[0-9]+$' .dark-factory/config || fail "MAX_FIX_ROUNDS must be a number"
 
 grep -q -- '--no-ff' AGENTS.md || fail "AGENTS.md does not require --no-ff"
 

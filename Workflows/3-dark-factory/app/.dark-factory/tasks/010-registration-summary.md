@@ -1,4 +1,4 @@
-# Issue 010 — Summarize registrations
+# Task 010 — Summarize registrations
 
 ## Goal
 
@@ -18,4 +18,3 @@ Expose aggregate counts for the complete registration collection.
 - Reuse the shared course definition and asynchronous repository read.
 - Do not expose persistence-only fields.
 - Do not add dependencies or modify unrelated functionality.
-

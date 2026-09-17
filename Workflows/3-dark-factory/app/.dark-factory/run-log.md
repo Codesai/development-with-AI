@@ -1,14 +1,14 @@
 # Dark Factory run log
 
-The coordinator appends one section per attempted issue. Issue definitions remain immutable.
+The coordinator appends one section per attempted task. Task definitions remain immutable.
 
 Required entry shape:
 
 ```text
-## Issue NNN
+## Task NNN
 
 Status: MERGED | STOPPED
-Branch: feature/issue-NNN
+Branch: feature/task-NNN
 Research: <relevant files and conventions>
 Plan: <intended change and risks>
 Implementation: <smallest delivered change>

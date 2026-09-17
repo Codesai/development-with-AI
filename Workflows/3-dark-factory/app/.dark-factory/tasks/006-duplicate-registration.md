@@ -1,4 +1,4 @@
-# Issue 006 — Prevent duplicate course registrations
+# Task 006 — Prevent duplicate course registrations
 
 ## Goal
 
@@ -17,4 +17,3 @@ Avoid storing the same person more than once for the same course.
 - Extend the repository contract only as much as duplicate detection requires.
 - Keep duplicate policy in the application layer rather than the file repository.
 - Do not introduce a database, dependency, or unrelated refactor.
-

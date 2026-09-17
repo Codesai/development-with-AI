@@ -1,4 +1,4 @@
-# Issue 003 — Normalize registrations before storage
+# Task 003 — Normalize registrations before storage
 
 ## Goal
 
@@ -17,4 +17,3 @@ Store a stable representation of registration input.
 - Normalize once at the application boundary.
 - Use only .NET built-in functionality.
 - Do not modify unrelated functionality.
-
