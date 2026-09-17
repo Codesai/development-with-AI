@@ -1,0 +1,44 @@
+name: request-copilot-review
+
+on:
+  workflow_run:
+    workflows: [full-feedback]
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  request-review:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.pull_requests[0] != null
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request a bounded Copilot review
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+
+          current_sha=$(gh api "repos/$GH_REPO/pulls/$PR_NUMBER" --jq .head.sha)
+          if [[ "$current_sha" != "$HEAD_SHA" ]]; then
+            echo "Validated commit $HEAD_SHA is stale; current PR head is $current_sha."
+            exit 0
+          fi
+
+          review_count=$(gh api --paginate "repos/$GH_REPO/pulls/$PR_NUMBER/reviews" \
+            --jq '[.[] | select(.user.login | test("copilot"; "i"))] | length' \
+            | awk '{ total += $1 } END { print total + 0 }')
+          if (( review_count >= 3 )); then
+            echo "Copilot has already reviewed this PR three times; not requesting another review."
+            exit 0
+          fi
+
+          gh api --method POST "repos/$GH_REPO/pulls/$PR_NUMBER/requested_reviewers" \
+            -f 'reviewers[]=copilot-pull-request-reviewer[bot]'
