@@ -1,0 +1,21 @@
+# .NET build artifacts
+[Bb]in/
+[Oo]bj/
+
+# IDE and editor settings
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local tooling and test output
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# OS-generated files
+.DS_Store
+Thumbs.db
