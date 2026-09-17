@@ -1,75 +1,71 @@
 # Workflows - Exercise 1 - Turn an ad-hoc request into a workflow
 
-A small API in .NET 10, that receives interest records and saves them to `interests.txt`.
-
-## Requirements
-
-- Use GitHub Codespaces
-
-OR 
-
-- Docker and Docker Compose
-
-## Run the application
-
-From this directory, start the service with:
-
-```bash
-make run
-```
-
-The application is available at <http://localhost:8080>.
-
-View records on the host in back/interests.txt (it updates as submissions arrive)
-
 ## Learning goal
 
-See how explicit research, planning, implementation, and validation phases change an agent's result even when the requested feature is small.
+See how explicit research, planning, implementation, and validation phases change an agent's outcome, even for a small feature request.
 
-## Before you start
+## Part 1
 
-Create two branches from the same starter commit so Parts A and B remain comparable. 
+### Part 1.A
 
-```bash
-git checkout -b ex-w-1a
-git checkout ex-w-1b
-```
-
-The application currently saves `Name`, `Email`, and `Course` through `POST /api/register`; there is no health endpoint.
-
-## Part A — Ad-hoc
-
-On the first branch, launch `copilot` and write this prompt: 
+On the `main` branch, launch `copilot` and enter this prompt:
 
 ```text
 Add a health check endpoint to this application.
 ``` 
 
-Record files changed, checks added, and commands run.
+Pay attention to the agent log, changed files, added checks, and commands run.
 
-## Part B — Structured
+### Part 1.B
 
-On the second branch, launch `copilot` and paste: `prompts/structured.md`. 
-Approve when Copilot pauses.
+- Revert every change made in Part 1.A.
+- In a new session, launch `copilot` and paste the following prompt:
+
+```text
+Add a health check endpoint to this application. Create `GET /api/health`. It must return HTTP 200 and `{"status":"ok"}`.
+
+Workflow:
+1. Research the application’s architecture and conventions, and clarify any uncertainty about the feature with me.
+2. Present more than one implementation option.
+3. Wait for my approval.
+4. Propose an implementation and testing plan.
+5. Wait for my approval.
+6. Implement the approved plan.
+7. Run the validation checks.
+8. Fix any issues found.
+9. Report a concise summary, including the relevant details, changed files, and validation results.
+```
+
+Press <kbd>Enter</kbd>. When Copilot pauses, review its response and approve it if you agree.
 
 ## Success and reflection
 
-Both solutions should provide `GET /api/health` with HTTP 200 and `{"status":"ok"}` while preserving registration. 
+Both implementations should provide `GET /api/health`, return HTTP 200 with `{"status":"ok"}`, and preserve registration behavior.
 
-Which differences came from the workflow rather than the feature?
+Compare how Copilot worked with the simple prompt and the structured prompt. The feature is the same (`GET /api/health`); identify which differences came from the workflow. 
 
+How complete were the implemented validation checks?
 
-## Exercise 3
+## Part 2
 
-After completing the README tutorial, consider this new request:
+Continue on `main` and complete the tasks in order. For each task:
 
-> Make the health endpoint more useful by returning the number of saved registrations.
+1. Write a prompt that includes the workflow from the previous exercise.
 
-Before asking the agent to implement anything, write a short task brief of at most eight lines:
+2. Consider whether every phase is necessary for the task, or whether some can be relaxed. Explain your decision.
 
-- Identify one ambiguity that could change the implementation or the meaning of “healthy”.
-- Choose a behavior for unavailable registration storage and justify it.
-- Give one concrete expected response and one check that would distinguish your choice from another reasonable interpretation.
-- State what the agent must inspect and where it must pause for your approval.
+3. Take note of the decisions made, changed files, and validation results before moving to the next task.
 
-Deliver the brief, not an implementation. Your decision and check must agree; “make it work” is not an acceptance criterion.
+Choose the next task only after completing the preceding one:
+
+| Task | Feature request | Focus |
+| --- | --- | --- |
+| 2.1 | Add an optional comments field to the registration form. Save it with each registration. | Full-stack field addition: form, API model, and storage format. |
+| 2.2 | Show the submitted comment in the confirmation message after a successful registration. | API response contract and UI feedback. |
+| 2.3 | Allow a visitor to opt in to receive course updates. Save their choice with the registration. | Checkbox behavior, Boolean defaults, persistence, and backward compatibility. |
+| 2.4 | Add a page that lists saved registrations, with the newest registrations first. | Read path, endpoint design, persisted-data parsing, and rendering. |
+| 2.5 | Allow users to filter the registration list by course. | Query parameters, client-side state, and empty-result behavior. |
+| 2.6 | Let an administrator download the filtered registration list as a CSV file. | Export format, escaping commas and newlines, HTTP headers, and filter consistency. |
+| 2.7 | Add a registration-details page that can be opened from the list. | Stable registration identity, routing, and not-found behavior. |
+| 2.8 | Allow an administrator to delete a registration from its details page after confirmation. | Destructive actions, API design, persistence rewrite, and error handling. |
+| 2.9 | Make the registration list update automatically when a new registration is created. | Polling versus server push, consistency, lifecycle management, and error handling. |
