@@ -1,8 +1,9 @@
-# Engineering Workflow
+# Config
+
+## Feature Workflow
 
 Use this workflow for every feature change. Keep the change focused, preserve existing behavior, and do not weaken validation to make a check pass.
 
-## Feature Workflow
 
 1. **Research**: Before editing, inspect the relevant .NET and browser code. Identify existing patterns and briefly explain them. Consider at least two implementation options, present the options to the user, and wait for approval.
 2. **Plan**: Write a short implementation plan and wait for approval.
@@ -19,3 +20,4 @@ Use this workflow for every feature change. Keep the change focused, preserve ex
 - Add unit tests for domain use cases, covering the service-to-infra-interface behavior.
 - Add integration tests covering the controller through in-memory persistence.
 - Keep tests deterministic and independent of external services.
+- Follow FIRST principles.
