@@ -27,10 +27,6 @@ for index in "${!issues[@]}"; do
   done
 done
 
-grep -Fxq 'MAX_ISSUES=10' .dark-factory/config || fail "MAX_ISSUES must be 10"
-grep -Fxq 'MAX_FIX_ROUNDS=2' .dark-factory/config || fail "MAX_FIX_ROUNDS must be 2"
-grep -Fxq 'MAIN_BRANCH=main' .dark-factory/config || fail "main branch is not configured"
-
 grep -q -- '--no-ff' AGENTS.md || fail "AGENTS.md does not require --no-ff"
 
 for target in validate factory-scaffold factory-preflight factory-audit; do

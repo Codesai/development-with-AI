@@ -1,6 +1,2 @@
 MAX_ISSUES=10
 MAX_FIX_ROUNDS=2
-MAIN_BRANCH=main
-FEATURE_PREFIX=feature/issue-
-START_TAG=dark-factory-start
-
