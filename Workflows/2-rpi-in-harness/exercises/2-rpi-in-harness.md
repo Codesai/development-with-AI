@@ -36,7 +36,9 @@ Approve the research option and plan if you agree. Then inspect the result and r
 
 Both runs should follow the same research, planning, implementation, review, fix, validation, and reporting phases, even though neither feature prompt repeats those rules.
 
-Do you consider the RPI defined in `AGENTS.md` useful for both features? Is it especially useful for one of them, or does it fail to add enough value in either case?
+**Phases reflection**
+
+Do you consider that all the phases defined in RPI inside `AGENTS.md`, are useful for both features? Is it especially useful for one of them, or does it fail to add enough value in either case?
 
 Support your answer with the work performed, decisions made, and validation results.
 
@@ -44,7 +46,8 @@ Support your answer with the work performed, decisions made, and validation resu
 
 Explore what happens when a feature request is too large to implement as a single plan, and how reusable vertical-slicing guidance changes the agent's proposal.
 
-### Part 2.A - Start with a big feature
+
+### Part 2.A - Implement a big feature
 
 In a new Copilot session, paste this prompt:
 
