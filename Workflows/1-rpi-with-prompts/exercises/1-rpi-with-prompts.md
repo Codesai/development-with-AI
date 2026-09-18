@@ -47,11 +47,27 @@ How complete were the implemented validation checks?
 
 ## Part 2
 
-Complete the tasks below in order.
+Complete the tasks below in order. For this part you can continue over the work done in Part 1, you don't need to reset work.
 
 For each task:
-1. Write a prompt that includes the workflow from the previous exercise.
-2. Consider whether every phase is necessary for the task, or whether some can be relaxed. Explain your decision.
+1. Write a prompt that includes the feature to do and the workflow just seen:
+
+for example:
+```text
+<Place here the feature to do>
+
+Workflow:
+1. Research the application’s architecture and conventions, and clarify any uncertainty about the feature with me.
+2. Wait for my approval.
+3. Propose an implementation and testing plan.
+4. Wait for my approval.
+5. Implement the approved plan.
+6. Run the validation checks.
+7. Fix any issues found.
+8. Report a concise summary, including the relevant details, changed files, and validation results.
+```
+
+2. Ask yourself if we need all the phases for the task, or whether some can be relaxed. Explain your decision.
 3. Take note of the decisions made, changed files, and validation results before moving to the next task.
 
 Tasks:
