@@ -47,15 +47,14 @@ How complete were the implemented validation checks?
 
 ## Part 2
 
-Continue on `main` and complete the tasks in order. For each task:
+Complete the tasks below in order.
 
+For each task:
 1. Write a prompt that includes the workflow from the previous exercise.
-
 2. Consider whether every phase is necessary for the task, or whether some can be relaxed. Explain your decision.
-
 3. Take note of the decisions made, changed files, and validation results before moving to the next task.
 
-Choose the next task only after completing the preceding one:
+Tasks:
 
 | Task | Feature request | Focus |
 | --- | --- | --- |
