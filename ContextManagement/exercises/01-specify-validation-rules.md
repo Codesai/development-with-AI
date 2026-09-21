@@ -19,16 +19,16 @@ Backend:
 - When validation fails, return an HTTP Bad Request response.
 
 We are going to try 3 different approaches to achieve our goal:
-    - Define an AGENTS.md field in the root of the project (/ContextManagement/app)
-    - Define Hierarchichal AGENTS.md files, one in the back folder with the validations rules and the same for the front
+    1 - Define an AGENTS.md field in the root of the project (/ContextManagement/app)
+    2 - Define Hierarchichal AGENTS.md files, one in the back folder with the validations rules and the same for the front
         - check in the output of the agent that the files are loaded correctly
-    - Create two skills one to include the rules for validation in the front and another to include the validations in the back
+    3 - Create two skills one to include the rules for validation in the front and another to include the validations in the back
 
 After finishing each step roolback all changes and remove all new files that yo create to start fresh, yo can exccute "make roolback" to do that. 
 
 ## Recommendations
 
-Ask the Agent: “What are the validation rules for this project?” to check whether it has access to the file or files containing these rules.
+if the Agent is not applying the rules you can ask the Agent: “What are the validation rules for this project?” to check whether it has access to the file or files containing these rules.
 
 Useful commands for working with skills in Copilot:
 
@@ -36,7 +36,7 @@ Useful commands for working with skills in Copilot:
 - `/skills list`
 - `/skills info SKILL-NAME`
 
-Verify in the Copilot CLI output that the required skill is loaded when needed.
+Verify in the Copilot CLI output that the required skill is loaded by the Agent when needed
 
 ## Questions
 
