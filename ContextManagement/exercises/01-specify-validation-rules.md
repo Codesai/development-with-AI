@@ -37,3 +37,9 @@ Useful commands for working with skills in Copilot:
 - `/skills info SKILL-NAME`
 
 Verify in the Copilot CLI output that the required skill is loaded when needed.
+
+## Questions
+
+- What is the best option to specify these rules in the current team you are working on?
+- How can we be sure that the skills are loaded?
+- This is gona work with other agents and/or models?
