@@ -22,13 +22,3 @@ The application is available at <http://localhost:8080>.
 
 View records on the host in back/interests.txt (it updates as submissions arrive)
 
-## Exercises
-
-Complete the exercises in order:
-
-1. [One-file project instructions](../ContextManagement-docs/01-project-instructions-exercise.md)  
-   Define validation rules in a root `AGENTS.md`, then organize the same rules using modular `AGENTS.md` files.
-2. [Skills](../ContextManagement-docs/02-skills-exercise.md)  
-   Create separate frontend and backend validation skills instead of defining the rules in `AGENTS.md` files.
-3. [Subagents](../ContextManagement-docs/03-subagents.md)  
-   Create separate subagents to deal with frontend and backed code.
