@@ -24,7 +24,7 @@ We are going to try 3 different approaches to achieve our goal:
         - check in the output of the agent that the files are loaded correctly
     3 - Create two skills one to include the rules for validation in the front and another to include the validations in the back
 
-After finishing each step roolback all changes and remove all new files that yo create to start fresh, yo can exccute "make roolback" to do that. 
+After finishing each step roolback all changes and remove all new files that you create to start fresh, you can exccute "make rollback" to do that. 
 
 ## Recommendations
 
