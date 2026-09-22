@@ -7,6 +7,8 @@ have in our project
 
 ## Instructions
 
+Move to the `../app` directory. All paths are related to that `app` folder.
+
 ### Exercise 2.1
 
 Using architecture test (deterministic):
