@@ -19,5 +19,5 @@ you can use /task while Agent is working on your request to see the subagentes i
  
 ## questions
 
-- We need a subagent to do the orchestration, can you think in other options?
-- If the orchestration logic is inside one subagente can we garantee that the workflow is gona be followed always in a determinist fashion?
+- We need a subagent to do the orchestration?, its the only way or you can think in other options?
+- If the orchestration logic is inside one subagent can we garantee that the workflow is gona be followed always in a determinist fashion?

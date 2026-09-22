@@ -38,7 +38,9 @@ you can use /task while Agent is working on your request to see the subagentes i
  
 ## questions
 
+- this rules are enought to enforce the system generate the code the way we want
 - If we want to enforce some validations rules what is the best place for them?
     - inside the new dedicated agent?
     - using skills?
     - using AGENTS.md?
+
