@@ -8,14 +8,13 @@ Sometimes the task we want to delegate to subagents are not completly independat
 
 We are going to add a new funcionality, we want a new field in the registration form for the user to include some comments or notes about the interest in the course.
 
-We are going to use the same subagents that we define in the previous exercise to do the front and backed work. But this time before sending the work to the subagentes we need to 
-define the format of the message that the front is gona send to the back with the information about the new field. 
+We are going to use the same subagents that we define in the previous exercise to do the front and backend work. But this time before sending the work to the subagentes we need to define the contract between client and server before sending the individual task to the subagents.
 
 For this task we are going to require some form of orchestration, we are going to create a third subagent to coordinate this work. this "orchestration-agent" need to define the workflow to do task, before sending the work to the front a back subagents the agent need to undestand the current messages between front and back, create a new version of these messages with the new field and only them delegates the work in the dev's subagents giving them the information about this new contract.
 
 ## Recomendations
 
-you can use /task while Agent is working on your request to see the subagentes involved in the task and to view individual logs for each subagent
+you can use /task while Agent is working on your request to see the subagents involved in the task and to view individual logs for each subagent
  
 ## questions
 
