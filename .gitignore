@@ -16,7 +16,7 @@ obj/
 .vs/
 .vscode/
 
-.idea
+.idea/
 
 # Dependencies
 node_modules/
@@ -33,3 +33,5 @@ node_modules/
 *.log
 /ContextManagement/publish
 /HarnessingAgents/app/publish
+
+.junie/
