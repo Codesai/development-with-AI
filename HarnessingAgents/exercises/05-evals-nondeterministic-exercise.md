@@ -20,7 +20,13 @@ Same feature prompt as exercise 04. Keep the no-comments instruction in `app/AGE
 
    This is the same as `./eval-readability.sh 3` from `harness/evals` (use `make evals:non-deterministic N=5` to vary the count). Note the `k/N judged readable` summary and the list of kept trial directories.
 
-2. Cross-reference with exercise 04. Run `../guardrails/check-no-comments.sh <trial-dir>` against a couple of the same trials `eval-readability.sh` just judged. Do the two graders ever disagree - a trial that is comment-free but judged `NOT-READABLE` (terse rather than clear), or one the heuristic missed that the judge still calls out?
+2. Cross-reference with exercise 04. Run this against a couple of the same trials `eval-readability.sh` just judged:
+
+   ```bash
+   ../guardrails/check-no-comments.sh <trial-dir>
+   ```
+
+   Do the two graders ever disagree - a trial that is comment-free but judged `NOT-READABLE` (terse rather than clear), or one the heuristic missed that the judge still calls out?
 
 3. Pick one trial directory and, from `HarnessingAgents/harness`, run:
 
@@ -57,6 +63,10 @@ Limits, by design: one judge call, one model, one rubric wording - all things kn
 
 ## Recommendations
 
-Trial directories are kept under `harness/evals/results/` by this exercise, gitignored so they never end up in a commit - clean them up yourself (`rm -rf results/trial-*` from `harness/evals`) once you are done.
+Trial directories are kept under `harness/evals/results/` by this exercise, gitignored so they never end up in a commit - clean them up yourself once you are done. From `harness/evals`:
+
+```bash
+rm -rf results/trial-*
+```
 
 If every verdict comes back `NOT-READABLE - no changes were made`, the trial's diff was empty - check `agent.log` in that trial's directory before suspecting the judge.

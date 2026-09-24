@@ -26,13 +26,35 @@ Same feature prompt in every trial:
 
 3. Read the summary. Is it `3/3`? Most instructions given to an agent are not. If any trial failed, open its kept directory: `grade.log` shows exactly which lines were flagged and in which file, `agent.log` shows the full run.
 
-4. Re-run a few times, and vary N (`make evals:deterministic N=3` from `HarnessingAgents/harness`, or `./eval-no-comments.sh 3` from `harness/evals`). A single run tells you almost nothing about how reliably an instruction is followed; a handful of runs start to.
+4. Re-run a few times, and vary N. From `HarnessingAgents/harness`:
+
+   ```bash
+   make evals:deterministic N=3
+   ```
+
+   (equivalent to `./eval-no-comments.sh 3` from `harness/evals`). A single run tells you almost nothing about how reliably an instruction is followed; a handful of runs start to.
 
 5. Try weakening or strengthening the wording in `AGENTS.md` (e.g. drop the "when editing code that already has comments" clause) and re-run. Does the pass rate move the way you would expect?
 
 6. Notice what a single run could never have told you. "It happened this one time" or "it failed this one time" is not a number. Running many trials turns "the agent should behave like X" into something you can track over time, e.g. after every prompt or model change.
 
-7. Optional: measure whether a corrective mechanism changes the number. Install the post-edit script that nudges the agent to remove comments after it edits (`make hooks:install` from `HarnessingAgents/harness`, user-level under `~/.copilot/hooks/`, so it applies automatically - no change to `run-trial.sh` needed), then re-run `make evals:deterministic`. Compare the pass rate against step 2's baseline. Uninstall it again when done (`make hooks:uninstall` from `HarnessingAgents/harness`) since it stays active for every `copilot` session on this machine, not just this eval, until removed.
+7. Optional: measure whether a corrective mechanism changes the number. Install the post-edit script that nudges the agent to remove comments after it edits (user-level under `~/.copilot/hooks/`, so it applies automatically - no change to `run-trial.sh` needed). From `HarnessingAgents/harness`:
+
+   ```bash
+   make hooks:install
+   ```
+
+   Then re-run:
+
+   ```bash
+   make evals:deterministic
+   ```
+
+   Compare the pass rate against step 2's baseline. Uninstall it again when done, since it stays active for every `copilot` session on this machine, not just this eval, until removed:
+
+   ```bash
+   make hooks:uninstall
+   ```
 
 ## How it works
 
@@ -63,6 +85,10 @@ Limits, by design: the grader is a brace-counting heuristic, with real blind spo
 
 ## Recommendations
 
-Trial directories live under `harness/evals/results/`, gitignored so they never end up in a commit. Passing trials are deleted automatically; clean up any leftover failing ones yourself (`rm -rf results/trial-*` from `harness/evals`) once you are done reading them.
+Trial directories live under `harness/evals/results/`, gitignored so they never end up in a commit. Passing trials are deleted automatically; clean up any leftover failing ones yourself once you are done reading them. From `harness/evals`:
+
+```bash
+rm -rf results/trial-*
+```
 
 If every trial fails immediately with no diff at all, check `agent.log` first - a Copilot CLI error (auth, rate limit, a bad flag) looks identical to a trial where the agent genuinely did nothing.

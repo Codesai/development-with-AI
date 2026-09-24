@@ -12,9 +12,29 @@ Same task as exercise 01. Use this prompt for every run:
 
 ## Instructions
 
-1. Baseline. Make sure `app/AGENTS.md` is the committed starter version (revert any no-comments rule you added in exercise 01: `git checkout -- .` from `HarnessingAgents/app`). No hook yet. Start `copilot` in `HarnessingAgents/app`, give it the prompt, and note the comments in the diff. Revert the feature changes: `git checkout -- back front` (from `HarnessingAgents/app`).
+1. Baseline. Make sure `app/AGENTS.md` is the committed starter version. From `HarnessingAgents/app`, revert any no-comments rule you added in exercise 01:
 
-2. Run the guardrail by hand. From `HarnessingAgents/app`, add a throwaway `// note` to one of the `back/*.cs` files, run `../harness/guardrails/check-no-comments.sh`, and see it report the line. Remove the comment and run it again to see it pass. Revert: `git checkout -- back` (from `HarnessingAgents/app`).
+   ```bash
+   git checkout -- .
+   ```
+
+   No hook yet. Start `copilot` in `HarnessingAgents/app`, give it the prompt, and note the comments in the diff. Revert the feature changes:
+
+   ```bash
+   git checkout -- back front
+   ```
+
+2. Run the guardrail by hand. From `HarnessingAgents/app`, add a throwaway `// note` to one of the `back/*.cs` files, then run:
+
+   ```bash
+   ../harness/guardrails/check-no-comments.sh
+   ```
+
+   and see it report the line. Remove the comment and run it again to see it pass. Revert:
+
+   ```bash
+   git checkout -- back
+   ```
 
 3. Install the hook for your user, so it never enters the project the agent reads. From `HarnessingAgents/app`:
 
@@ -42,7 +62,11 @@ Same task as exercise 01. Use this prompt for every run:
    }
    ```
 
-   Shortcut: from `HarnessingAgents/app`, `make -C ../harness hooks:install` does the same three steps.
+   Shortcut, from `HarnessingAgents/app`, does the same three steps:
+
+   ```bash
+   make -C ../harness hooks:install
+   ```
 
 4. Start a fresh `copilot` session in `HarnessingAgents/app` (hooks load at session start) and give it the same prompt.
 
@@ -91,4 +115,10 @@ If the hook never fires: check that you launched `copilot` from `HarnessingAgent
 
 A `postToolUse` hook cannot block a change. Hard-stopping the edit instead of nudging afterwards needs a `preToolUse` hook.
 
-Revert freely with version control between runs: `git checkout -- .` (from `HarnessingAgents/app`) resets everything, including `AGENTS.md`.
+Revert freely with version control between runs. From `HarnessingAgents/app`:
+
+```bash
+git checkout -- .
+```
+
+This resets everything, including `AGENTS.md`.

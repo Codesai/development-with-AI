@@ -82,6 +82,10 @@ Limits, by design (as in exercise 02): denial is by command name, so `curl file:
 
 ## Recommendations
 
-If the agent seems unrestricted, confirm you launched via `copilot-gated.sh`, not plain `copilot`, and that `files-gateway` resolves (`files-gateway ls` from `app/`).
+If the agent seems unrestricted, confirm you launched via `copilot-gated.sh`, not plain `copilot`, and that `files-gateway` resolves. From `app/`:
+
+```bash
+files-gateway ls
+```
 
 To tighten the paths this exercise actually enumerates: `files-gateway grep` should skip hidden paths the same way `ls` does, and the hide list should cover any future secret-shaped file (new `.env`, new keys) without editing the exercise. That still leaves the paths in step 5 open - treat this gateway as raising the cost of finding the secret for a task that has no reason to look, not as a complete seal.
