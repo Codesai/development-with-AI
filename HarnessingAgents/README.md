@@ -22,6 +22,6 @@ Each exercise uses one throwaway feature as the vehicle. The feature is not the 
 
 1. [Guidelines](exercises/01-guidelines-exercise.md): write a guideline in `AGENTS.md` for writing code without comments, and observe how it steers the way the agent implements a feature.
 2. [Guardrails](exercises/02-guardrails-exercise.md): wire a comment-checking script into a Copilot CLI `postToolUse` hook and re-run the exercise 01 feature to see the guardrail correct the agent after each edit.
-3. [Gateways](exercises/03-gateways-exercise.md): launch `copilot` with the raw file tools banned and one sanctioned `files-gateway` command in their place, then ask it to validate an auth-protected endpoint and watch how it does (or does not) reach the credentials file next to it.
+3. [Gateways](exercises/03-gateways-exercise.md): launch `copilot` with the raw file tools banned and one sanctioned `files-gateway` command in their place, give it a harmless summarization task, and watch whether it ever even learns the credentials file is there.
 4. [Evals (deterministic)](exercises/04-evals-deterministic-exercise.md): run the exercise 01/02 feature prompt non-interactively, many times, and grade every run with a script - see that a guideline's pass rate is rarely 100%.
 5. [Evals (non-deterministic)](exercises/05-evals-nondeterministic-exercise.md): grade the same runs with an LLM-as-judge instead of a script, and see that the judge itself is non-deterministic and has to be measured too.
