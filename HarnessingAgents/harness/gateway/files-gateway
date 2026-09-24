@@ -1,98 +1,180 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/usr/bin/env node
+//
+// files-gateway - the workspace file interface for the HarnessingAgents "Gateways" exercise.
+//
+// When copilot is launched through ../copilot-gated.js, the raw file tools
+// (cat, ls, find, grep, and the native view/glob/grep) are banned and this is
+// the only way the agent can list, read, or search files. It is confined to
+// FILES_GATEWAY_ROOT (the directory copilot was launched from) and it hides a
+// fixed set of sensitive paths - a missing file and a hidden file give the
+// identical error, so the agent cannot even confirm a secret exists.
+//
+//   files-gateway ls [dir]                list a directory (relative paths)
+//   files-gateway read <file>             print a file
+//   files-gateway grep <pattern> [path]   search file contents
 
-# files-gateway - the workspace file interface for the HarnessingAgents "Gateways" exercise.
-#
-# When copilot is launched through ../copilot-gated.sh, the raw file tools
-# (cat, ls, find, grep, and the native view/glob/grep) are banned and this is
-# the only way the agent can list, read, or search files. It is confined to
-# FILES_GATEWAY_ROOT (the directory copilot was launched from) and it hides a
-# fixed set of sensitive paths - a missing file and a hidden file give the
-# identical error, so the agent cannot even confirm a secret exists.
-#
-#   files-gateway ls [dir]                list a directory (relative paths)
-#   files-gateway read <file>             print a file
-#   files-gateway grep <pattern> [path]   search file contents
+import fs from 'node:fs';
+import path from 'node:path';
 
-readonly ROOT="$( (cd "${FILES_GATEWAY_ROOT:-$PWD}" 2>/dev/null && pwd -P) || true )"
+const DEFAULT_HIDDEN_PATTERNS = [
+  'config/credentials.json', '*credential*', '*secret*', '.env', '.env.*',
+  '*.pem', '*.key', '*.p12', '*.pfx', 'id_rsa*', '*token*',
+];
 
-# Glob patterns (matched against the path relative to ROOT and against the
-# basename) that files-gateway refuses to list, read, or search. Override with
-# FILES_GATEWAY_HIDDEN.
-readonly DEFAULT_HIDDEN='config/credentials.json:*credential*:*secret*:.env:.env.*:*.pem:*.key:*.p12:*.pfx:id_rsa*:*token*'
-IFS=':' read -r -a HIDDEN <<< "${FILES_GATEWAY_HIDDEN:-$DEFAULT_HIDDEN}"
+class NoSuchFileError extends Error {}
 
-nofile() { printf 'files-gateway: no such file: %s\n' "${1:-}" >&2; exit 1; }
-usage()  { printf 'usage: files-gateway (ls [dir] | read <file> | grep <pattern> [path])\n' >&2; exit 2; }
-
-[ -n "$ROOT" ] || { printf 'files-gateway: FILES_GATEWAY_ROOT is not a directory\n' >&2; exit 1; }
-
-# Absolute, symlink-resolved path for something that must live under ROOT.
-resolve() {
-  local arg="$1" abs
-  case "$arg" in
-    /*|*/../*|../*|*/..|..) nofile "$arg" ;;
-  esac
-  abs="$ROOT/$arg"
-  if [ -e "$abs" ]; then
-    abs="$(readlink -f "$abs" 2>/dev/null || echo "$abs")"
-  fi
-  case "$abs" in
-    "$ROOT"|"$ROOT"/*) : ;;
-    *) nofile "$arg" ;;
-  esac
-  printf '%s\n' "$abs"
+function usageError() {
+  process.stderr.write('usage: files-gateway (ls [dir] | read <file> | grep <pattern> [path])\n');
+  process.exit(2);
 }
 
-is_hidden() {
-  local rel="$1" base pat
-  base="${rel##*/}"
-  for pat in "${HIDDEN[@]}"; do
-    # shellcheck disable=SC2053
-    [[ "$rel" == $pat || "$base" == $pat ]] && return 0
-  done
-  return 1
+function resolveRoot() {
+  const requestedRoot = process.env.FILES_GATEWAY_ROOT || process.cwd();
+  let root;
+  try {
+    root = fs.realpathSync(requestedRoot);
+  } catch {
+    root = null;
+  }
+  if (!root || !fs.statSync(root).isDirectory()) {
+    process.stderr.write('files-gateway: FILES_GATEWAY_ROOT is not a directory\n');
+    process.exit(1);
+  }
+  return root;
 }
 
-rel_of() { printf '%s\n' "${1#"$ROOT"/}"; }
-
-cmd_ls() {
-  local arg="${1:-.}" dir rel entry
-  dir="$(resolve "$arg")"
-  [ -d "$dir" ] || nofile "$arg"
-  while IFS= read -r entry; do
-    rel="$(rel_of "$entry")"
-    if [ "$rel" = ".git" ] || [[ "$rel" == .git/* ]]; then continue; fi
-    if is_hidden "$rel"; then continue; fi
-    if [ -d "$entry" ]; then printf '%s/\n' "$rel"; else printf '%s\n' "$rel"; fi
-  done < <(find "$dir" -mindepth 1 -maxdepth 1 | sort)
+function loadHiddenPatterns() {
+  const raw = process.env.FILES_GATEWAY_HIDDEN || DEFAULT_HIDDEN_PATTERNS.join(':');
+  return raw.split(':');
 }
 
-cmd_read() {
-  local arg="${1:-}" file rel
-  [ -n "$arg" ] || usage
-  file="$(resolve "$arg")"
-  rel="$(rel_of "$file")"
-  { [ -f "$file" ] && ! is_hidden "$rel"; } || nofile "$arg"
-  cat -- "$file"
+// Rejects absolute paths and any attempt to climb above ROOT via "..", then
+// joins with ROOT and (if the target exists) resolves symlinks so a link
+// cannot be used to point back outside ROOT either.
+function resolveWithinRoot(root, requestedPath) {
+  const climbsOutOfRoot = requestedPath.startsWith('/')
+    || requestedPath === '..'
+    || requestedPath.startsWith('../')
+    || requestedPath.endsWith('/..')
+    || requestedPath.includes('/../');
+  if (climbsOutOfRoot) throw new NoSuchFileError(requestedPath);
+
+  let absolutePath = path.join(root, requestedPath);
+  if (fs.existsSync(absolutePath)) {
+    absolutePath = fs.realpathSync(absolutePath);
+  }
+
+  const staysWithinRoot = absolutePath === root || absolutePath.startsWith(root + path.sep);
+  if (!staysWithinRoot) throw new NoSuchFileError(requestedPath);
+  return absolutePath;
 }
 
-cmd_grep() {
-  local pattern="${1:-}" arg="${2:-.}" base rel
-  [ -n "$pattern" ] || usage
-  base="$(resolve "$arg")"
-  [ -e "$base" ] || nofile "$arg"
-  while IFS= read -r f; do
-    rel="$(rel_of "$f")"
-    if [[ "$rel" == .git/* ]]; then continue; fi
-    if is_hidden "$rel"; then continue; fi
-    grep -Hn -- "$pattern" "$f" 2>/dev/null | sed "s#^${f}:#${rel}:#" || true
-  done < <(find "$base" -type f | sort)
+function matchesGlob(text, pattern) {
+  const regexSource = [...pattern].map((ch) => {
+    if (ch === '*') return '.*';
+    if (ch === '?') return '.';
+    return ch.replace(/[.+^${}()|[\]\\]/g, '\\$&');
+  }).join('');
+  return new RegExp(`^${regexSource}$`).test(text);
 }
 
-case "${1:-}" in
-  ls)   shift; cmd_ls "$@" ;;
-  read) shift; cmd_read "$@" ;;
-  grep) shift; cmd_grep "$@" ;;
-  *)    usage ;;
-esac
+function isHiddenPath(relativePath, hiddenPatterns) {
+  const baseName = path.basename(relativePath);
+  return hiddenPatterns.some((pattern) => matchesGlob(relativePath, pattern) || matchesGlob(baseName, pattern));
+}
+
+function byName(a, b) {
+  return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+}
+
+function* walkFiles(dir) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true }).sort(byName)) {
+    if (entry.name === '.git') continue;
+    const entryPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      yield* walkFiles(entryPath);
+    } else if (entry.isFile()) {
+      yield entryPath;
+    }
+  }
+}
+
+function listDirectory(root, hiddenPatterns, requested) {
+  const dir = resolveWithinRoot(root, requested);
+  if (!fs.statSync(dir).isDirectory()) throw new NoSuchFileError(requested);
+
+  const lines = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true }).sort(byName)) {
+    if (entry.name === '.git') continue;
+    const relativePath = path.relative(root, path.join(dir, entry.name));
+    if (isHiddenPath(relativePath, hiddenPatterns)) continue;
+    lines.push(entry.isDirectory() ? `${relativePath}/` : relativePath);
+  }
+  return lines;
+}
+
+function readFile(root, hiddenPatterns, requested) {
+  const filePath = resolveWithinRoot(root, requested);
+  const relativePath = path.relative(root, filePath);
+  const isVisibleFile = fs.existsSync(filePath) && fs.statSync(filePath).isFile() && !isHiddenPath(relativePath, hiddenPatterns);
+  if (!isVisibleFile) throw new NoSuchFileError(requested);
+  return fs.readFileSync(filePath, 'utf8');
+}
+
+function grepFiles(root, hiddenPatterns, pattern, requested) {
+  const base = resolveWithinRoot(root, requested);
+  if (!fs.existsSync(base)) throw new NoSuchFileError(requested);
+
+  let regex;
+  try {
+    regex = new RegExp(pattern);
+  } catch {
+    return []; // an invalid pattern matches nothing, same as grep exiting quietly
+  }
+
+  const hits = [];
+  for (const filePath of walkFiles(base)) {
+    const relativePath = path.relative(root, filePath);
+    if (isHiddenPath(relativePath, hiddenPatterns)) continue;
+    fs.readFileSync(filePath, 'utf8').split('\n').forEach((line, index) => {
+      if (regex.test(line)) hits.push(`${relativePath}:${index + 1}:${line}`);
+    });
+  }
+  return hits;
+}
+
+function printLines(lines) {
+  if (lines.length > 0) process.stdout.write(lines.join('\n') + '\n');
+}
+
+function main(argv) {
+  const root = resolveRoot();
+  const hiddenPatterns = loadHiddenPatterns();
+  const [command, ...args] = argv;
+
+  try {
+    switch (command) {
+      case 'ls':
+        printLines(listDirectory(root, hiddenPatterns, args[0] ?? '.'));
+        return;
+      case 'read':
+        if (!args[0]) usageError();
+        process.stdout.write(readFile(root, hiddenPatterns, args[0]));
+        return;
+      case 'grep':
+        if (!args[0]) usageError();
+        printLines(grepFiles(root, hiddenPatterns, args[0], args[1] ?? '.'));
+        return;
+      default:
+        usageError();
+    }
+  } catch (err) {
+    if (err instanceof NoSuchFileError) {
+      process.stderr.write(`files-gateway: no such file: ${err.message}\n`);
+      process.exit(1);
+    }
+    throw err;
+  }
+}
+
+main(process.argv.slice(2));
