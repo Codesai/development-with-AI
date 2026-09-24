@@ -22,7 +22,7 @@ Same feature prompt in every trial:
    make evals:deterministic
    ```
 
-   This is the same as `./eval-no-comments.sh 3` from `harness/evals`. Each trial launches its own `copilot` run against a private copy of `app/` - your real `app/` and its git state are untouched.
+   This is the same as `./eval-no-comments.js 3` from `harness/evals`. Each trial launches its own `copilot` run against a private copy of `app/` - your real `app/` and its git state are untouched.
 
 3. Read the summary. Is it `3/3`? Most instructions given to an agent are not. If any trial failed, open its kept directory: `grade.log` shows exactly which lines were flagged and in which file, `agent.log` shows the full run.
 
@@ -32,7 +32,7 @@ Same feature prompt in every trial:
    make evals:deterministic N=3
    ```
 
-   (equivalent to `./eval-no-comments.sh 3` from `harness/evals`). A single run tells you almost nothing about how reliably an instruction is followed; a handful of runs start to.
+   (equivalent to `./eval-no-comments.js 3` from `harness/evals`). A single run tells you almost nothing about how reliably an instruction is followed; a handful of runs start to.
 
 5. Try weakening or strengthening the wording in `AGENTS.md` (e.g. drop the "when editing code that already has comments" clause) and re-run. Does the pass rate move the way you would expect?
 
@@ -77,9 +77,9 @@ Docs:
 `HarnessingAgents/harness/evals/`:
 
 - `run-trial.js` - one trial. Copies `app/` into a fresh throwaway git repo (so a grader that reads `git diff` works unmodified), runs the feature prompt there with `copilot -p ... -s --allow-all-tools`, and prints the trial directory's path. It does not delete it - the caller grades it first.
-- `eval-no-comments.sh [N]` - runs `run-trial.js` N times (default 3) and grades each trial by pointing `check-no-comments.js` directly at the resulting diff - no live session, just the finished result. Prints `k/N passed`, deletes passing trials, and keeps failing ones on disk for inspection. Each trial's agent output streams live to the terminal as it runs (and into `agent.log`), so a slow trial does not sit silent.
+- `eval-no-comments.js [N]` - runs `run-trial.js` N times (default 3) and grades each trial by calling `check-no-comments.js`'s `gradeTrial()` directly on the resulting diff - no live session, just the finished result. Prints `k/N passed`, deletes passing trials, and keeps failing ones on disk for inspection. Each trial's agent output streams live to the terminal as it runs (and into `agent.log`), so a slow trial does not sit silent.
 
-A quirk worth knowing, because it is the kind of thing that quietly breaks an eval: `check-no-comments.js` behaves differently depending on whether its stdout is a terminal. Run interactively it exits 2 on a failure; piped, as `eval-no-comments.sh` runs it, it always exits 0 - on a pass it prints nothing, on a fail it prints a JSON `additionalContext` blob (the shape a different calling context expects). So the grader here checks stdout *content*, not the exit code. A script written for one calling context does not necessarily port to another for free.
+`check-no-comments.js` still has to serve two different callers with two different needs: the `postToolUse` hook (which can only read stdout, so a JSON `additionalContext` blob is the whole contract) and this eval script (which just wants a pass/fail and the flagged lines). Rather than making the eval script parse the hook's JSON off a subprocess, `check-no-comments.js` exports `gradeTrial()` as a plain function returning `{ hits }`, and `eval-no-comments.js` imports it directly - the hook's CLI entry point (`isMainModule` guard at the bottom of the file) is the only place that still produces the JSON/TTY-dependent output, because that's the only caller that actually needs it.
 
 Limits, by design: the grader is a brace-counting heuristic, with real blind spots (expression-bodied members, top-level statements, comments inside strings). And this only tells you whether comments are present or absent - not whether the comment-free code is actually any good. That is exercise 05.
 

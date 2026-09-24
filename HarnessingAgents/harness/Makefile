@@ -7,13 +7,13 @@ hooks\:uninstall:
 	./install-no-comments-hook.js uninstall
 
 evals\:deterministic:
-	cd evals && ./eval-no-comments.sh $(N)
+	cd evals && ./eval-no-comments.js $(N)
 
 evals\:non-deterministic:
-	cd evals && ./eval-readability.sh $(N)
+	cd evals && ./eval-readability.js $(N)
 
 evals\:repeat-judge:
-	cd evals && ./eval-readability.sh --repeat-judge $(DIR) $(M)
+	cd evals && ./eval-readability.js --repeat-judge $(DIR) $(M)
 
 gateway\:copilot:
 	cd ../app && ../harness/gateway/copilot-gated.js
