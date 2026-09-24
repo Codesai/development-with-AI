@@ -1,22 +1,22 @@
-# Workflows - Exercise 1 - Turn an ad-hoc request into a workflow
+# Workflows - Turn an ad-hoc request into a workflow
 
 ## Learning goal
 
 See how explicit research, planning, implementation, and validation phases change an agent's outcome, even for a small feature request.
 
-## Part 1
+## Exercise 1
 
-### Part 1.A
+### Exercise 1.1
 
-Go to the `../app` directory, and on the `main` branch, launch `copilot` and enter this prompt:
+- Go to the `../app` directory,
+- Run `copilot` and enter this prompt:
 
 ```text
 Add a health check endpoint to this application.
 ``` 
+- Register to the agent log, changed files, added checks, and commands run.
 
-Pay attention to the agent log, changed files, added checks, and commands run.
-
-### Part 1.B
+### Exercise 1.2
 
 - Revert every change made in Part 1.A.
 - In a new session, launch `copilot` and paste the following prompt:
@@ -34,22 +34,21 @@ Workflow:
 7. Fix any issues found.
 8. Report a concise summary, including the relevant details, changed files, and validation results.
 ```
+- When Copilot pauses, review its response and approve it if you agree.
 
-Press <kbd>Enter</kbd>. When Copilot pauses, review its response and approve it if you agree.
-
-## Success and reflection
+### Success and reflection
 
 Both implementations should provide `GET /api/health`, return HTTP 200 with `{"status":"ok"}`, and preserve registration behavior.
 
-Compare how Copilot worked with the simple prompt and the structured prompt. The feature is the same (`GET /api/health`); identify which differences came from the workflow. 
+- Compare how Copilot worked with the simple prompt and the structured prompt. Identify which differences came from the workflow.
+- How complete were the implemented validation checks?
 
-How complete were the implemented validation checks?
+## Exercise 2
 
-## Part 2
+- For this part you can continue over the work done in Exercise 1. Reset work is not needed.
+- Complete the tasks below in order.
+- For each task:
 
-Complete the tasks below in order. For this part you can continue over the work done in Part 1, you don't need to reset work.
-
-For each task:
 1. Write a prompt that includes the feature to do and the workflow just seen:
 
 for example:
@@ -67,8 +66,9 @@ Workflow:
 8. Report a concise summary, including the relevant details, changed files, and validation results.
 ```
 
-2. Ask yourself if we need all the phases for the task, or whether some can be relaxed. Explain your decision.
-3. Take note of the decisions made, changed files, and validation results before moving to the next task.
+2. Ask yourself if we need all the phases for the task, or whether some can be relaxed.
+3. Explain your decision.
+4. Take note of the decisions made, changed files, and validation results before moving to the next task.
 
 Tasks:
 
