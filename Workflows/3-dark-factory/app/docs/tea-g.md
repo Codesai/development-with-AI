@@ -31,7 +31,38 @@ flowchart TD
     I -- Releer estado --> T
 ```
 
+```mermaid
+flowchart TD
+    E{"Coordinator evaluates"}
+
+    E -- "GO" --> R["Rebase + validate"]
+    R --> L["Document + merge"]
+    L --> T["Re-read state and select next task"]
+
+    E -- "FIX" --> X["Separate fixer"]
+    X --> V["Validate"]
+    V --> Q["Fresh review"]
+    Q --> E
+
+    E -- "STOP: ambiguity / risk / exhausted fixes" --> H["Human review and re-steer"]
+```
+
 La revisión no sustituye a los tests y los tests no sustituyen a la revisión. `make validate` responde si el sistema satisface los sensores automatizados existentes. La revisión responde si el cambio actual satisface la tarea actual y si es razonable integrarlo.
+
+
+| Diagrama | Dark Factory |
+| :--- | :--- |
+| Select next task | Task Selection Phase |
+| Define Goal / Acceptance criteria | Archivo `.dark-factory/tasks/NNN-*.md` |
+| Agent Plan and Act | Research → Plan → Implement |
+| Change system | Implementación en `feature/task-NNN` |
+| Run feedback sensors | `make validate` + revisión independiente |
+| Evaluate | Review Phase and Decision Gate del coordinador |
+| Correction needed | Decisión FIX → fixer → validación → nueva revisión |
+| Uncertain / high-risk | Decisión STOP y solicitud de dirección humana |
+| Done condition met | GO → rebase → validación → documentación → merge |
+| Complete task → Next task | Releer repositorio/run log y seleccionar la siguiente tarea |
+
 
 ## Preparación del profesorado
 
