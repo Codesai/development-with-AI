@@ -39,12 +39,10 @@ Same task as exercise 01. Use this prompt for every run:
 3. Install the hook for your user, so it never enters the project the agent reads. From `HarnessingAgents/app`:
 
    ```bash
-   mkdir -p ~/.copilot/hooks
-   cp ../harness/guardrails/check-no-comments.js ~/.copilot/hooks/
-   chmod +x ~/.copilot/hooks/check-no-comments.js
+   make -C ../harness hooks:install
    ```
 
-   Create `~/.copilot/hooks/no-comments.json`:
+   Under the hood this copies the guardrail script to `~/.copilot/hooks/check-no-comments.js`, makes it executable, and writes `~/.copilot/hooks/no-comments.json`:
 
    ```json
    {
@@ -60,12 +58,6 @@ Same task as exercise 01. Use this prompt for every run:
        ]
      }
    }
-   ```
-
-   Shortcut, from `HarnessingAgents/app`, does the same three steps:
-
-   ```bash
-   make -C ../harness hooks:install
    ```
 
 4. Start a fresh `copilot` session in `HarnessingAgents/app` (hooks load at session start) and give it the same prompt.
