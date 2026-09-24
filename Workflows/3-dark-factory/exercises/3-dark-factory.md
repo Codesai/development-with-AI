@@ -36,24 +36,33 @@ Complete `Review Phase and Decision Gate` in `AGENTS.md`.
 
 Your phase must define both the reviewer contract and the coordinator decision. It must satisfy these acceptance criteria:
 
+Reviewer:
+
 - A fresh reviewer evaluates the task acceptance criteria, correctness, regressions, architecture, automated checks, error handling, security, maintainability, complexity, and scope.
 - The reviewer is read-only: it cannot fix code, commit, change branches, update the run log, or merge.
 - Findings are classified as `BLOCKING`, `IMPORTANT`, or `SUGGESTION` and include concrete evidence.
+
+The coordinator:
+
+- Decisions are `GO`, `FIX`, or `STOP`:
+  - `GO` : The product is ready for integration.
+  - `FIX` : The product is not ready for integration, but a fix round remains.
+  - `STOP` : The product is not ready for integration, and no fix round remains. Needs Human intervention.
 - The coordinator—not the reviewer—owns the decision.
 - No `BLOCKING` or `IMPORTANT` finding may reach rebase or integration.
 - A required finding produces `FIX` while a fix round remains.
 - A separate fixer performs the repair; the same validator and a fresh reviewer run again afterward.
-- Suggestions are recorded but do not force a fix.
+- `SUGGESTION` finding is recorded but does not force a fix.
 - When `MAX_FIX_ROUNDS` is exhausted with a required finding unresolved, the decision is `STOP`.
 - An unclear product or architecture decision produces `STOP`, not a guessed implementation.
 
-Write the policy so another agent could execute it without asking you to interpret it. A useful way to check it is to make a decision table before translating it into workflow instructions.
+A useful way to check it is to make a decision table before translating it into workflow instructions.
 
 Commit your workflow change before continuing.
 
 ## Part 2 — Prove that review changes the outcome
 
-First ask the factory to implement only Task 001 and stop immediately after validation:
+First, ask the factory to implement only Task 001 and stop immediately after validation:
 
 ```text
 Implement Task 001 only. Execute research, plan, implementation, and validation, then stop before review. Do not rebase, document, merge, or start another task.
@@ -81,7 +90,9 @@ Run the Review Phase and Decision Gate for the current Task 001 branch. Use a fr
 
 The important observation is that validation can still be green while review returns an evidence-backed required finding: the implementation no longer satisfies the current acceptance criterion. The coordinator should choose `FIX`, not `GO`.
 
-Restore the task definition to `{ "status": "ok" }`, run the review again, and confirm that the decision becomes `GO`. Then ask the coordinator to finish Task 001 from rebase through integration, without starting Task 002.
+Restore the task definition to `{ "status": "ok" }`, run the review again, and confirm that the decision becomes `GO`.
+
+Then ask the coordinator to finish Task 001 from rebase through integration, without starting Task 002.
 
 Record briefly:
 
