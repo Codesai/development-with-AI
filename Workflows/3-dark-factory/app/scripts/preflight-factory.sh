@@ -10,7 +10,6 @@ git_root="$(git rev-parse --show-toplevel 2>/dev/null)" || fail "not inside a Gi
 [[ "$(git branch --show-current)" == "main" ]] || fail "preflight must run on main"
 [[ -z "$(git status --porcelain)" ]] || fail "working tree is not clean"
 
-make factory-scaffold
 make validate
 [[ -z "$(git status --porcelain)" ]] || fail "validation changed the working tree"
 

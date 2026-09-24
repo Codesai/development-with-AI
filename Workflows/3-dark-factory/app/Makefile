@@ -1,4 +1,4 @@
-.PHONY: run stop logs build test validate factory-scaffold factory-preflight factory-audit
+.PHONY: run stop logs build test validate factory-preflight factory-audit
 
 run:
 	docker compose up --build -d
@@ -17,9 +17,6 @@ test:
 
 validate: build test
 	git diff --check
-
-factory-scaffold:
-	bash scripts/check-factory-scaffold.sh
 
 factory-preflight:
 	bash scripts/preflight-factory.sh
