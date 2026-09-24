@@ -52,24 +52,24 @@ git log --graph --oneline --decorate --all
 tail -n 240 .dark-factory/run-log.md
 ```
 
-After a normal run completes all ten queued tasks, execute:
+For an optional, stricter inspection of the resulting Git history after a normal run completes all ten queued tasks, you can execute:
 
 ```bash
 make factory-audit
 ```
 
-The audit checks the clean final state, authoritative validation, exactly ten ordered `--no-ff` merges, feature ancestry, protected harness files, and matching run-log evidence. A stopped run is intentionally diagnosed from its retained feature branch and log instead of passing the completion audit.
+This audit is not a completion requirement for the exercise. It is a curiosity tool that checks the clean final state, authoritative validation, exactly ten ordered `--no-ff` merges, feature ancestry, protected harness files, and matching run-log evidence. It only describes a complete ten-task run, so a valid bounded stop or partial run will not pass it.
 
 ### Success and reflection
 
-A normal completion leaves `main` clean and green, with exactly ten ordered merge commits and one visible feature side per task. A bounded stopped run may have fewer merges and deliberately does not pass the completion audit. Each merge must have a matching log entry with validation and review evidence.
+A normal completion leaves `main` clean and green, with exactly ten ordered merge commits and one visible feature side per task. A bounded stopped run may have fewer merges. Each merge must have a matching log entry with validation and review evidence.
 
 **Reflection:** 
 - Did separate implementer and reviewer roles find different problems? 
 - Which stop conditions protected product or architectural decisions from being guessed?
 - Where should a human remain in the loop: defining the task queue, approving a stop, reviewing a risky change, or releasing to production? Why?
 - What does the harness make safe or observable (branches, validation, review, audit trail), and what does it not prove about the product?
-- Which risks could still pass `make validate` and the final audit—for example, a misunderstood requirement, a security or privacy risk, or a harmful product decision?
+- Which risks could still pass `make validate` and, if you run it, the optional audit—for example, a misunderstood requirement, a security or privacy risk, or a harmful product decision?
 - When should the factory stop and ask for a human decision instead of choosing a plausible implementation by itself?
 - How do the run log and the `--no-ff` merge history help a human investigate, approve, or roll back a change?
 - Would you trust this workflow for every kind of task? Identify the changes that should require stronger human review or a different validation strategy.
