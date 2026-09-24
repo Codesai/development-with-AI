@@ -27,7 +27,7 @@ Same task as exercise 01. Use this prompt for every run:
 2. Run the guardrail by hand. From `HarnessingAgents/app`, add a throwaway `// note` to one of the `back/*.cs` files, then run:
 
    ```bash
-   ../harness/guardrails/check-no-comments.sh
+   ../harness/guardrails/check-no-comments.js
    ```
 
    and see it report the line. Remove the comment and run it again to see it pass. Revert:
@@ -40,8 +40,8 @@ Same task as exercise 01. Use this prompt for every run:
 
    ```bash
    mkdir -p ~/.copilot/hooks
-   cp ../harness/guardrails/check-no-comments.sh ~/.copilot/hooks/
-   chmod +x ~/.copilot/hooks/check-no-comments.sh
+   cp ../harness/guardrails/check-no-comments.js ~/.copilot/hooks/
+   chmod +x ~/.copilot/hooks/check-no-comments.js
    ```
 
    Create `~/.copilot/hooks/no-comments.json`:
@@ -54,7 +54,7 @@ Same task as exercise 01. Use this prompt for every run:
          {
            "type": "command",
            "matcher": "edit|create|apply_patch",
-           "bash": "~/.copilot/hooks/check-no-comments.sh",
+           "bash": "~/.copilot/hooks/check-no-comments.js",
            "timeoutSec": 30
          }
        ]
@@ -80,7 +80,7 @@ Same task as exercise 01. Use this prompt for every run:
 
 ### Keeping the guardrail out of view
 
-The agent must not be able to tell what's being checked - if it can read the guardrail script or an exercise brief that says "no comments", it writes comment-free code from the first turn and there's no loop to observe. That's why nothing about the guardrail lives in `HarnessingAgents/app/`, the folder the agent runs in: the exercise instructions are in `HarnessingAgents/exercises/`, the script is `HarnessingAgents/harness/guardrails/check-no-comments.sh`, and the hook installs at the user level (`~/.copilot/hooks/`), not in the project. Treat "what must the student know that the agent must not?" as part of designing any guardrail.
+The agent must not be able to tell what's being checked - if it can read the guardrail script or an exercise brief that says "no comments", it writes comment-free code from the first turn and there's no loop to observe. That's why nothing about the guardrail lives in `HarnessingAgents/app/`, the folder the agent runs in: the exercise instructions are in `HarnessingAgents/exercises/`, the script is `HarnessingAgents/harness/guardrails/check-no-comments.js`, and the hook installs at the user level (`~/.copilot/hooks/`), not in the project. Treat "what must the student know that the agent must not?" as part of designing any guardrail.
 
 ### Lifecycle hooks
 
@@ -99,7 +99,7 @@ Docs:
 
 ### The guardrail script
 
-`HarnessingAgents/harness/guardrails/check-no-comments.sh` ships ready to run. It works on whatever git working tree `copilot` is running in. After each edit it:
+`HarnessingAgents/harness/guardrails/check-no-comments.js` ships ready to run. It works on whatever git working tree `copilot` is running in. After each edit it:
 
 1. finds the lines that changed since `HEAD` (`git diff` over `.cs .js .ts`),
 2. for each changed line, takes the function or method that encloses it, and flags any comment (`//`, `/* */`, `///`, a `*`-prefixed line) anywhere in that function,

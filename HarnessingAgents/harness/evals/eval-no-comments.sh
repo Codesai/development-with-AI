@@ -6,7 +6,7 @@ set -euo pipefail
 # by pointing exercise 02's guardrail script directly at the resulting diff -
 # no hook, no live session, just the finished result.
 #
-# Quirk worth knowing: check-no-comments.sh behaves differently depending on
+# Quirk worth knowing: check-no-comments.js behaves differently depending on
 # whether its stdout is a TTY. Piped (as here), it always exits 0 - on a pass
 # it prints nothing, on a fail it prints a JSON `additionalContext` blob (the
 # shape a postToolUse hook expects). So this grades on stdout CONTENT
@@ -16,7 +16,7 @@ set -euo pipefail
 
 readonly N="${1:-3}"
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-grader="$script_dir/../guardrails/check-no-comments.sh"
+grader="$script_dir/../guardrails/check-no-comments.js"
 
 [ -x "$grader" ] || { printf 'eval-no-comments: grader not found or not executable at %s\n' "$grader" >&2; exit 1; }
 

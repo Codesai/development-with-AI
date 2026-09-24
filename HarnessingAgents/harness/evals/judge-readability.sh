@@ -5,7 +5,7 @@ set -euo pipefail
 # directory (as produced by run-trial.sh) and asks a *second*, independent
 # non-interactive `copilot -p` call to judge whether the diff is genuinely
 # readable without comments - not just comment-free, which is all a script
-# like check-no-comments.sh can tell you. Prints one line on stdout:
+# like check-no-comments.js can tell you. Prints one line on stdout:
 # "READABLE" or "NOT-READABLE", a dash, then the judge's one-sentence
 # reasoning.
 #

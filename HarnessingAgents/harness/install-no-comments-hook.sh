@@ -12,8 +12,8 @@ set -euo pipefail
 
 harness_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 hooks_dir="$HOME/.copilot/hooks"
-script_src="$harness_dir/guardrails/check-no-comments.sh"
-script_dst="$hooks_dir/check-no-comments.sh"
+script_src="$harness_dir/guardrails/check-no-comments.js"
+script_dst="$hooks_dir/check-no-comments.js"
 config_dst="$hooks_dir/no-comments.json"
 
 fail() { printf 'install-no-comments-hook: %s\n' "$*" >&2; exit 1; }
@@ -42,7 +42,7 @@ cat > "$config_dst" <<'JSON'
       {
         "type": "command",
         "matcher": "edit|create|apply_patch",
-        "bash": "~/.copilot/hooks/check-no-comments.sh",
+        "bash": "~/.copilot/hooks/check-no-comments.js",
         "timeoutSec": 30
       }
     ]

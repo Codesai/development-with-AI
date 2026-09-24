@@ -23,7 +23,7 @@ Same feature prompt as exercise 04. Keep the no-comments instruction in `app/AGE
 2. Cross-reference with exercise 04. Run this against a couple of the same trials `eval-readability.sh` just judged:
 
    ```bash
-   ../guardrails/check-no-comments.sh <trial-dir>
+   ../guardrails/check-no-comments.js <trial-dir>
    ```
 
    Do the two graders ever disagree - a trial that is comment-free but judged `NOT-READABLE` (terse rather than clear), or one the heuristic missed that the judge still calls out?
@@ -46,7 +46,7 @@ Same feature prompt as exercise 04. Keep the no-comments instruction in `app/AGE
 
 ### Why a script is not enough here
 
-`check-no-comments.sh` can tell you whether a function contains a `//` or `/*`. It cannot tell you whether removing those comments left behind something a stranger could still follow, or just terse code that happens to satisfy a regex. That is a semantic judgment, not a mechanical one - the kind of thing you reach for an LLM-as-judge for, per the same "Running Copilot CLI programmatically" docs as exercise 04, just calling `copilot -p ... -s` a second time with a grading prompt instead of a feature prompt.
+`check-no-comments.js` can tell you whether a function contains a `//` or `/*`. It cannot tell you whether removing those comments left behind something a stranger could still follow, or just terse code that happens to satisfy a regex. That is a semantic judgment, not a mechanical one - the kind of thing you reach for an LLM-as-judge for, per the same "Running Copilot CLI programmatically" docs as exercise 04, just calling `copilot -p ... -s` a second time with a grading prompt instead of a feature prompt.
 
 The trade-off: a script gives the same verdict on the same input every time. A judge might not. You are trading a narrow, reliable check for a broader, less reliable one - and that unreliability needs its own measurement, not just an assumption that "the AI will know it when it sees it".
 
