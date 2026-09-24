@@ -38,7 +38,7 @@ Same feature prompt in every trial:
 
 6. Notice what a single run could never have told you. "It happened this one time" or "it failed this one time" is not a number. Running many trials turns "the agent should behave like X" into something you can track over time, e.g. after every prompt or model change.
 
-7. Optional: measure whether a corrective mechanism changes the number. Install the post-edit script that nudges the agent to remove comments after it edits (user-level under `~/.copilot/hooks/`, so it applies automatically - no change to `run-trial.sh` needed). From `HarnessingAgents/harness`:
+7. Optional: measure whether a corrective mechanism changes the number. Install the post-edit script that nudges the agent to remove comments after it edits (user-level under `~/.copilot/hooks/`, so it applies automatically - no change to `run-trial.js` needed). From `HarnessingAgents/harness`:
 
    ```bash
    make hooks:install
@@ -76,8 +76,8 @@ Docs:
 
 `HarnessingAgents/harness/evals/`:
 
-- `run-trial.sh` - one trial. Copies `app/` into a fresh throwaway git repo (so a grader that reads `git diff` works unmodified), runs the feature prompt there with `copilot -p ... -s --allow-all-tools`, and prints the trial directory's path. It does not delete it - the caller grades it first.
-- `eval-no-comments.sh [N]` - runs `run-trial.sh` N times (default 3) and grades each trial by pointing `check-no-comments.js` directly at the resulting diff - no live session, just the finished result. Prints `k/N passed`, deletes passing trials, and keeps failing ones on disk for inspection. Each trial's agent output streams live to the terminal as it runs (and into `agent.log`), so a slow trial does not sit silent.
+- `run-trial.js` - one trial. Copies `app/` into a fresh throwaway git repo (so a grader that reads `git diff` works unmodified), runs the feature prompt there with `copilot -p ... -s --allow-all-tools`, and prints the trial directory's path. It does not delete it - the caller grades it first.
+- `eval-no-comments.sh [N]` - runs `run-trial.js` N times (default 3) and grades each trial by pointing `check-no-comments.js` directly at the resulting diff - no live session, just the finished result. Prints `k/N passed`, deletes passing trials, and keeps failing ones on disk for inspection. Each trial's agent output streams live to the terminal as it runs (and into `agent.log`), so a slow trial does not sit silent.
 
 A quirk worth knowing, because it is the kind of thing that quietly breaks an eval: `check-no-comments.js` behaves differently depending on whether its stdout is a terminal. Run interactively it exits 2 on a failure; piped, as `eval-no-comments.sh` runs it, it always exits 0 - on a pass it prints nothing, on a fail it prints a JSON `additionalContext` blob (the shape a different calling context expects). So the grader here checks stdout *content*, not the exit code. A script written for one calling context does not necessarily port to another for free.
 

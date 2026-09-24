@@ -33,7 +33,7 @@ declare -a dirs=()
 
 for i in $(seq 1 "$n"); do
   printf '\n=== Trial %s/%s: agent run (prefixed [%s/%s] below) ===\n' "$i" "$n" "$i" "$n" >&2
-  dir="$(RUN_TRIAL_LABEL="$i/$n" "$script_dir/run-trial.sh")"
+  dir="$(RUN_TRIAL_LABEL="$i/$n" "$script_dir/run-trial.js")"
   dirs+=("$dir")
   verdict="$("$script_dir/judge-readability.sh" "$dir")"
   printf -- '--- Trial %s/%s: %s ---\n' "$i" "$n" "$verdict" >&2

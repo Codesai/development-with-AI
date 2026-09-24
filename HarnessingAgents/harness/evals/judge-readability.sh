@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # judge-readability.sh - LLM-as-judge grader for exercise 05. Takes one trial
-# directory (as produced by run-trial.sh) and asks a *second*, independent
+# directory (as produced by run-trial.js) and asks a *second*, independent
 # non-interactive `copilot -p` call to judge whether the diff is genuinely
 # readable without comments - not just comment-free, which is all a script
 # like check-no-comments.js can tell you. Prints one line on stdout:

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # eval-no-comments.sh - exercise 04's eval. Runs the confirmation-code prompt
-# N times (default 3) via run-trial.sh, and grades each run deterministically
+# N times (default 3) via run-trial.js, and grades each run deterministically
 # by pointing exercise 02's guardrail script directly at the resulting diff -
 # no hook, no live session, just the finished result.
 #
@@ -39,7 +39,7 @@ declare -a failed_dirs=()
 
 for i in $(seq 1 "$N"); do
   printf '\n=== Trial %s/%s: agent run (prefixed [%s/%s] below) ===\n' "$i" "$N" "$i" "$N" >&2
-  dir="$(RUN_TRIAL_LABEL="$i/$N" "$script_dir/run-trial.sh")"
+  dir="$(RUN_TRIAL_LABEL="$i/$N" "$script_dir/run-trial.js")"
   output="$("$grader" "$dir" 2>"$dir/grade.err")" || true
   printf '%s' "$output" >"$dir/grade.log"
   if [ -z "$output" ]; then

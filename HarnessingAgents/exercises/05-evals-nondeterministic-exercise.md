@@ -54,7 +54,7 @@ The trade-off: a script gives the same verdict on the same input every time. A j
 
 `HarnessingAgents/harness/evals/`:
 
-- `run-trial.sh` - the same trial runner as exercise 04; both exercises share it so the trials are comparable. Agent output streams live to the terminal as each trial runs, so a slow trial does not sit silent.
+- `run-trial.js` - the same trial runner as exercise 04; both exercises share it so the trials are comparable. Agent output streams live to the terminal as each trial runs, so a slow trial does not sit silent.
 - `judge-readability.sh <trial-dir>` - takes one trial, stages and diffs it against its baseline commit, and sends that diff inline in a rubric prompt to a *second*, independent `copilot -p ... -s` call, run from an empty scratch directory (it has no reason to use any tool, so none is given anything to touch). Prints one line: `READABLE` or `NOT-READABLE`, a dash, then the judge's one-sentence reasoning.
 - `eval-readability.sh [N]` - runs N trials and judges each one, printing `k/N judged readable`. Unlike exercise 04's eval, trial directories are kept (not deleted) so you can re-judge them.
 - `eval-readability.sh --repeat-judge <trial-dir> [M]` - holds one trial's code fixed and re-runs only the judge M times (default 3), to isolate judge-side non-determinism from agent-side non-determinism: the code cannot have changed between runs, so any disagreement is the judge talking to itself. Shorthand: `make evals:repeat-judge DIR=<trial-dir>` (add `M=` to change the count) from `HarnessingAgents/harness`.
