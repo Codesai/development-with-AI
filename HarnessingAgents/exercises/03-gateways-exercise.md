@@ -63,7 +63,7 @@ Docs:
 
 ### The gateway
 
-`HarnessingAgents/harness/gateway/copilot-gated.sh` launches `copilot` with:
+`HarnessingAgents/harness/gateway/copilot-gated.js` launches `copilot` with:
 
 - the native `view`, `glob`, `grep` tools excluded;
 - every shell read / list / search command denied (`cat`, `ls`, `find`, `grep`, `head`, `sed`, `xxd`, ...);
@@ -74,7 +74,7 @@ Docs:
 
 `files-gateway` hides a fixed set of sensitive paths (`config/credentials.json`, `*secret*`, `.env`, keys, ...). A hidden file and a missing file give the identical `no such file` error, so the agent cannot even confirm the secret exists.
 
-The agent still has to find the tool. `copilot-gated.sh` also drops a symlink to it right in the launch directory (removed again on exit, so it never lingers into exercises 01/02), and `app/AGENTS.md` tells the agent to reach for `files-gateway` once its usual read tools are denied - both point at a self-explanatory name rather than relying on the agent to guess or run `command -v`/`which`.
+The agent still has to find the tool. `copilot-gated.js` also drops a symlink to it right in the launch directory (removed again on exit, so it never lingers into exercises 01/02), and `app/AGENTS.md` tells the agent to reach for `files-gateway` once its usual read tools are denied - both point at a self-explanatory name rather than relying on the agent to guess or run `command -v`/`which`.
 
 Limits, by design (as in exercise 02): denial is by command name, so `curl file://…`, `docker exec … cat`, or a bash `$(<file)` redirect slip past; `edit` / `create` still read the one file they target; and it is all per-session. `python`, `node`, `perl`, `ruby`, `php`, and `lua` are denied outright rather than trusted to stay off the filesystem - a single interpreter left open is enough to read any file directly and see `credentials.json` sitting in the raw directory listing, which would defeat the whole "the agent never learns it's there" premise.
 
@@ -82,7 +82,7 @@ Limits, by design (as in exercise 02): denial is by command name, so `curl file:
 
 ## Recommendations
 
-If the agent seems unrestricted, confirm you launched via `copilot-gated.sh`, not plain `copilot`, and that `files-gateway` resolves. From `app/`:
+If the agent seems unrestricted, confirm you launched via `copilot-gated.js`, not plain `copilot`, and that `files-gateway` resolves. From `app/`:
 
 ```bash
 files-gateway ls

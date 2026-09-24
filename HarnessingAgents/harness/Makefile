@@ -16,4 +16,4 @@ evals\:repeat-judge:
 	cd evals && ./eval-readability.sh --repeat-judge $(DIR) $(M)
 
 gateway\:copilot:
-	cd ../app && ../harness/gateway/copilot-gated.sh
+	cd ../app && ../harness/gateway/copilot-gated.js
