@@ -76,6 +76,12 @@ Tasks:
 | --- | --- | --- |
 | 2.1 | Add an optional comments field to the registration form. Save it with each registration. | Full-stack field addition: form, API model, and storage format. |
 | 2.2 | Show the submitted comment in the confirmation message after a successful registration. | API response contract and UI feedback. |
+| 2.3 | Control duplicated emails. | Prevent duplications |
+
+==========
+
+OPTIONAL:
+
 | 2.3 | Allow a visitor to opt in to receive course updates. Save their choice with the registration. | Checkbox behavior, Boolean defaults, persistence, and backward compatibility. |
 | 2.4 | Add a page that lists saved registrations, with the newest registrations first. | Read path, endpoint design, persisted-data parsing, and rendering. |
 | 2.5 | Allow users to filter the registration list by course. | Query parameters, client-side state, and empty-result behavior. |

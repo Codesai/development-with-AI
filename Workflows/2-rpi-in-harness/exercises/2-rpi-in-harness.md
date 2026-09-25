@@ -10,37 +10,6 @@ See how harness instructions provide a reusable workflow without repeating it in
 
 Read the workflow in [../app/AGENTS.md](../app/AGENTS.md) and compare it with the workflow in [Exercise 1](../../1-rpi-with-prompts/exercises/1-rpi-with-prompts.md).
 
-### Part 1.A
-
-- Go to the `../app` directory
-- Run `copilot`
-- Paste this prompt:
-
-```text
-Add a 'comments' field to form.
-```
-- The agent will follow the workflow in `AGENTS.md`: review the research and options, approve the chosen option, then review and approve the plan.
-- Inspect the implementation and record the review findings, changed files, and validation results.
-
-### Part 1.B
-
-- Start a new Copilot session and paste the following prompt:
-```
-Introduce a new architecture rule: controllers must not access repository implementations directly.
-```
-- Review the proposed research approach and implementation plan. Approve them if they align with the requirement.
-- Once the work is complete, inspect the result and record the reviewer’s findings, the files changed and the validation commands and their results.
-
-### Success and reflection
-
-Both runs should follow the same research, planning, implementation, review, fix, validation, and reporting phases, even though neither feature prompt repeats those rules.
-
-**Phases reflection**
-
-- Do you consider that all the phases defined in RPI inside `AGENTS.md`, are useful for both features?
-- Is it especially useful for one of them, or does it fail to add enough value in either case?
-
-Support your answer with the work performed, decisions made, and validation results.
 
 ## Part 2 – Additional challenge – From a big plan to vertical slices
 
