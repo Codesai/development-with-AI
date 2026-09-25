@@ -15,13 +15,29 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { isMainModule } from '../lib/paths.js';
-import { tryGit, isGitWorkingTree } from '../lib/git.js';
-import { requireCommandOnPath } from '../lib/system.js';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 const TRACKED_GLOBS = ['*.cs', '*.js', '*.ts'];
 const CONTROL_KEYWORDS_RE = /\b(if|for|foreach|while|switch|catch|using|lock|fixed|do|else|try|finally)$/;
 const MAX_REPORTED_HITS = parseInt(process.env.MAX_REPORT || '20', 10);
+
+function tryGit(args, cwd) {
+  try {
+    return execFileSync('git', args, { cwd, encoding: 'utf8' });
+  } catch {
+    return '';
+  }
+}
+
+function isGitWorkingTree(cwd) {
+  try {
+    execFileSync('git', ['rev-parse', '--show-toplevel'], { cwd, stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 // Map of relative file path -> set of 1-based line numbers touched since HEAD.
 function findChangedLines(repoDir) {
@@ -209,7 +225,6 @@ function resolveRepoDir(requestedDir) {
 //   - as a postToolUse hook (stdout piped): a `{additionalContext}` JSON
 //     blob on stdout, exit 0 - the shape Copilot CLI's hook contract expects.
 function main() {
-  requireCommandOnPath('check-no-comments', 'git');
   const repoDir = resolveRepoDir(process.argv[2]);
 
   const { hits } = gradeTrial(repoDir);
@@ -223,4 +238,4 @@ function main() {
   process.stdout.write(JSON.stringify({ additionalContext: message }));
 }
 
-if (isMainModule(import.meta.url)) main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) main();
