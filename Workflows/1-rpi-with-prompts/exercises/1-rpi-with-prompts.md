@@ -82,10 +82,10 @@ Tasks:
 
 OPTIONAL:
 
-| 2.3 | Allow a visitor to opt in to receive course updates. Save their choice with the registration. | Checkbox behavior, Boolean defaults, persistence, and backward compatibility. |
-| 2.4 | Add a page that lists saved registrations, with the newest registrations first. | Read path, endpoint design, persisted-data parsing, and rendering. |
-| 2.5 | Allow users to filter the registration list by course. | Query parameters, client-side state, and empty-result behavior. |
-| 2.6 | Let an administrator download the filtered registration list as a CSV file. | Export format, escaping commas and newlines, HTTP headers, and filter consistency. |
-| 2.7 | Add a registration-details page that can be opened from the list. | Stable registration identity, routing, and not-found behavior. |
-| 2.8 | Allow an administrator to delete a registration from its details page after confirmation. | Destructive actions, API design, persistence rewrite, and error handling. |
-| 2.9 | Make the registration list update automatically when a new registration is created. | Polling versus server push, consistency, lifecycle management, and error handling. |
+| 2.4 | Allow a visitor to opt in to receive course updates. Save their choice with the registration. | Checkbox behavior, Boolean defaults, persistence, and backward compatibility. |
+| 2.5 | Add a page that lists saved registrations, with the newest registrations first. | Read path, endpoint design, persisted-data parsing, and rendering. |
+| 2.6 | Allow users to filter the registration list by course. | Query parameters, client-side state, and empty-result behavior. |
+| 2.7 | Let an administrator download the filtered registration list as a CSV file. | Export format, escaping commas and newlines, HTTP headers, and filter consistency. |
+| 2.8 | Add a registration-details page that can be opened from the list. | Stable registration identity, routing, and not-found behavior. |
+| 2.9 | Allow an administrator to delete a registration from its details page after confirmation. | Destructive actions, API design, persistence rewrite, and error handling. |
+| 2.10 | Make the registration list update automatically when a new registration is created. | Polling versus server push, consistency, lifecycle management, and error handling. |
