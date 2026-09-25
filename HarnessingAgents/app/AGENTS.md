@@ -39,3 +39,17 @@ Treat the current working directory shown by the shell as the repository root fo
 - Implement features end to end: domain, storage, API response, and frontend.
 - Keep existing behaviour identical when refactoring.
 
+## Hook feedback
+
+When a tool hook reports feedback, tell the user as soon as it is received, before continuing work. State:
+
+- That the hook was encountered and whether it ran before or after the edit.
+- The hook's concise feedback.
+- Whether the feedback was acted on.
+- The reasoning for acting or not acting on it.
+
+Also include the same information in the final response when relevant.
+
+
+
+
