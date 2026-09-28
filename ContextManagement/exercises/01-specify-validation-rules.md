@@ -19,12 +19,15 @@ Backend:
 - When validation fails, return an HTTP Bad Request response.
 
 We are going to try 3 different approaches to achieve our goal:
-    1 - Define an AGENTS.md field in the root of the project (/ContextManagement/app)
-    2 - Define Hierarchichal AGENTS.md files, one in the back folder with the validations rules and the same for the front
-        - check in the output of the agent that the files are loaded correctly
-    3 - Create two skills one to include the rules for validation in the front and another to include the validations in the back
 
-After finishing each step roolback all changes and remove all new files that you create to start fresh, you can exccute "make rollback" to do that. 
+1) Define an AGENTS.md field in the root of the project (/ContextManagement/app)
+
+2) Define Hierarchichal AGENTS.md files, one in the back folder with the validations rules and the same for the front
+    - check in the output of the agent that the files are loaded correctly
+
+3) Create two skills one to include the rules for validation in the front and another to include the validations in the back
+
+After finishing each step rollback all changes and remove all new files that you create to start fresh, you can exccute 'make rollback' to do that. 
 
 ## Recommendations
 
