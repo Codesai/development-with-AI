@@ -2,7 +2,7 @@
 
 ## Goal
 
-learn different ways to stablish design guidelines in a project
+Learn different ways to stablish design guidelines in a project.
 
 ## Instructions
 
@@ -20,7 +20,7 @@ Backend:
 
 We are going to try 3 different approaches to achieve our goal:
 
-1) Define an AGENTS.md field in the root of the project (/ContextManagement/app)
+1) Define an AGENTS.md file in the root of the project (/ContextManagement/app).
 
 2) Define Hierarchichal AGENTS.md files, one in the back folder with the validations rules and the same for the front
     - check in the output of the agent that the files are loaded correctly
