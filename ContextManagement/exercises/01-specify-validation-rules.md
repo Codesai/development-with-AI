@@ -2,7 +2,7 @@
 
 ## Goal
 
-learn different ways to stablish design or architecturl rules for out project
+learn different ways to stablish design guidelines in a project
 
 ## Instructions
 
