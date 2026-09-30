@@ -22,6 +22,24 @@ Every submission is saved with an `Accepted`, `Waitlisted`, or `Rejected` status
 in the fifth column of `interests.txt`. Capacity is calculated independently for
 each course and counts accepted registrations only.
 
+## Prerequisites
+
+Mutation testing runs through the Stryker.NET dotnet tool, which is not bundled
+with the .NET SDK and must be installed once before running `make mutation-test`:
+
+1. Install the Stryker.NET global tool (skip if already installed; use
+   `dotnet tool update -g dotnet-stryker` to upgrade an existing install):
+
+   ```bash
+   dotnet tool install -g dotnet-stryker
+   ```
+
+2. Verify the tool is available:
+
+   ```bash
+   dotnet stryker --version
+   ```
+
 ## Instructions
 
 Move to the application directory. All paths and commands in this exercise are
