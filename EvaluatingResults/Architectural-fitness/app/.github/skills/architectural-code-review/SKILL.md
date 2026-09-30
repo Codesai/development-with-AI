@@ -12,3 +12,5 @@ The following dependencies are no allowed:
   - Repository cannot depend on Controllers
 
 Show a result with all the places in the code that violates this rules
+
+do not execute any test or code, only read files to identify architectural violations
