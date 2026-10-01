@@ -92,3 +92,17 @@ rm -rf results/trial-*
 ```
 
 If every trial fails immediately with no diff at all, check `agent.log` first - a Copilot CLI error (auth, rate limit, a bad flag) looks identical to a trial where the agent genuinely did nothing.
+
+## How the eval works
+
+```mermaid
+flowchart TD
+    start["Run the eval"] --> trial["Ask the agent to build the feature<br/>on a fresh copy of the app"]
+    trial --> grade["A script checks the result<br/>for comments"]
+    grade --> verdict{"Instruction followed?"}
+    verdict -- "yes" --> pass["Pass"]
+    verdict -- "no" --> fail["Fail: keep it for inspection"]
+    pass --> repeat["Repeat for N trials"]
+    fail --> repeat
+    repeat --> summary["Report how many passed: k/N"]
+```

@@ -70,3 +70,17 @@ rm -rf results/trial-*
 ```
 
 If every verdict comes back `NOT-READABLE - no changes were made`, the trial's diff was empty - check `agent.log` in that trial's directory before suspecting the judge.
+
+## How the eval works
+
+```mermaid
+flowchart TD
+    start["Run the eval"] --> trial["Ask the agent to build the feature<br/>on a fresh copy of the app"]
+    trial --> judge["A second AI judges whether<br/>the code is readable"]
+    judge --> verdict{"Readable?"}
+    verdict -- "yes" --> pass["Pass: READABLE"]
+    verdict -- "no" --> fail["Fail: NOT-READABLE"]
+    pass --> repeat["Repeat for N trials"]
+    fail --> repeat
+    repeat --> summary["Report how many were judged readable: k/N"]
+```
