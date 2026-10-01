@@ -7,7 +7,7 @@ Required entry shape:
 ```text
 ## Task NNN
 
-Status: MERGED | STOPPED
+Status: DONE | STOPPED
 Branch: feature/task-NNN
 Research: <relevant files and conventions>
 Plan: <intended change and risks>
