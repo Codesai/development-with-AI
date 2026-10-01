@@ -26,7 +26,7 @@ Add a registration confirmation code to this project. Implement the feature end 
    git checkout -- back front
    ```
 
-2. Run the guardrail by hand. From `HarnessingAgents/app`, add a throwaway `// note` to one of the `back/*.cs` files, then run:
+2. Run the guardrail by hand. From `HarnessingAgents/app`, open `back/Controller.cs` and add a throwaway `// note` inside the `Register()` method body (for example, immediately after its opening `{`), then run:
 
    ```bash
    ../harness/guardrails/check-no-comments.js
