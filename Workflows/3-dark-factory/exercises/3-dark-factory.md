@@ -50,7 +50,17 @@ The controller:
 - An unclear product or architecture decision produces `STOP`, not a guessed implementation.
 - Route each decision explicitly: `GO` proceeds to ..., `FIX` goes to ..., and `STOP` redirects to ... .
 
-!! Commit your workflow change before continuing.
+!! Commit your workflow change before continuing and create a checkpoint from a clean working tree:
+```bash
+git add .
+git commit -m ''
+git tag -f dark-factory-review-start
+```
+
+In case you want to return to this state, run:
+```bash
+git reset --hard dark-factory-review-start
+```
 
 
 ## Part 2 — Prove that review changes the outcome
