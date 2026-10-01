@@ -2,36 +2,28 @@
 
 ## Learning goal
 
-See how harness instructions provide a reusable workflow without repeating it in every feature prompt.
+Explore what happens when a feature request is too large to implement as a single plan, and how reusable vertical-slicing guidance changes the agent's proposal.
 
-## Part 1
-
-### Before you start
+## Before you start
 
 Read the workflow in [../app/AGENTS.md](../app/AGENTS.md) and compare it with the workflow in [Exercise 1](../../1-rpi-with-prompts/exercises/1-rpi-with-prompts.md).
 
+### Part A - Implement a big feature
 
-## Part 2 – Additional challenge – From a big plan to vertical slices
-
-Explore what happens when a feature request is too large to implement as a single plan, and how reusable vertical-slicing guidance changes the agent's proposal.
-
-
-### Part 2.A - Implement a big feature
-
-- In a new Copilot session,
-- paste this prompt:
+- Launch a new Copilot session
+- Paste this prompt:
 
 ```text
 Turn this registration form into a course discovery experience. Replace the course dropdown with a list of courses, each with a short description, a way to select it, and a link to its own landing page so visitors can learn more before registering. Each landing page should include learning outcomes, the intended audience, prerequisites, a detailed syllabus, teaching format, duration, instructor information, and frequently asked questions. Let visitors compare courses and register their interest from any course page with that course already selected. Make the experience work well on mobile and allow visitors to share direct links to individual courses. Use sample content where information is missing.
 ```
 
-- Follow the research and planning approval steps **but STOP BEFORE IMPLEMENTATION**.
-- Save the plan for comparison.
+- Do not implement. Follow the research and planning approval steps but STOP BEFORE IMPLEMENTATION.
+- Save the plan to a new file for later comparison.
 
-### Part 2.B – Checkpoint: “This is too big”
+### Part B – Checkpoint: “This is too big”
 
 - Think about the plan's size, assumptions, risks, and time needed to deliver something useful.
-- Introduce **vertical slicing**: each slice delivers a usable outcome across the layers it needs; database, API, and UI tasks alone are not vertical slices.
+- To reduce risk and deliver value earlier, introduce **vertical slicing**: each slice delivers a usable outcome across the layers it needs; database, API, and UI tasks alone are not vertical slices.
 - Paste this:
 
 ```text
@@ -41,30 +33,34 @@ This plan is too big. Split it into vertical slices. Each slice delivers a usabl
 - See results now
 - Consider whether the first slice provides value to the user and can be used without the rest.
 
-### Part 2.C - Update `AGENTS.md`
+### Part C - Update `AGENTS.md`
 
 - Update `AGENTS.md` and add reusable workflow rules that cover:
-  - When to propose slicing.
-  - Propose three slicing strategies—BIG, MEDIUM, and SMALL. For each option, include the number of slices, the user outcome delivered by each slice, and the associated trade-offs.
-  - Usable, demonstrable, and independently verifiable slices.
+```markdown
+  - When to propose slicing. <TODO> CRITERIA TO DECIDE WHEN TO PROPOSE SLICING - IF NO CRITERIA ASK USER>
+  - Propose three slicing strategies—BIG, MEDIUM, and SMALL. 
+  - For each option, include the number of slices, the user outcome delivered by each slice, and the associated trade-offs.
+  - Usable, demostrable, and independently verifiable slices.
   - User selection of granularity and approval of the first slice's plan.
   - Implementation, review, and validation of only the approved slice.
-- Preserve the research and plan approvals and all quality checks.
+  - Preserve the research, plan, review, and final report. <TODO> CRITERIA TO PRESERVE - IF NO CRITERIA ASK USER>
+
+```
 
 - Start a fresh Copilot session
-- Repeat the original prompt from Part 2.A. Do not share the earlier plan or this guide:
+- Repeat the original prompt from Part A. Paste:
 ```text
 Turn this registration form into a course discovery experience. Replace the course dropdown with a list of courses, each with a short description, a way to select it, and a link to its own landing page so visitors can learn more before registering. Each landing page should include learning outcomes, the intended audience, prerequisites, a detailed syllabus, teaching format, duration, instructor information, and frequently asked questions. Let visitors compare courses and register their interest from any course page with that course already selected. Make the experience work well on mobile and allow visitors to share direct links to individual courses. Use sample content where information is missing.
 ```
 
 - Does the agent offer different slice sizes without being asked? Compare its proposal with the first plan and refine the rules if needed.
 
-### Part 2.D - Implement one slice
+### Part D - Implement one slice
 
 Choose a slice size, approve one of the slicing options and its plan, then ask:
 
 ```text
-Implement only the first agreed slice. Leave the remaining slices for later.
+Implement only the first agreed slice. Leave the remaining slices for later. Update the plan.
 ```
 
 Complete the review and validation workflow, then manually test the user outcome.
