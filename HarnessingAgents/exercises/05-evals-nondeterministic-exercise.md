@@ -75,8 +75,8 @@ If every verdict comes back `NOT-READABLE - no changes were made`, the trial's d
 
 ```mermaid
 flowchart TD
-    start["Run the eval"] --> trial["Ask the agent to build the feature<br/>on a fresh copy of the app"]
-    trial --> judge["A second AI judges whether<br/>the code is readable"]
+    start["Run the eval<br/>[eval-readability.js]"] --> trial["Ask the agent to build the feature<br/>on a fresh copy of the app<br/>[run-trial.js]"]
+    trial --> judge["A second AI judges whether<br/>the code is readable<br/>[judge-readability.js]"]
     judge --> verdict{"Readable?"}
     verdict -- "yes" --> pass["Pass: READABLE"]
     verdict -- "no" --> fail["Fail: NOT-READABLE"]
@@ -84,3 +84,5 @@ flowchart TD
     fail --> repeat
     repeat --> summary["Report how many were judged readable: k/N"]
 ```
+
+Files: [eval-readability.js](../harness/evals/eval-readability.js), [run-trial.js](../harness/evals/run-trial.js), [judge-readability.js](../harness/evals/judge-readability.js)

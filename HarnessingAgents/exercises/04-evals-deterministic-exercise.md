@@ -97,8 +97,8 @@ If every trial fails immediately with no diff at all, check `agent.log` first - 
 
 ```mermaid
 flowchart TD
-    start["Run the eval"] --> trial["Ask the agent to build the feature<br/>on a fresh copy of the app"]
-    trial --> grade["A script checks the result<br/>for comments"]
+    start["Run the eval<br/>[eval-no-comments.js]"] --> trial["Ask the agent to build the feature<br/>on a fresh copy of the app<br/>[run-trial.js]"]
+    trial --> grade["A script checks the result<br/>for comments<br/>[check-no-comments.js]"]
     grade --> verdict{"Instruction followed?"}
     verdict -- "yes" --> pass["Pass"]
     verdict -- "no" --> fail["Fail: keep it for inspection"]
@@ -106,3 +106,5 @@ flowchart TD
     fail --> repeat
     repeat --> summary["Report how many passed: k/N"]
 ```
+
+Files: [eval-no-comments.js](../harness/evals/eval-no-comments.js), [run-trial.js](../harness/evals/run-trial.js), [check-no-comments.js](../harness/guardrails/check-no-comments.js)
