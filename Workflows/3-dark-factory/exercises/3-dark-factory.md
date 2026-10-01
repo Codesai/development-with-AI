@@ -20,6 +20,8 @@ The supplied [AGENTS.md](../app/AGENTS.md) intentionally contains two incomplete
 
 The factory must not invent either policy. Until you complete task selection, you must name each task explicitly.
 
+All work, including implementation, fixes, and evidence commits, happens directly on `main` using trunk-based development.
+
 The default `MAX_TASKS=3` keeps classroom runs short; completing all ten tasks is an optional extension.
 
 From the `../app` directory, first verify the baseline:
@@ -28,7 +30,7 @@ From the `../app` directory, first verify the baseline:
 make factory-preflight
 ```
 
-Do not tag the repository yet. You will first change and test the workflow itself.
+You will first change and test the workflow itself.
 
 ## Part 1 — Design the review phase
 
@@ -39,17 +41,17 @@ Your phase must define both the reviewer contract and the coordinator decision. 
 Reviewer:
 
 - A fresh reviewer evaluates the task acceptance criteria, correctness, regressions, architecture, automated checks, error handling, security, maintainability, complexity, and scope.
-- The reviewer is read-only: it cannot fix code, commit, change branches, update the run log, or merge.
+- The reviewer is read-only: it cannot fix code, commit, or update the run log.
 - Findings are classified as `BLOCKING`, `IMPORTANT`, or `SUGGESTION` and include concrete evidence.
 
 The coordinator:
 
 - Decisions are `GO`, `FIX`, or `STOP`:
-  - `GO` : The product is ready for integration.
-  - `FIX` : The product is not ready for integration, but a fix round remains.
-  - `STOP` : The product is not ready for integration, and no fix round remains. Needs Human intervention.
+  - `GO` : The product is ready to be marked `DONE`.
+  - `FIX` : The product is not ready to be marked `DONE`, but a fix round remains.
+  - `STOP` : The product is not ready to be marked `DONE`, and no fix round remains. Needs Human intervention.
 - The coordinator—not the reviewer—owns the decision.
-- No `BLOCKING` or `IMPORTANT` finding may reach rebase or integration.
+- No `BLOCKING` or `IMPORTANT` finding may reach completion.
 - A required finding produces `FIX` while a fix round remains.
 - A separate fixer performs the repair; the same validator and a fresh reviewer run again afterward.
 - `SUGGESTION` finding is recorded but does not force a fix.
@@ -65,10 +67,10 @@ Commit your workflow change before continuing.
 First, ask the factory to implement only Task 001 and stop immediately after validation:
 
 ```text
-Implement Task 001 only. Execute research, plan, implementation, and validation, then stop before review. Do not rebase, document, merge, or start another task.
+Implement Task 001 only. Execute research, plan, implementation, and validation, then stop before review. Do not document completion or start another task.
 ```
 
-Confirm that the feature branch passes `make validate`.
+Confirm that the implementation on `main` passes `make validate`.
 
 Now perform a controlled review probe. In `.dark-factory/tasks/001-health-endpoint.md`, temporarily change the expected response from:
 
@@ -85,14 +87,14 @@ to:
 Do not change the implementation or its tests, and do not commit this temporary task edit. Ask for the missing phase explicitly:
 
 ```text
-Run the Review Phase and Decision Gate for the current Task 001 branch. Use a fresh read-only reviewer. Do not edit anything and do not continue to another phase.
+Run the Review Phase and Decision Gate for the current Task 001 on main. Use a fresh read-only reviewer. Do not edit anything and do not continue to another phase.
 ```
 
 The important observation is that validation can still be green while review returns an evidence-backed required finding: the implementation no longer satisfies the current acceptance criterion. The coordinator should choose `FIX`, not `GO`.
 
 Restore the task definition to `{ "status": "ok" }`, run the review again, and confirm that the decision becomes `GO`.
 
-Then ask the coordinator to finish Task 001 from rebase through integration, without starting Task 002.
+Then ask the coordinator to finish Task 001 by recording completion on `main`, without starting Task 002.
 
 Record briefly:
 
@@ -110,13 +112,13 @@ Your controller must satisfy these acceptance criteria:
 - Read `MAX_TASKS` from `.dark-factory/config`.
 - Discover task files from `.dark-factory/tasks/` and order them lexically.
 - Use `.dark-factory/run-log.md` as the completion record; do not edit task definitions to mark progress.
-- Select the first task without a terminal `MERGED` or `STOPPED` entry.
-- Never have more than one active feature task.
-- Re-evaluate the repository and run log after every merge instead of relying on an initial in-memory list.
+- Select the first task without a terminal `DONE` or `STOPPED` entry.
+- Never have more than one active task.
+- Re-evaluate the repository and run log after every completed task instead of relying on an initial in-memory list.
 - Stop the whole run after a task is `STOPPED`; do not silently skip it and continue.
 - Finish when the queue is empty, `MAX_TASKS` tasks have been attempted, or a stop condition occurs.
-- Never infer success from a branch name alone.
-- Report why the loop finished and summarize attempted, merged, stopped, validation-failure, review-finding, and fix-round counts.
+- Never infer success from a commit alone; require a terminal run-log entry.
+- Report why the loop finished and summarize attempted, completed, stopped, validation-failure, review-finding, and fix-round counts.
 
 Commit the controller change. The factory should now need an outcome-oriented prompt rather than a prompt that tells it how to traverse the queue:
 
@@ -131,7 +133,7 @@ git log --graph --oneline --decorate --all
 tail -n 240 .dark-factory/run-log.md
 ```
 
-With the default configuration, the run stops after at most three attempted tasks. This short batch is enough to exercise selection, implementation, review, repair, integration, and loop termination.
+With the default configuration, the run stops after at most three attempted tasks. This short batch is enough to exercise selection, implementation, review, repair, completion, and loop termination.
 
 ## Success criteria
 
@@ -140,13 +142,13 @@ With the default configuration, the run stops after at most three attempted task
 - Reviewer, fixer, and coordinator responsibilities do not overlap.
 - The controller selects tasks deterministically from durable repository state.
 - The factory stops at the configured bound without additional coaching.
-- `main` is clean and `make validate` is green after every successful integration.
+- `main` is clean and `make validate` is green after every completed task.
 - The Git graph and run log explain what happened without relying on the chat transcript.
 
 ## Reflection
 
 - What can an independent reviewer detect that tests cannot?
-- Why should the reviewer report findings but not own the merge decision?
+- Why should the reviewer report findings but not own the completion decision?
 - What state must the controller reread after every iteration?
 - What failure could cause a naive controller to repeat or skip a task?
 - Which decisions still require a human even when validation and review agree?
@@ -156,5 +158,4 @@ With the default configuration, the run stops after at most three attempted task
 
 - Increase `MAX_TASKS` to `10` and run the complete queue.
 - Add a machine-readable decision record instead of relying only on Markdown.
-- Make the integration branch configurable instead of hard-coding `main`.
-- Run `make factory-audit` to inspect the strict ten-task Git choreography. This audit is a curiosity tool, not a completion requirement, and only applies to a complete run.
+- Run `make factory-audit` to inspect the ten-task completion evidence. This audit is a curiosity tool, not a completion requirement, and only applies to a complete run.
