@@ -46,14 +46,14 @@ The controller:
   - `GO` : The product is ready to be marked `DONE`.
   - `FIX` : The product is not ready to be marked `DONE`, but a fix round remains.
   - `STOP` : The product is not ready to be marked `DONE`, and no fix round remains. Needs Human intervention.
-- `BLOCKING` or `IMPORTANT` findings produces `FIX`.
+- `BLOCKING` or `IMPORTANT` findings produce `FIX` while a fix round remains, otherwise `STOP`. Read `MAX_FIX_ROUNDS` from `.dark-factory/config`.
 - An unclear product or architecture decision produces `STOP`, not a guessed implementation.
 - Route each decision explicitly: `GO` proceeds to ..., `FIX` goes to ..., and `STOP` redirects to ... .
 
 !! Commit your workflow change before continuing and create a checkpoint from a clean working tree:
 ```bash
 git add .
-git commit -m ''
+git commit -m "docs(dark-factory): define review and decision gate"
 git tag -f dark-factory-review-start
 ```
 
@@ -63,35 +63,45 @@ git reset --hard dark-factory-review-start
 ```
 
 
-## Part 2 — Prove that review changes the outcome
+## Part 2 — Test your workflow
 
-First, ask the factory to implement only Task 001 and stop immediately after validation:
+Now we're going to test the workflow. 
+We change the feature definition once it is implemented to see if the review phase is capable of catching the incoherence.
+(Script changes Task 001's expected response from `{ "status": "ok" }` to `{ "status": "ready" })
 
-```text
-Implement Task 001 only. Execute research, plan, implementation, and validation, then stop before review. Do not document completion or start another task.
-```
-
-Confirm that the implementation on `main` passes `make validate`.
-
-Now perform a controlled review probe. In `.dark-factory/tasks/001-health-endpoint.md`, temporarily change the expected response from:
-
-```json
-{ "status": "ok" }
-```
-
-to:
-
-```json
-{ "status": "ready" }
-```
-
-Do not change the implementation or its tests, and do not commit this temporary task edit. Ask for the missing phase explicitly:
+In Copilot paste:
 
 ```text
-Run the Review Phase and Decision Gate for the current Task 001 on main. Use a fresh read-only reviewer. Do not edit anything and do not continue to another phase.
+Implement Task 001.
 ```
 
-The important observation is that validation can still be green while review returns an evidence-backed required finding: the implementation no longer satisfies the current acceptance criterion. The coordinator should choose `FIX`, not `GO`.
+!! When the system pauses with `"Workflow testing pause"`,
+
+Run in another terminal:
+
+```bash
+make validate # run tests before change feature
+make change-feature
+make validate
+git diff -- .dark-factory/tasks/001-health-endpoint.md
+git add .dark-factory/tasks/001-health-endpoint.md
+git commit -m "docs(TASK-001): change expected health status"
+```
+
+Go back to Copilot and paste:
+
+```text
+continue
+```
+
+Review should report an evidence-backed required finding: **the implementation fails** the current acceptance criterion even though validation is green. **The controller should choose `FIX`**, repair the implementation and tests, validate, and return control to you again.
+
+At this second pause, write `continue`. 
+
+Expect a fresh review, `GO`, and a terminal `DONE` entry.
+
+You finished the TASK-001, CONGRATS!
+
 
 Restore the task definition to `{ "status": "ok" }`, run the review again, and confirm that the decision becomes `GO`.
 
