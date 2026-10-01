@@ -2,65 +2,56 @@
 
 ## Learning goal
 
-Complete two missing control mechanisms in an autonomous development workflow:
+Complete missing control mechanisms in an autonomous development workflow:
 
-1. an independent review phase with an explicit `GO`, `FIX`, or `STOP` decision;
-2. a controller that deterministically selects and executes the next task.
 
-The goal is not merely to ask an agent to implement a list. You will inspect an incomplete workflow, define its safety policy, test that policy with a controlled fault, and finally close the autonomous task loop.
+You will inspect an incomplete workflow, define its criteria, and close the autonomous task loop.
 
 ## Starting state
 
-The application is a small .NET API. `make validate` is green and the files in `.dark-factory/tasks/` form a queue of pending tasks.
+The application is a small .NET app, `make validate` is green and the files in `.dark-factory/tasks/` form a queue of pending tasks.
 
-The supplied [AGENTS.md](../app/AGENTS.md) intentionally contains two incomplete phases:
+The supplied [AGENTS.md](../app/AGENTS.md) intentionally contains three incomplete phases:
 
-- `Review Phase and Decision Gate`;
+- `Review Phase`
+- `Review Decision Controller Gate`;
 - `Task Selection Phase`.
 
-The factory must not invent either policy. Until you complete task selection, you must name each task explicitly.
+The default is`MAX_TASKS=3` in `../app/.dark-factory/config`; completing all ten tasks is an optional extension.
 
-All work, including implementation, fixes, and evidence commits, happens directly on `main` using trunk-based development.
 
-The default `MAX_TASKS=3` keeps classroom runs short; completing all ten tasks is an optional extension.
+## Part 0 - Initial status
 
 From the `../app` directory, first verify the baseline:
 
 ```bash
 make factory-preflight
 ```
+if you find any errors in preflight, fix them before proceeding.
 
-You will first change and test the workflow itself.
 
 ## Part 1 — Design the review phase
 
-Complete `Review Phase and Decision Gate` in `AGENTS.md`.
+Complete `Review Phase` and `Review Controller Gate` in `AGENTS.md`.
 
-Your phase must define both the reviewer contract and the coordinator decision. It must satisfy these acceptance criteria:
+It must satisfy these acceptance criteria:
 
-Reviewer:
-
+The Reviewer:
 - A fresh reviewer evaluates the task acceptance criteria, correctness, regressions, architecture, automated checks, error handling, security, maintainability, complexity, and scope.
 - The reviewer is read-only: it cannot fix code, commit, or update the run log.
 - Findings are classified as `BLOCKING`, `IMPORTANT`, or `SUGGESTION` and include concrete evidence.
 
-The coordinator:
-
+The controller:
 - Decisions are `GO`, `FIX`, or `STOP`:
   - `GO` : The product is ready to be marked `DONE`.
   - `FIX` : The product is not ready to be marked `DONE`, but a fix round remains.
   - `STOP` : The product is not ready to be marked `DONE`, and no fix round remains. Needs Human intervention.
-- The coordinator—not the reviewer—owns the decision.
-- No `BLOCKING` or `IMPORTANT` finding may reach completion.
-- A required finding produces `FIX` while a fix round remains.
-- A separate fixer performs the repair; the same validator and a fresh reviewer run again afterward.
-- `SUGGESTION` finding is recorded but does not force a fix.
-- When `MAX_FIX_ROUNDS` is exhausted with a required finding unresolved, the decision is `STOP`.
+- `BLOCKING` or `IMPORTANT` findings produces `FIX`.
 - An unclear product or architecture decision produces `STOP`, not a guessed implementation.
+- Route each decision explicitly: `GO` proceeds to ..., `FIX` goes to ..., and `STOP` redirects to ... .
 
-A useful way to check it is to make a decision table before translating it into workflow instructions.
+!! Commit your workflow change before continuing.
 
-Commit your workflow change before continuing.
 
 ## Part 2 — Prove that review changes the outcome
 

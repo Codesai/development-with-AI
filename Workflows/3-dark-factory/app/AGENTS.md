@@ -1,10 +1,10 @@
-# Local Dark Factory guidance
+# Guidance
 
 ## Workflow per-task
 
 1. Task Selection Phase:
     <TODO>
-    Define the criteria how the coordinator selects the next task.
+    Define the criteria how the task controller selects the next task.
     Until this phase is completed, work only on a task explicitly named by the user; never guess or continue to another task.
     </TODO>
 
@@ -20,11 +20,11 @@
     IF NO CRITERIA STOP AND SAY USER: "DEFINE REVIEWER CRITERIA IN `AGENTS.md`"
     </TODO>
 
-7. Review Coordinator Gate:
+7. Review Controller Gate:
     <TODO>
-    Define the review coordinator rules to decide to GO, FIX, or STOP.
+    Define the review controller rules to decide to GO, FIX, or STOP.
     Define wich phase should go.
-    IF NO CRITERIA STOP AND SAY USER: "DEFINE REVIEWER COORDINATOR CRITERIA IN `AGENTS.md`"
+    IF NO CRITERIA STOP AND SAY USER: "DEFINE REVIEWER CONTROLLER CRITERIA IN `AGENTS.md`"
     </TODO>
 
 8. Document Phase: When feature done, add an entry using the required shape in `.dark-factory/run-log.md`, and commit. 
@@ -38,8 +38,7 @@ Finish when the user-requested task is complete, `MAX_TASKS` tasks have been att
 
 ## Rules
 
-Before starting, read `.dark-factory/config`, `.dark-factory/run-log.md`, this file and the current repository state. Work directly on `main` using trunk-based development. Start each task from a clean working tree and keep only one task active at a time.
-
-Run the authoritative `make validate` command. Do not delete, skip, weaken, or bypass tests, checks, assertions, architecture rules, formatting, or compiler errors to obtain a pass.
-
-Use Conventional Commits, for example `feat(TASK-NNN): add health endpoint`, `fix(TASK-NNN): reject empty fields`.
+- Before starting, read `.dark-factory/config`, `.dark-factory/run-log.md`, this file and the current repository state.
+- Work directly on `main` using trunk-based development. Start each task from a clean working tree and keep only one task active at a time.
+- Run validation with `make validate` command. Do not delete, skip, weaken, or bypass tests, checks, assertions, architecture rules, formatting, or compiler errors to obtain a pass.
+- Use Conventional Commits, for example `feat(TASK-NNN): add health endpoint`, `fix(TASK-NNN): reject empty fields`.
