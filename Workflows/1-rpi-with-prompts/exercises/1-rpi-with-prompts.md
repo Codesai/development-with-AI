@@ -10,15 +10,14 @@ See how explicit research, planning, implementation, and validation phases chang
 
 - Go to the `../app` directory,
 - Run `copilot` and enter this prompt:
-
 ```text
 Add a health check endpoint to this application.
 ``` 
-- Register to the agent log, changed files, added checks, and commands run.
+- Save in a file to compare later: agent log, changed files, added checks, and commands run.
 
 ### Exercise 1.2
 
-- Revert every change made in Part 1.A.
+- Revert every change made in Part 1.1.
 - In a new session, launch `copilot` and paste the following prompt:
 
 ```text
@@ -45,17 +44,21 @@ Both implementations should provide `GET /api/health`, return HTTP 200 with `{"s
 
 ## Exercise 2
 
-- For this part you can continue over the work done in Exercise 1. Reset work is not needed.
+- For this part **reset work is not needed.** You can continue over the work done in Exercise 1. 
 - Complete the tasks below in order.
 - For each task:
 
-1. Write a prompt that includes the feature to do and the workflow just seen:
+1. Write a prompt that includes the feature to do and the workflow just seen.
+2. But before:
+   - Ask yourself if we need all the phases for the task, or whether some can be relaxed. 
+   - Explain your decision.
 
-for example:
+Prompt:
 ```text
-<Place here the feature to do>
+<Place here the feature request to do>
 
 Workflow:
+<TODO: Ask yourself if we need all the phases for the task>
 1. Research the application’s architecture and conventions, and clarify any uncertainty about the feature with me.
 2. Wait for my approval.
 3. Propose an implementation and testing plan.
@@ -66,9 +69,7 @@ Workflow:
 8. Report a concise summary, including the relevant details, changed files, and validation results.
 ```
 
-2. Ask yourself if we need all the phases for the task, or whether some can be relaxed.
-3. Explain your decision.
-4. Take note of the decisions made, changed files, and validation results before moving to the next task.
+3. Take note of the decisions made, changed files, and validation results before moving to the next task.
 
 Tasks:
 
