@@ -39,16 +39,17 @@ It must satisfy these acceptance criteria:
 The Reviewer:
 - A fresh reviewer evaluates the task acceptance criteria, correctness, regressions, architecture, automated checks, error handling, security, maintainability, complexity, and scope.
 - The reviewer is read-only: it cannot fix code, commit, or update the run log.
-- Findings are classified as `BLOCKING`, `IMPORTANT`, or `SUGGESTION` and include concrete evidence.
+- Findings are classified as `xx`, `xx`, or `xx` and include concrete evidence.  <TODO> FINDINGS CLASSIFICATION.  IF NO CLASSIFICATION STOP AND SAY USER: "DEFINE FINDINGS CLASSIFICATION IN `AGENTS.md`"  </TODO>
 
 The controller:
 - Decisions are `GO`, `FIX`, or `STOP`:
   - `GO` : The product is ready to be marked `DONE`.
   - `FIX` : The product is not ready to be marked `DONE`, but a fix round remains.
   - `STOP` : The product is not ready to be marked `DONE`, and no fix round remains. Needs Human intervention.
-- `BLOCKING` or `IMPORTANT` findings produce `FIX` while a fix round remains, otherwise `STOP`. Read `MAX_FIX_ROUNDS` from `.dark-factory/config`.
+- `xx` or `xx` findings produce `FIX` while a fix round remains, otherwise `STOP`. Read `MAX_FIX_ROUNDS` from `.dark-factory/config`.
 - An unclear product or architecture decision produces `STOP`, not a guessed implementation.
-- Route each decision explicitly: `GO` proceeds to ..., `FIX` goes to ..., and `STOP` redirects to ... .
+- Route each decision explicitly: `GO` proceeds to ..., `FIX` goes to ..., and `STOP` redirects to ... . <TODO> CRITERIA TO ROUTE GO, FIX, AND STOP. IF NO CRITERIA STOP AND SAY USER: "DEFINE CRITERIA TO ROUTE GO, FIX, AND STOP IN `AGENTS.md`" </TODO>
+
 
 !! Commit your workflow change before continuing and create a checkpoint from a clean working tree:
 ```bash

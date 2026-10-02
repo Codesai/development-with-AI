@@ -29,7 +29,7 @@
     IF NO CRITERIA STOP AND SAY USER: "DEFINE REVIEWER CONTROLLER CRITERIA IN `AGENTS.md`"
     </TODO>
 
-8. Document Phase: When feature done, add an entry using the required shape in `.dark-factory/run-log.md`, and commit. 
+8. Document Phase: When the feature is done, add an entry using the required shape in `.dark-factory/run-log.md`, and commit. 
 
 
 ## Stop and finish
