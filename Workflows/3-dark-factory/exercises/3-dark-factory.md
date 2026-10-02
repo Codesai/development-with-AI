@@ -20,16 +20,6 @@ The supplied [AGENTS.md](../app/AGENTS.md) intentionally contains three incomple
 The default is`MAX_TASKS=3` in `../app/.dark-factory/config`; completing all ten tasks is an optional extension.
 
 
-## Part 0 - Initial status
-
-From the `../app` directory, first verify the baseline:
-
-```bash
-make factory-preflight
-```
-if you find any errors in preflight, fix them before proceeding.
-
-
 ## Part 1 — Design the review phase
 
 Complete `Review Phase` and `Review Controller Gate` in `AGENTS.md`.
@@ -39,9 +29,9 @@ It must satisfy these acceptance criteria:
 The Reviewer:
 - A fresh reviewer evaluates the task acceptance criteria, correctness, regressions, architecture, automated checks, error handling, security, maintainability, complexity, and scope.
 - The reviewer is read-only: it cannot fix code, commit, or update the run log.
-- Findings are classified as `xx`, `xx`, or `xx` and include concrete evidence.  <TODO> FINDINGS CLASSIFICATION.  IF NO CLASSIFICATION STOP AND SAY USER: "DEFINE FINDINGS CLASSIFICATION IN `AGENTS.md`"  </TODO>
+- Findings (issues) are classified as `xx`, `xx`, or `xx` and include concrete evidence.  <TODO> FINDINGS CLASSIFICATION.  IF NO CLASSIFICATION STOP AND SAY USER: "DEFINE FINDINGS CLASSIFICATION IN `AGENTS.md`"  </TODO>
 
-The controller:
+The Controller:
 - Decisions are `GO`, `FIX`, or `STOP`:
   - `GO` : The product is ready to be marked `DONE`.
   - `FIX` : The product is not ready to be marked `DONE`, but a fix round remains.

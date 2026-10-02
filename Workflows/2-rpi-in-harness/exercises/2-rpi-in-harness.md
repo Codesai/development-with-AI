@@ -35,7 +35,7 @@ This plan is too big. Split it into vertical slices. Each slice delivers a usabl
 
 ### Part C - Update `AGENTS.md`
 
-- Update `AGENTS.md` and add reusable workflow rules that cover:
+- Update `AGENTS.md` and DECIDE WHERE TO ADD these criteria:
 ```markdown
   - When to propose slicing. 
     <TODO> 
@@ -47,11 +47,6 @@ This plan is too big. Split it into vertical slices. Each slice delivers a usabl
   - Usable, demostrable, and independently verifiable slices.
   - User selection of granularity and approval of the first slice's plan.
   - Implementation, review, and validation of only the approved slice.
-  - Preserve the research, plan, review, and final report. 
-    <TODO> 
-    CRITERIA TO PRESERVE
-    IF NO CRITERIA STOP AND SAY USER: "DEFINE PRESERVATION CRITERIA IN `AGENTS.md`"
-    </TODO>
 ```
 
 - Start a fresh Copilot session
