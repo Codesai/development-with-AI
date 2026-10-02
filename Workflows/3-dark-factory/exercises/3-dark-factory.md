@@ -9,7 +9,7 @@ You will inspect an incomplete workflow, define its criteria, and close the auto
 
 ## Starting state
 
-The application is a small .NET app, `make validate` is green and the files in `.dark-factory/tasks/` form a queue of pending tasks.
+The application is a small .NET app, `make validate` is green, and the files in `.dark-factory/tasks/` form a queue of pending tasks.
 
 The supplied [AGENTS.md](../app/AGENTS.md) intentionally contains three incomplete phases:
 
@@ -63,9 +63,9 @@ git reset --hard dark-factory-review-start
 ```
 
 
-## Part 2 — Test your workflow
+## Part 2 — Test workflow 'FIX'
 
-Now we're going to test the workflow. 
+Now we're going to test the workflow.
 We change the feature definition once it is implemented to see if the review phase is capable of catching the incoherence.
 (Script changes Task 001's expected response from `{ "status": "ok" }` to `{ "status": "ready" })
 
@@ -96,42 +96,89 @@ continue
 
 Review should report an evidence-backed required finding: **the implementation fails** the current acceptance criterion even though validation is green. **The controller should choose `FIX`**, repair the implementation and tests, validate, and return control to you again.
 
-At this second pause, write `continue`. 
+At this second pause, write `continue`.
 
 Expect a fresh review, `GO`, and a terminal `DONE` entry.
 
 You finished the TASK-001, CONGRATS!
 
 
-Restore the task definition to `{ "status": "ok" }`, run the review again, and confirm that the decision becomes `GO`.
+## Part 3 - Test workflow 'STOP'
 
-Then ask the coordinator to finish Task 001 by recording completion on `main`, without starting Task 002.
+Go for TASK-002, do not revert changes. 
+
+Set `MAX_FIX_ROUNDS=0` in `.dark-factory/config`. This allows initial implementation and review, but no repair rounds.
+
+Commit the configuration change and save a checkpoint before Task 002:
+
+```bash
+git add .dark-factory/config
+git commit -m "test(dark-factory): disable fix rounds for STOP experiment"
+git tag -f dark-factory-stop-start
+```
+
+In Copilot paste:
+
+```text
+Implement Task 002.
+```
+
+When the system pauses with `"Workflow testing pause"`, confirm that `make validate` passes. 
+
+In `.dark-factory/tasks/002-required-fields.md`, change the expected response for missing fields from **HTTP 400** to **HTTP 422**. Do not change the implementation or tests.
+
+Run in another terminal:
+
+```bash
+make validate
+git diff -- .dark-factory/tasks/002-required-fields.md
+git add .dark-factory/tasks/002-required-fields.md
+git commit -m "docs(TASK-002): require HTTP 422 for missing fields"
+```
+
+Go back to Copilot and paste:
+
+```text
+continue
+```
+
+Review should report that the implementation returns HTTP 400 while the current acceptance criterion requires HTTP 422. Validation remains green, but with `MAX_FIX_ROUNDS=0` the controller must choose **`STOP` directly** and record Task 002 as `STOPPED`. 
+It must not repair the implementation, mark the task `DONE`, or start Task 003.
+
+
+### Look at the results
 
 Record briefly:
-
-- the validation result before review;
-- the review finding produced by the probe;
-- the coordinator decision;
+- the green validation result before review;
+- the review finding and its acceptance-criterion evidence;
+- the `STOP` decision, zero fix rounds, and terminal `STOPPED` status;
 - why validation alone did not detect the changed requirement.
 
-## Part 3 — Implement the next-task controller
 
-The workflow can now deliver one explicitly named task, but it still cannot operate a queue autonomously. Complete `Task Selection Phase` in `AGENTS.md`.
+## Part 4 — Implement the next-task controller
+
+Before Part 4:
+- Return to the previous checkpoint:
+```bash
+git reset --hard dark-factory-stop-start
+```
+- Remove the manual pause (step 5a) from `AGENTS.md`.
+- Restore `MAX_FIX_ROUNDS=2` in `.dark-factory/config`.
+- Commit the change.
+
+Now you are ready.
+
+Complete `Task Selection Phase` in `AGENTS.md`: the workflow can now deliver one explicitly named task, but it still cannot operate a queue autonomously. 
 
 Your controller must satisfy these acceptance criteria:
+```markdown
+    <TODO> 
+    CRITERIA TO DECIDE HOW TO SELECT NEXT TASK
+    IF NO CRITERIA STOP AND SAY USER: "DEFINE NEXT TASK SELECTION CRITERIA IN `AGENTS.md`"
+    </TODO>
+```
 
-- Read `MAX_TASKS` from `.dark-factory/config`.
-- Discover task files from `.dark-factory/tasks/` and order them lexically.
-- Use `.dark-factory/run-log.md` as the completion record; do not edit task definitions to mark progress.
-- Select the first task without a terminal `DONE` or `STOPPED` entry.
-- Never have more than one active task.
-- Re-evaluate the repository and run log after every completed task instead of relying on an initial in-memory list.
-- Stop the whole run after a task is `STOPPED`; do not silently skip it and continue.
-- Finish when the queue is empty, `MAX_TASKS` tasks have been attempted, or a stop condition occurs.
-- Never infer success from a commit alone; require a terminal run-log entry.
-- Report why the loop finished and summarize attempted, completed, stopped, validation-failure, review-finding, and fix-round counts.
-
-Commit the controller change. The factory should now need an outcome-oriented prompt rather than a prompt that tells it how to traverse the queue:
+Open Copilot and paste:
 
 ```text
 Run the factory.
@@ -144,14 +191,15 @@ git log --graph --oneline --decorate --all
 tail -n 240 .dark-factory/run-log.md
 ```
 
-With the default configuration, the run stops after at most three attempted tasks. This short batch is enough to exercise selection, implementation, review, repair, completion, and loop termination.
+With the default configuration, the run stops after at configured attempted tasks.
+
 
 ## Success criteria
 
 - Task 001 demonstrated that a green validation result is not equivalent to review approval.
 - The review policy has an unambiguous `GO`, `FIX`, and `STOP` path.
 - Reviewer, fixer, and coordinator responsibilities do not overlap.
-- The controller selects tasks deterministically from durable repository state.
+- The controller selects tasks deterministically from a durable repository state.
 - The factory stops at the configured bound without additional coaching.
 - `main` is clean and `make validate` is green after every completed task.
 - The Git graph and run log explain what happened without relying on the chat transcript.
@@ -163,10 +211,7 @@ With the default configuration, the run stops after at most three attempted task
 - What state must the controller reread after every iteration?
 - What failure could cause a naive controller to repeat or skip a task?
 - Which decisions still require a human even when validation and review agree?
-- Which parts of this exercise are workflow guarantees, and which are only claims written in the run log?
 
 ## Optional extensions
 
 - Increase `MAX_TASKS` to `10` and run the complete queue.
-- Add a machine-readable decision record instead of relying only on Markdown.
-- Run `make factory-audit` to inspect the ten-task completion evidence. This audit is a curiosity tool, not a completion requirement, and only applies to a complete run.
