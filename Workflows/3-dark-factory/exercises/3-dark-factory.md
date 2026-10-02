@@ -67,7 +67,6 @@ git reset --hard dark-factory-review-start
 
 Now we're going to test the workflow.
 We change the feature definition once it is implemented to see if the review phase is capable of catching the incoherence.
-(Script changes Task 001's expected response from `{ "status": "ok" }` to `{ "status": "ready" })
 
 In Copilot paste:
 
@@ -75,13 +74,13 @@ In Copilot paste:
 Implement Task 001.
 ```
 
-!! When the system pauses with `"Workflow testing pause"`,
+When the system pauses with `"Workflow testing pause"`, confirm that `make validate` passes.
+
+In `.dark-factory/tasks/001-health-endpoint.md`, change the expected response from `{ "status": "ok" }` to `{ "status": "ready" }`. Do not change the implementation or tests.
 
 Run in another terminal:
 
 ```bash
-make validate # run tests before change feature
-make change-feature
 make validate
 git diff -- .dark-factory/tasks/001-health-endpoint.md
 git add .dark-factory/tasks/001-health-endpoint.md

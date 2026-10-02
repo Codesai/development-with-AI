@@ -1,4 +1,4 @@
-.PHONY: run stop logs build test validate factory-preflight factory-audit change-feature
+.PHONY: run stop logs build test validate factory-preflight factory-audit
 
 run:
 	docker compose up --build -d
@@ -23,7 +23,3 @@ factory-preflight:
 
 factory-audit:
 	bash scripts/audit-factory.sh
-
-# Test workflow: change the requirement while the factory is paused.
-change-feature:
-	python3 scripts/change-feature.py

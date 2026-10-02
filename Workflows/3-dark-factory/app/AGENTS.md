@@ -52,7 +52,7 @@ ONLY FOR TESTING PURPOSES.
 These instructions apply only to step 5a during the review experiments in Parts 2 and 3. They do not replace the review contract or decision gate.
 
 - While this step is present, the coordinator must pause after every successful validation and implementation/fix commit, before review, including after each fix round.
-- Tell the user: "Workflow testing pause: optionally change the current task requirement as instructed in the exercise (`make change-feature` is for Task 001 only) and commit the requirement change, then write `continue`. To keep the requirement unchanged, just write `continue`."
-- End the turn and wait for an explicit `continue`. Never run `make change-feature` yourself or remove this step yourself.
+- Tell the user: "Workflow testing pause: optionally change the current task requirement as instructed in the exercise and commit the requirement change, then write `continue`. To keep the requirement unchanged, just write `continue`."
+- End the turn and wait for an explicit `continue`. Never change the task requirement yourself or remove this step yourself.
 - On `continue`, reread the current task definition and proceed directly to Review Phase. Review the current implementation against the current requirement. Do not undo the user's requirement change or restart implementation before review. The normal decision gate then determines GO, FIX, or STOP.
 - The student removes this step after the review experiments, before running the autonomous queue in Part 4. Once removed, validation proceeds directly to review without a manual pause.
