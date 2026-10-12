@@ -43,6 +43,8 @@ calculated independently for each course from accepted registrations only.
 make test
 ```
 
+The tests run with code coverage (coverlet). The report is written to `coverage-report/index.html`, and a text summary is printed in the terminal.
+
 ## Run mutation testing
 
 ```bash
