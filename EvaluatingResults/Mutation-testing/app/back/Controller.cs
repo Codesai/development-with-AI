@@ -37,9 +37,10 @@ namespace InterestApi.Controllers
                 return BadRequest();
 
             var registrations = await _repository.GetAllAsync();
-            var confirmedRegistrations = registrations.Count(existingRegistration =>
-                existingRegistration.Status == RegistrationDecision.Accepted
-                && string.Equals(existingRegistration.Course.Trim(), registration.Course, StringComparison.OrdinalIgnoreCase));
+            var confirmedRegistrations = registrations
+                .Where(existingRegistration =>
+                    string.Equals(existingRegistration.Course.Trim(), registration.Course, StringComparison.OrdinalIgnoreCase))
+                .Count(existingRegistration => existingRegistration.Status == RegistrationDecision.Accepted);
 
             registration.Status = _policy.Decide(
                 isCourseOpen: true,
