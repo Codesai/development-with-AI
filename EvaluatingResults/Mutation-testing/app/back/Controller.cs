@@ -38,8 +38,7 @@ namespace InterestApi.Controllers
 
             var registrations = await _repository.GetAllAsync();
             var confirmedRegistrations = registrations
-                .Where(existingRegistration =>
-                    string.Equals(existingRegistration.Course.Trim(), registration.Course, StringComparison.OrdinalIgnoreCase))
+                .Where(existingRegistration => string.Equals(existingRegistration.Course.Trim(), registration.Course, StringComparison.OrdinalIgnoreCase))
                 .Count(existingRegistration => existingRegistration.Status == RegistrationDecision.Accepted);
 
             registration.Status = _policy.Decide(
@@ -53,4 +52,11 @@ namespace InterestApi.Controllers
         }
     }
 
+    public sealed class RegistrationRequest
+    {
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public string? Course { get; set; }
+        public bool HasAcceptedTerms { get; set; }
+    }
 }
