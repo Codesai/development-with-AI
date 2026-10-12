@@ -1,3 +1,5 @@
 TestResults/
 coverage-report/
 .report-server.pid
+reports/
+StrykerOutput/
