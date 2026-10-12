@@ -43,7 +43,7 @@ calculated independently for each course from accepted registrations only.
 make test
 ```
 
-The tests run with code coverage (coverlet). The report is written to `coverage-report/index.html`, and a text summary is printed in the terminal.
+The tests run with code coverage (coverlet). The report is written to `coverage-report/index.html` (opened automatically in the default browser), and a text summary is printed in the terminal. The report also includes the cyclomatic complexity and the CRAP score of each method (open a class page and look at the *Crap Score* column, or the *Risk Hotspots* section in `index.html`).
 
 ## Run mutation testing
 
