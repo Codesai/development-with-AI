@@ -1,4 +1,4 @@
-.PHONY: build run test run-tests mutation-test verify open-report stop-report clean
+.PHONY: build run test run-tests analyze run-analysis mutation-test verify open-report stop-report clean
 
 REPORT_DIR ?= coverage-report
 REPORT_PORT ?= 8000
@@ -12,6 +12,17 @@ run:
 
 test: run-tests
 	@$(MAKE) --no-print-directory open-report
+
+analyze: run-analysis
+	@$(MAKE) --no-print-directory open-report REPORT_DIR=analysis-report
+
+# Build with the Roslyn analyzers writing SARIF logs (one per project), then render them as HTML.
+run-analysis:
+	rm -rf analysis
+	mkdir -p analysis
+	dotnet build back/InterestApi.csproj --no-incremental "-p:ErrorLog=$(CURDIR)/analysis/back.sarif%2cversion=2.1"
+	dotnet build tests/RegistrationDemo.Api.Tests/RegistrationDemo.Api.Tests.csproj --no-incremental --no-dependencies "-p:ErrorLog=$(CURDIR)/analysis/tests.sarif%2cversion=2.1"
+	python3 scripts/sarif_to_html.py analysis analysis-report
 
 run-tests:
 	dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults
@@ -38,18 +49,19 @@ mutation-test: test
 	dotnet tool restore
 	dotnet stryker --config-file stryker-config.json
 
-# Tests + mutation testing, then open one landing page linking both reports.
-verify: run-tests
+# Static analysis + tests + mutation testing, then open one landing page linking the three reports.
+verify: run-analysis run-tests
 	dotnet tool restore
 	dotnet stryker --config-file stryker-config.json
 	rm -rf reports
 	mkdir -p reports/mutation
 	cp report-index.html reports/index.html
 	cp -R coverage-report reports/coverage
+	cp -R analysis-report reports/analysis
 	cp "`ls -td StrykerOutput/*/ | head -1`reports/mutation-report.html" reports/mutation/
 	@$(MAKE) --no-print-directory open-report REPORT_DIR=reports
 
 clean: stop-report
 	-dotnet clean --nologo -v q
-	rm -rf TestResults coverage-report StrykerOutput reports
+	rm -rf TestResults coverage-report StrykerOutput reports analysis analysis-report
 	find . -type d \( -name bin -o -name obj \) -prune -exec rm -rf {} +

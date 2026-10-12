@@ -3,7 +3,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Copy project file and restore
+# Copy build props and project file, then restore
+COPY Directory.Build.props .
 COPY back/InterestApi.csproj back/
 RUN dotnet restore back/InterestApi.csproj
 

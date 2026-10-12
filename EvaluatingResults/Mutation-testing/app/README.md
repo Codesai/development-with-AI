@@ -52,3 +52,12 @@ make mutation-test
 ```
 
 This target runs the unit tests first, then Stryker. Stryker mutates only `back/RegistrationPolicy.cs` and writes an HTML report under `StrykerOutput/`. 
+
+## Static analysis and combined report
+
+```bash
+make analyze   # Roslyn / Sonar analyzers -> analysis-report/index.html
+make verify    # analysis + tests + mutation testing, then opens reports/index.html
+```
+
+The analyzers (.NET Analyzers and SonarAnalyzer.CSharp, configured in `Directory.Build.props`) run on every build. `make analyze` collects their findings as SARIF logs and renders them with `scripts/sarif_to_html.py`. `make verify` links the coverage, static analysis and mutation reports from a single landing page. `make clean` removes all generated reports.
