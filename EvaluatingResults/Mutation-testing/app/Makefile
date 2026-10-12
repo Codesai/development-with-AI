@@ -35,10 +35,12 @@ stop-report:
 	@if [ -f $(REPORT_PID) ]; then kill `cat $(REPORT_PID)` >/dev/null 2>&1 || true; rm -f $(REPORT_PID); fi
 
 mutation-test: test
+	dotnet tool restore
 	dotnet stryker --config-file stryker-config.json
 
 # Tests + mutation testing, then open one landing page linking both reports.
 verify: run-tests
+	dotnet tool restore
 	dotnet stryker --config-file stryker-config.json
 	rm -rf reports
 	mkdir -p reports/mutation
