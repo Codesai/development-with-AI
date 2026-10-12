@@ -1,6 +1,6 @@
 using InterestApi.Domain;
 
-namespace InterestApi.Tests;
+namespace InterestApi.Tests.Unit;
 
 public sealed class RegistrationPolicyTests
 {

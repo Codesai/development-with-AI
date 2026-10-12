@@ -1,7 +1,7 @@
 using InterestApi.Domain;
 using InterestApi.Repository;
 
-namespace InterestApi.Tests;
+namespace InterestApi.Tests.Integration;
 
 public sealed class FileRegistrationRepositoryTests : IDisposable
 {
