@@ -58,6 +58,45 @@ public sealed class RegistrationEndToEndTests : IClassFixture<WebApplicationFact
         Assert.Equal(new[] { "Ada", "ada@example.com", "Introducción", "Rejected" }, line.Split('\t').Skip(1));
     }
 
+    [Fact]
+    public async Task ReturnsBadRequestWhenTheEmailIsMissing()
+    {
+        using var client = _factory.CreateClient();
+
+        var response = await client.PostAsJsonAsync("/api/register", new
+        {
+            name = "Ada",
+            course = "Introducción",
+            hasAcceptedTerms = true
+        });
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task RegistersASecondUserWhenThereAreAlreadyRegistrations()
+    {
+        using var client = _factory.CreateClient();
+
+        await client.PostAsJsonAsync("/api/register", new
+        {
+            name = "Ada",
+            email = "ada@example.com",
+            course = "Introducción",
+            hasAcceptedTerms = true
+        });
+        var response = await client.PostAsJsonAsync("/api/register", new
+        {
+            name = "Grace",
+            email = "grace@example.com",
+            course = "Introducción",
+            hasAcceptedTerms = true
+        });
+
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+        Assert.Equal(2, (await File.ReadAllLinesAsync(_filePath)).Length);
+    }
+
     public void Dispose()
     {
         if (File.Exists(_filePath)) File.Delete(_filePath);
