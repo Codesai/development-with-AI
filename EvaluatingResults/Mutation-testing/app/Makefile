@@ -1,8 +1,9 @@
-.PHONY: build run test run-tests analyze run-analysis mutation-test verify open-report stop-report clean
+.PHONY: build run test run-tests architecture-test analyze run-analysis mutation-test verify open-report stop-report clean
 
 REPORT_DIR ?= coverage-report
 REPORT_PORT ?= 8000
 REPORT_PID = .report-server.pid
+ARCH_FILTER = FullyQualifiedName~Tests.Architecture
 
 build:
 	docker compose build
@@ -18,17 +19,30 @@ analyze: run-analysis
 
 # Build with the Roslyn analyzers writing SARIF logs (one per project), then render them as HTML.
 run-analysis:
+	@cat scripts/build-banner.txt
 	rm -rf analysis
 	mkdir -p analysis
 	dotnet build back/InterestApi.csproj --no-incremental "-p:ErrorLog=$(CURDIR)/analysis/back.sarif%2cversion=2.1"
 	dotnet build tests/RegistrationDemo.Api.Tests/RegistrationDemo.Api.Tests.csproj --no-incremental --no-dependencies "-p:ErrorLog=$(CURDIR)/analysis/tests.sarif%2cversion=2.1"
 	python3 scripts/sarif_to_html.py analysis analysis-report
 
+# Behaviour tests only (unit, integration, e2e); architecture rules run separately.
 run-tests:
-	dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults
+	@cat scripts/functional-banner.txt
+	@status=0; dotnet test --filter "FullyQualifiedName!~Tests.Architecture" --collect:"XPlat Code Coverage" --logger "trx;LogFileName=functional.trx" --results-directory TestResults || status=$$?; \
+	python3 scripts/trx_to_html.py TestResults functional-report "Functional tests"; \
+	exit $$status
 	dotnet tool restore
 	dotnet reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:coverage-report -reporttypes:"Html;TextSummary"
 	@cat coverage-report/Summary.txt
+
+# Architecture rules. Run last in `verify`, after mutation testing.
+architecture-test:
+	@cat scripts/architecture-banner.txt
+	rm -rf architecture-results
+	@status=0; dotnet test --filter "$(ARCH_FILTER)" --logger "trx;LogFileName=architecture.trx" --results-directory architecture-results || status=$$?; \
+	python3 scripts/trx_to_html.py architecture-results architecture-report "Architecture tests"; \
+	exit $$status
 
 # Codespaces has no local browser: serve the report over HTTP so the forwarded port can be opened.
 open-report:
@@ -47,21 +61,28 @@ stop-report:
 
 mutation-test: test
 	dotnet tool restore
+	@cat scripts/mutation-banner.txt
 	dotnet stryker --config-file stryker-config.json
 
-# Static analysis + tests + mutation testing, then open one landing page linking the three reports.
+# Static analysis + behaviour tests + mutation testing, then open one landing page linking the three reports.
+# Architecture tests are the last phase.
 verify: run-analysis run-tests
 	dotnet tool restore
+	@cat scripts/mutation-banner.txt
 	dotnet stryker --config-file stryker-config.json
+	@$(MAKE) --no-print-directory architecture-test || touch .architecture-failed
 	rm -rf reports
 	mkdir -p reports/mutation
 	cp report-index.html reports/index.html
+	cp -R functional-report reports/functional
 	cp -R coverage-report reports/coverage
 	cp -R analysis-report reports/analysis
+	cp -R architecture-report reports/architecture
 	cp "`ls -td StrykerOutput/*/ | head -1`reports/mutation-report.html" reports/mutation/
 	@$(MAKE) --no-print-directory open-report REPORT_DIR=reports
+	@if [ -f .architecture-failed ]; then rm -f .architecture-failed; echo "Architecture tests failed (see reports/architecture/index.html)"; exit 1; fi
 
 clean: stop-report
 	-dotnet clean --nologo -v q
-	rm -rf TestResults coverage-report StrykerOutput reports analysis analysis-report
+	rm -rf TestResults functional-report architecture-results architecture-report .architecture-failed coverage-report StrykerOutput reports analysis analysis-report
 	find . -type d \( -name bin -o -name obj \) -prune -exec rm -rf {} +

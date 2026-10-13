@@ -3,6 +3,7 @@
     "solution": "MutationTesting.slnx",
     "project": "back/InterestApi.csproj",
     "test-projects": ["tests/RegistrationDemo.Api.Tests/RegistrationDemo.Api.Tests.csproj"],
+    "test-case-filter": "FullyQualifiedName!~Tests.Architecture",
     "mutate": ["RegistrationPolicy.cs"],
     "reporters": ["progress", "cleartext", "html"],
     "thresholds": { "high": 95, "low": 60, "break": 0 }

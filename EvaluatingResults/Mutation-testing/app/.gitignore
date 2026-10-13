@@ -5,3 +5,7 @@ reports/
 StrykerOutput/
 analysis/
 analysis-report/
+architecture-results/
+architecture-report/
+.architecture-failed
+functional-report/
