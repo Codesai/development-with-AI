@@ -5,6 +5,6 @@
     "test-projects": ["tests/RegistrationDemo.Api.Tests/RegistrationDemo.Api.Tests.csproj"],
     "mutate": ["RegistrationPolicy.cs"],
     "reporters": ["progress", "cleartext", "html"],
-    "thresholds": { "high": 80, "low": 60, "break": 0 }
+    "thresholds": { "high": 95, "low": 60, "break": 0 }
   }
 }
