@@ -31,16 +31,14 @@ test the diferent mechanisms in cli to delegate task to the subagents:
 
 - with the command "/fleet" you can send a prompt with an implementation plan and copilot divide this plan in subtask than can be delegated to subagents and executed in parallel. if you want a subtask to use a specfic agent use @agent-name, for example "/fleet validate the email, use @frontend-dev for the fornt validations and @backend-dev for the validations in the back"
 
-
 ## Recomendations
 
 you can use /task while Agent is working on your request to see the subagentes involved in the task and to view individual logs for each subagent
  
-## questions
+## Questions
 
-- this rules are enought to enforce the system generate the code the way we want
+- This rules are enough to enforce the system generate the code the way we want?
 - If we want to enforce some validations rules what is the best place for them?
     - inside the new dedicated agent?
     - using skills?
     - using AGENTS.md?
-
