@@ -6,18 +6,19 @@ Experience how the same task produces very different results depending on how yo
 
 ## Instructions
 
-1. Open the VS Code Chat or GitHub Copilot CLI.
+1. Open GitHub Copilot CLI.
 2. Write a prompt asking the LLM to write a user story.
 3. Copy the output
-4. Run the exact same prompt again without changing anything
-5. Compare the two outputs
-6. Discuss the results with your pair/group
+4. Start a new session (/exit, /clear, or open a new terminal window)
+5. Run the exact same prompt again without changing anything
+6. Compare the two outputs
+7. Discuss the results with your pair/group
 
 ## The Task
 
 > Ask the AI to write a user story for a login feature.
 
-Write whatever feels natural. Do not think too hard about it — just ask.
+Write whatever feels natural. Do not think too hard about it — just ask. If you are not feeling very creative, just copy and paste the proposed prompt.
 
 ## Reflection questions
 
