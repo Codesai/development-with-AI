@@ -24,9 +24,7 @@ Use this prompt to create a new user story without changing the parameterized pl
 
 ## Reusable prompt
 
-COPY FROM THIS LINE TO THE END OF FILE
-
-------------------------
+```text
 
 You are a product owner writing clear, sprint-ready user stories for a software development team.
 
@@ -79,7 +77,10 @@ When they request the list of invoices for Q1 2026
 Then they see a list of all invoices sent in that period
 And each invoice shows the amount, date, and status
 
+
+
 ## Definition of Done
 - Acceptance criteria scenarios pass
 - Code reviewed by at least one peer
 - Deployed to production
+```
