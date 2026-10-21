@@ -1,4 +1,4 @@
-.PHONY: build run test run-tests architecture-test analyze run-analysis mutation-test verify open-report stop-report clean
+.PHONY: build run test run-tests architecture-test code-review analyze run-analysis mutation-test verify open-report stop-report clean
 
 REPORT_DIR ?= coverage-report
 REPORT_PORT ?= 8000
@@ -44,6 +44,22 @@ architecture-test:
 	python3 scripts/trx_to_html.py architecture-results architecture-report "Architecture tests"; \
 	exit $$status
 
+# AI code review: Copilot CLI (read-only) runs its code-review agent and returns a list of findings.
+# Never fails the build on findings; a Copilot failure is shown in the report instead.
+code-review:
+	@cat scripts/code-review-banner.txt
+	rm -rf code-review-results
+	mkdir -p code-review-results
+	@copilot -s -p "`cat scripts/code-review-prompt.txt`" --allow-tool='read' --deny-tool='write' --deny-tool='shell' > code-review-results/raw.txt 2>&1 & pid=$$!; \
+	start=`date +%s`; \
+	while kill -0 $$pid 2>/dev/null; do \
+		printf "\rCopilot is reviewing the code... %ss elapsed" "`expr \`date +%s\` - $$start`"; \
+		sleep 2; \
+	done; \
+	wait $$pid; status=$$?; \
+	printf "\rCopilot finished in %ss (exit code %s)%20s\n" "`expr \`date +%s\` - $$start`" "$$status" ""
+	python3 scripts/code_review_to_html.py code-review-results/raw.txt code-review-report
+
 # Codespaces has no local browser: serve the report over HTTP so the forwarded port can be opened.
 open-report:
 ifdef CODESPACES
@@ -71,6 +87,7 @@ verify: run-analysis run-tests
 	@cat scripts/mutation-banner.txt
 	dotnet stryker --config-file stryker-config.json
 	@$(MAKE) --no-print-directory architecture-test || touch .architecture-failed
+	@$(MAKE) --no-print-directory code-review
 	rm -rf reports
 	mkdir -p reports/mutation
 	cp report-index.html reports/index.html
@@ -78,11 +95,12 @@ verify: run-analysis run-tests
 	cp -R coverage-report reports/coverage
 	cp -R analysis-report reports/analysis
 	cp -R architecture-report reports/architecture
+	cp -R code-review-report reports/code-review
 	cp "`ls -td StrykerOutput/*/ | head -1`reports/mutation-report.html" reports/mutation/
 	@$(MAKE) --no-print-directory open-report REPORT_DIR=reports
 	@if [ -f .architecture-failed ]; then rm -f .architecture-failed; echo "Architecture tests failed (see reports/architecture/index.html)"; exit 1; fi
 
 clean: stop-report
 	-dotnet clean --nologo -v q
-	rm -rf TestResults functional-report architecture-results architecture-report .architecture-failed coverage-report StrykerOutput reports analysis analysis-report
+	rm -rf TestResults functional-report architecture-results architecture-report .architecture-failed code-review-results code-review-report coverage-report StrykerOutput reports analysis analysis-report
 	find . -type d \( -name bin -o -name obj \) -prune -exec rm -rf {} +

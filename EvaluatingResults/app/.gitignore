@@ -7,5 +7,7 @@ analysis/
 analysis-report/
 architecture-results/
 architecture-report/
+code-review-results/
+code-review-report/
 .architecture-failed
 functional-report/

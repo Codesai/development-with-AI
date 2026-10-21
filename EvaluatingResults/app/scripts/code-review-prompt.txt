@@ -1,0 +1,4 @@
+Use the code-review agent to review the C# source code in back/ and the tests in tests/.
+Respond ONLY with a JSON array (no markdown fences, no other text) of the errors and warnings detected, with this shape:
+[{"severity":"error|warning","file":"path relative to the repo root","line":0,"message":"what is wrong and how to fix it"}]
+Use [] if no issues are found.
