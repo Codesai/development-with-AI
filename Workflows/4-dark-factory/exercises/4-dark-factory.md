@@ -1,4 +1,4 @@
-# Workflows — Exercise 3: Complete a local Dark Factory
+# Workflows — Exercise 4: Complete a local Dark Factory
 
 ## Learning goal
 

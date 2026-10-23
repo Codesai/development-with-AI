@@ -1,4 +1,4 @@
-# Workflows - Exercise 7 — GitHub becomes part of the feedback loop
+# Workflows - Exercise 5 — GitHub becomes part of the feedback loop
 
 ## Learning goal
 

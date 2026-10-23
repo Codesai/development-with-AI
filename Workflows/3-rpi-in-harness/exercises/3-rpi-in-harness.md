@@ -1,4 +1,4 @@
-# Workflows – Exercise 2 – Workflow in the Harness
+# Workflows – Exercise 3 – Workflow in the Harness
 
 ## Learning goal
 
@@ -6,7 +6,7 @@ Explore what happens when a feature request is too large to implement as a singl
 
 ## Before you start
 
-Read the workflow in [../app/AGENTS.md](../app/AGENTS.md) and compare it with the workflow in [Exercise 1](../../1-rpi-with-prompts/exercises/1-rpi-with-prompts.md).
+Read the workflow in [../app/AGENTS.md](../app/AGENTS.md) and compare it with the workflow in [Exercise 1](../../1-rpi-with-prompts/exercises/1-rpi-with-prompts.md) and [Exercise 2](../../1-rpi-with-prompts/exercises/2-rpi-with-prompts-tasks.md).
 
 ### Part A - Implement a big feature
 
