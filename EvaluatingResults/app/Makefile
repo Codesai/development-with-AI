@@ -1,4 +1,31 @@
-.PHONY: build run stop test run-tests architecture-test code-review analyze run-analysis mutation-test verify open-report stop-report clean
+.DEFAULT_GOAL := help
+.PHONY: help build run stop test run-tests architecture-test code-review analyze run-analysis mutation-test verify open-report stop-report clean
+
+help:
+	@printf '%s\n' \
+		'Uso: make <comando>' \
+		'' \
+		'Comandos disponibles:' \
+		'  run                Arrancar la aplicación' \
+		'  stop               Parar la aplicación' \
+		'  verify             Ejecutar todas las comprobaciones y abrir los informes' \
+		'  clean              Eliminar los artefactos generados' \
+		'  open-report        Abrir el informe (REPORT_DIR=coverage-report)' \
+		'  stop-report        Parar el servidor de informes' \
+		'  build              Construir los contenedores' \
+		'  test               Ejecutar tests y abrir el informe de cobertura' \
+		'  run-tests          Ejecutar tests y generar informes' \
+		'  architecture-test  Comprobar las reglas de arquitectura' \
+		'  code-review        Ejecutar la revisión de código con Copilot' \
+		'  analyze            Analizar el código y abrir el informe' \
+		'  run-analysis       Analizar el código y generar el informe' \
+		'  mutation-test      Ejecutar tests y pruebas de mutación' \
+		'  help               Mostrar esta ayuda'
+
+.DEFAULT:
+	@printf 'Comando desconocido: %s\n\n' '$@'
+	@$(MAKE) --no-print-directory help
+	@exit 2
 
 REPORT_DIR ?= coverage-report
 REPORT_PORT ?= 8000
