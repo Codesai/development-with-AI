@@ -1,4 +1,4 @@
-.PHONY: build run test run-tests architecture-test code-review analyze run-analysis mutation-test verify open-report stop-report clean
+.PHONY: build run stop test run-tests architecture-test code-review analyze run-analysis mutation-test verify open-report stop-report clean
 
 REPORT_DIR ?= coverage-report
 REPORT_PORT ?= 8000
@@ -10,6 +10,9 @@ build:
 
 run:
 	docker compose up --build -d
+
+stop:
+	docker compose down
 
 test: run-tests
 	@$(MAKE) --no-print-directory open-report
