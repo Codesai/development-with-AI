@@ -32,7 +32,7 @@ def render(results, title):
         f'<tr class="{"ok" if r["outcome"] == "Passed" else "ko"}"><td>{html.escape(r["outcome"])}</td>'
         f'<td>{html.escape(r["name"])}</td><td>{html.escape(r["duration"])}</td>'
         f'<td><pre>{html.escape(r["message"])}</pre></td></tr>'
-        for r in results
+        for r in sorted(results, key=lambda r: r["name"].casefold())
     ) or '<tr><td colspan="4">No test results found</td></tr>'
     return f"""<!doctype html>
 <html lang="en">
