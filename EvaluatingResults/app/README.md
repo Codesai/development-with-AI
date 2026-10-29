@@ -1,30 +1,27 @@
-# .NET mutation-testing example
+# Evaluation example
 
-A small API in .NET 10, that receives interest records and saves them to `interests.txt` together with their registration status.
 
-It also contains a focused domain rule, `RegistrationPolicy`, used to demonstrate how mutation testing finds weaknesses that ordinary passing tests can miss.
+A small .NET 10 app that receives course interest registrations and saves them to `interests.txt`.
 
 ## Requirements
 
-- Use GitHub Codespaces
+- GitHub Codespaces
 
-OR 
+or
 
 - Docker and Docker Compose
 
 ## Run the application
 
-From this directory, start the container:
-
 ```bash
-make run
+make run    # Start the app at http://localhost:8080
+make stop   # Stop the app
+make clean  # Remove generated reports and build output
 ```
-
-Open <http://localhost:8080>. Submitted registrations are persisted in `back/interests.txt` through the Docker volume.
 
 ## Registration policy
 
-`RegistrationPolicy` is intentionally pure domain logic, which makes it a compact target for unit and mutation tests.
+`RegistrationPolicy` contains only domain logic, making it a compact target for unit and mutation tests.
 
 | Condition | Decision |
 | --- | --- |
@@ -32,33 +29,68 @@ Open <http://localhost:8080>. Submitted registrations are persisted in `back/int
 | 0–30 | `Accepted` |
 | 31+ | `Waitlisted` |
 
-The form requires accepting the terms. Every submission is saved with an `Accepted`,
+The form requires users to accept the terms. Every submission is saved with an `Accepted`,
 `Waitlisted`, or `Rejected` status in the fifth `interests.txt` column. Capacity is
-calculated independently for each course from accepted registrations only.
+calculated independently for each course, counting only accepted registrations.
 
 
-## Run the tests
-
-```bash
-make test
-```
-
-The tests run with code coverage (coverlet). The report is written to `coverage-report/index.html` (opened automatically in the default browser; in GitHub Codespaces it is served on port 8000 and opened through the forwarded port, stop the server with `make stop-report`), and a text summary is printed in the terminal. The report also includes the cyclomatic complexity and the CRAP score of each method (open a class page and look at the *Crap Score* column, or the *Risk Hotspots* section in `index.html`).
-
-## Run mutation testing
+## Run the full evaluation
 
 ```bash
-make mutation-test
+make verify
 ```
 
-This target runs the unit tests first, then Stryker. Stryker mutates only `back/RegistrationPolicy.cs` and writes an HTML report under `StrykerOutput/`. 
+This command runs the complete evaluation:
 
-## Static analysis and combined report
+- Static analysis
+- Functional tests with coverage
+- Mutation testing
+- Architecture tests
+- AI code review
 
-```bash
-make analyze   # Roslyn / Sonar analyzers -> analysis-report/index.html
-make verify    # analysis + tests + mutation testing, then opens reports/index.html and finally runs the architecture tests
-make architecture-test   # architecture rules only (tests/**/Architecture)
-```
+It then opens `reports/index.html`, which links to all six reports.
 
-The analyzers (.NET Analyzers and SonarAnalyzer.CSharp, configured in `Directory.Build.props`) run on every build. `make analyze` collects their findings as SARIF logs and renders them with `scripts/sarif_to_html.py`. `make verify` links the coverage, static analysis and mutation reports from a single landing page. `make clean` removes all generated reports.
+Build failures, functional test failures or Stryker failures stop the evaluation. If architecture tests fail, the AI review and report generation continue before the command exits with an error. AI review findings do not cause the command to fail.
+
+The evaluation requires .NET 10, Make and Python 3. AI review also requires the GitHub Copilot CLI to be installed and authenticated. In Codespaces, reports are served on port 8000; use `make stop-report` to stop the server.
+
+To remove all generated reports, run `make clean`.
+
+
+## What is evaluated
+
+### Static analysis
+
+`make analyze`
+
+.NET and Sonar analyzers inspect the API and tests for potential bugs, code smells and maintainability issues.
+
+### Functional tests
+
+`make test`
+
+Unit tests check registration decisions, integration tests check file persistence, and API end-to-end tests check requests, responses and saved registrations.
+
+### Code coverage
+
+Included in `make test`
+
+Code coverage measures the lines and branches exercised by functional tests. The report also shows complexity and CRAP scores to highlight risky code. Coverage alone does not prove correctness.
+
+### Mutation testing
+
+`make mutation-test`
+
+Stryker modifies `RegistrationPolicy.cs` to check whether the tests detect changes in behavior. Surviving mutants reveal possible gaps in the tests.
+
+### Architecture tests
+
+`make architecture-test`
+
+Architecture tests check dependency rules between the controllers, repository and domain. The current controller-to-repository dependency violates one of these rules.
+
+### AI code review
+
+`make code-review`
+
+Copilot's code-review agent inspects the C# implementation and tests for errors and warnings. Its findings can vary and require human review.
