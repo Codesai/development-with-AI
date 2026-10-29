@@ -8,8 +8,9 @@ Entender cómo, gracias al uso de distintas herramientas de verificación, podem
 
 # Paso 0
 
-La aplicación es la misma que en ejercicios anteriores con un pequeño añadido, dispone de una nueva funcionalidad que solo permite
-registrar 30 alumnos por curso. Esta nueva funcionalidad tiene el objetivo de añadir un poco de lógica al proyecto para poder practicar con las herramientas de evaluación sobre un ejemplo algo más realista. Los verificadores incluidos son:
+La aplicación es la misma que en ejercicios anteriores con un pequeño añadido, dispone de una nueva funcionalidad que solo permite registrar 30 alumnos por curso. Esta nueva funcionalidad tiene el objetivo de añadir un poco de lógica al proyecto para poder practicar con las herramientas de evaluación sobre un ejemplo algo más realista. 
+
+Los verificadores incluidos son:
 
     - Test funcionales (unit, integration y e2e)
     - Cobertura de test y análisis CRAP
@@ -19,7 +20,8 @@ registrar 30 alumnos por curso. Esta nueva funcionalidad tiene el objetivo de a�
 
 Antes de empezar, ejecuta todos los evaluadores:
 
-- make verify (en el directorio EvaluatingResults/app)
+- Muevete al directorio EvaluatingResults/app.
+- Ejecuta `make verify`
 
 # Paso 1 - Revisar el informe de cobertura
 
