@@ -15,9 +15,16 @@ Read the workflow in [../app/AGENTS.md](../app/AGENTS.md) and compare it with th
 
 ```text
 Turn this registration form into a course discovery experience. Replace the course dropdown with a list of courses, each with a short description, a way to select it, and a link to its own landing page so visitors can learn more before registering. Each landing page should include learning outcomes, the intended audience, prerequisites, a detailed syllabus, teaching format, duration, instructor information, and frequently asked questions. Let visitors compare courses and register their interest from any course page with that course already selected. Make the experience work well on mobile and allow visitors to share direct links to individual courses. Use sample content where information is missing.
+Save the plan in a file.
 ```
 
-- Do not implement. Follow the research and planning approval steps but STOP BEFORE IMPLEMENTATION.
+**Opción en español:**
+```text
+Convierte este formulario de inscripción en una experiencia para descubrir cursos. Sustituye el desplegable de cursos por una lista de cursos, cada uno con una breve descripción, una forma de seleccionarlo y un enlace a su propia página de presentación para que los visitantes puedan obtener más información antes de inscribirse. Cada página de presentación debe incluir los resultados de aprendizaje, el público objetivo, los requisitos previos, un programa detallado, el formato de enseñanza, la duración, información sobre el instructor y preguntas frecuentes. Permite a los visitantes comparar cursos y registrar su interés desde cualquier página de curso con ese curso ya seleccionado. Haz que la experiencia funcione bien en dispositivos móviles y permite que los visitantes compartan enlaces directos a cursos individuales. Usa contenido de ejemplo cuando falte información.
+Guarda el plan en un fichero.
+```
+
+- DO NOT IMPLEMENT. Follow the research and planning approval steps but stop before implementaion.
 - Save the plan to a new file for later comparison.
 
 ### Part B – Checkpoint: “This is too big”
@@ -28,6 +35,13 @@ Turn this registration form into a course discovery experience. Replace the cour
 
 ```text
 This plan is too big. Split it into vertical slices. Each slice delivers a usable outcome across the layers it needs. For each, explain the user outcome, scope, deferred work, and how to verify it. Do not implement yet.
+Save the plan in a file.
+```
+
+**Opción en español:**
+```text
+Este plan es demasiado grande. Divídelo en slices verticales. Cada slice debe proporcionar un resultado útil que abarque las capas que necesite. Para cada uno, explica el resultado para el usuario, el alcance, el trabajo aplazado y cómo verificarlo. No implementes nada todavía.
+Guarda el plan en un fichero.
 ```
 
 - See results now
