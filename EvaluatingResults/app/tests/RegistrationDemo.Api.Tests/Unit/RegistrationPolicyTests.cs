@@ -19,7 +19,7 @@ public sealed class RegistrationPolicyTests
         Assert.Equal(RegistrationDecision.Accepted, _policy.Decide(true, true, 29));
 
     [Fact]
-    public void CourseAtOrAboveCapacityIsWaitlisted() =>
+    public void CourseAboveCapacityIsWaitlisted() =>
         Assert.Equal(RegistrationDecision.Waitlisted, _policy.Decide(true, true, 31));
 
     [Fact]
